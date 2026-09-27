@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administration - Agence Immobilier Antsirabe</title>
+<style>
+body{font-family:Arial;margin:0;background:#f3f5f7;color:#20242a}.wrap{max-width:1000px;margin:auto;padding:20px}
+header{background:#123b63;color:white;padding:18px}.panel{background:#fff;padding:20px;border-radius:14px;margin:18px 0;box-shadow:0 2px 12px #0001}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}input,select,textarea,button{padding:12px;border:1px solid #ccd3da;border-radius:8px;font:inherit;width:100%;box-sizing:border-box}textarea{min-height:90px}button{background:#123b63;color:#fff;font-weight:bold;border:0;cursor:pointer}.danger{background:#a52b2b}.ok{background:#23753c}.item{border:1px solid #ddd;padding:15px;border-radius:10px;margin:10px 0}.status{font-weight:bold}.pending{color:#b06b00}.approved{color:#23753c}@media(max-width:650px){.grid{grid-template-columns:1fr}}
+</style></head>
+<body><header><div class="wrap"><h1>Administration</h1><p>Agence Immobilier Antsirabe</p></div></header>
+<div class="wrap">
+<div id="login" class="panel"><h2>Connexion admin</h2><input id="code" type="password" placeholder="Code d'accès"><br><br><button onclick="login()">Se connecter</button><p id="msg"></p></div>
+<div id="app" style="display:none">
+<div class="panel"><h2>Ajouter une annonce</h2><div class="grid">
+<input id="title" placeholder="Titre de l'annonce"><select id="type"><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select>
+<select id="transaction"><option>Vente</option><option>Location</option></select><input id="location" placeholder="Localisation">
+<input id="price" placeholder="Prix (ex: 120 000 000 Ar)"><input id="image" placeholder="URL de l'image (facultatif)">
+</div><br><textarea id="description" placeholder="Description"></textarea><br><br><button onclick="add()">Ajouter comme annonce en attente</button></div>
+<div class="panel"><h2>Annonces</h2><div id="items"></div></div>
+<p><a href="index.html">← Retour au site</a></p>
+</div></div>
+<script>
+const KEY='v5_listings';
+function login(){if(document.getElementById('code').value==='1234'){login.style.display='none';app.style.display='block';render()}else msg.textContent='Code incorrect.'}
+function add(){let x={id:Date.now(),title:title.value,type:type.value,transaction:transaction.value,location:location.value,price:price.value,image:image.value,description:description.value,status:'pending'};let d=JSON.parse(localStorage.getItem(KEY)||'[]');d.push(x);localStorage.setItem(KEY,JSON.stringify(d));alert('Annonce ajoutée. Elle est en attente de validation.');['title','location','price','image','description'].forEach(id=>document.getElementById(id).value='');render()}
+function render(){let d=JSON.parse(localStorage.getItem(KEY)||'[]');items.innerHTML=d.length?d.map(x=>`<div class="item"><h3>${esc(x.title)}</h3><p>${esc(x.type)} • ${esc(x.transaction)} • ${esc(x.location)}</p><p>${esc(x.price)}</p><p class="status ${x.status}">Statut: ${x.status==='approved'?'Validée':'En attente'}</p>${x.status!=='approved'?`<button class="ok" onclick="approve(${x.id})">Valider et publier</button> `:''}<button class="danger" onclick="del(${x.id})">Supprimer</button></div>`).join(''):'Aucune annonce.'}
+function approve(id){let d=JSON.parse(localStorage.getItem(KEY)||'[]');d=d.map(x=>x.id===id?({...x,status:'approved'}):x);localStorage.setItem(KEY,JSON.stringify(d));render()}
+function del(id){let d=JSON.parse(localStorage.getItem(KEY)||'[]').filter(x=>x.id!==id);localStorage.setItem(KEY,JSON.stringify(d));render()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+</script></body></html>

@@ -1,21 +1,49 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agence Immobilier Antsirabe</title>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agence Immobilier Antsirabe</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fa;color:#172033}header{background:#102a43;color:#fff;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}.logo{font-weight:800}.logo b{color:#f4b942}nav a{color:white;text-decoration:none;margin-left:16px;font-size:14px}.hero{background:linear-gradient(135deg,#102a43,#2563a6);color:#fff;padding:55px 5%;text-align:center}.hero h1{font-size:35px;margin:0 0 10px}.search{max-width:900px;margin:24px auto 0;background:white;padding:14px;border-radius:14px;display:grid;grid-template-columns:1fr 1fr 1.2fr auto;gap:9px}.search input,.search select,.search button{padding:12px;border-radius:8px;border:1px solid #ddd}.search button,button{background:#f4b942;border:0;font-weight:bold;cursor:pointer}section{max-width:1200px;margin:auto;padding:42px 5%}.center{text-align:center}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 15px #0001}.photo{height:180px;background:linear-gradient(135deg,#dbeafe,#a8b7c8);display:flex;align-items:center;justify-content:center;color:#40546b;font-weight:bold}.photo img{width:100%;height:100%;object-fit:cover}.body{padding:17px}.tag{font-size:12px;background:#eaf1fb;color:#1d4e89;padding:5px 8px;border-radius:20px}.price{font-size:19px;font-weight:800;color:#1d4e89;margin:8px 0}.body button{padding:11px 14px;border-radius:8px}.contact{background:#102a43;color:white;max-width:none;text-align:center}.contact a{display:inline-block;padding:13px 19px;margin:5px;border-radius:8px;text-decoration:none;font-weight:bold}.call{background:white;color:#102a43}.wa{background:#25d366;color:white}footer{background:#091c2c;color:#cbd5e1;text-align:center;padding:20px;font-size:13px}@media(max-width:750px){nav{display:none}.hero h1{font-size:29px}.search,.grid{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="logo">Agence Immobilier <b>Antsirabe</b></div><nav><a href="#biens">Biens</a><a href="#agence">L'agence</a><a href="#contact">Contact</a></nav></header>
-<div class="hero"><h1>Trouvez votre bien à Antsirabe</h1><p>Maisons, appartements, terrains et locaux à vendre ou à louer.</p><div class="search"><select id="type"><option value="">Tous les types</option><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select><select id="op"><option value="">Toutes transactions</option><option>À vendre</option><option>À louer</option></select><input id="q" placeholder="Quartier / localisation"><button onclick="filter()">Rechercher</button></div></div>
-<section id="biens"><h2 class="center">Biens disponibles</h2><p class="center">Contactez l'agence pour organiser une visite.</p><div id="cards" class="grid"></div></section>
-<section id="agence"><h2 class="center">À propos de l'agence</h2><p class="center">Agence Immobilier Antsirabe accompagne propriétaires et clients dans la présentation des biens, l'organisation des visites et la mise en relation.</p></section>
-<section id="contact" class="contact"><h2>Agence Immobilier Antsirabe</h2><p>📞 034 41 711 96</p><a class="call" href="tel:+261344171196">Appeler</a><a class="wa" href="https://wa.me/261344171196" target="_blank">WhatsApp</a></section>
-<footer>© 2026 Agence Immobilier Antsirabe · Tous droits réservés</footer>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#20242a}
+header{background:#123b63;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+header h1{margin:0;font-size:22px}nav a{color:#fff;text-decoration:none;margin-left:14px;font-weight:bold}
+.hero{padding:55px 5%;background:linear-gradient(135deg,#123b63,#1e6a9e);color:#fff}
+.hero h2{font-size:34px;margin:0 0 10px}.hero p{font-size:17px;max-width:700px}
+.search{background:#fff;padding:18px;border-radius:14px;max-width:1000px;margin:-25px auto 30px;box-shadow:0 5px 22px #0002;position:relative}
+.search form{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:10px}
+input,select,textarea,button{padding:12px;border:1px solid #ccd3da;border-radius:9px;font:inherit}button{background:#123b63;color:#fff;border:0;font-weight:bold;cursor:pointer}
+main{max-width:1100px;margin:auto;padding:0 18px 50px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#listings{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px #0001}.card img{width:100%;height:190px;object-fit:cover}.card-body{padding:15px}.price{font-size:20px;font-weight:bold;color:#123b63}.tag{display:inline-block;background:#e8f1f8;padding:5px 8px;border-radius:6px;font-size:12px;margin:3px 3px 8px 0}
+.empty{background:#fff;padding:30px;text-align:center;border-radius:14px;grid-column:1/-1}
+.contact{background:#123b63;color:#fff;padding:28px;border-radius:15px;margin-top:35px}.contact a{color:#fff}
+footer{text-align:center;padding:25px;background:#0c2944;color:#fff}
+@media(max-width:800px){#listings{grid-template-columns:1fr 1fr}.search form{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){#listings{grid-template-columns:1fr}.search form{grid-template-columns:1fr}.hero h2{font-size:27px}}
+</style></head>
+<body>
+<header><h1>🏠 Agence Immobilier Antsirabe</h1><nav><a href="#annonces">Annonces</a><a href="#contact">Contact</a><a href="admin.html">Administration</a></nav></header>
+<section class="hero"><h2>Trouvez votre prochain bien à Antsirabe</h2><p>Maisons, appartements, terrains et autres biens immobiliers. L'agence vous accompagne dans vos démarches.</p></section>
+<section class="search"><form id="searchForm">
+<select id="type"><option value="">Type de bien</option><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select>
+<select id="transaction"><option value="">Transaction</option><option>Vente</option><option>Location</option></select>
+<input id="location" placeholder="Ville / quartier">
+<button>Rechercher</button></form></section>
+<main id="annonces">
+<div class="section-title"><h2>Annonces disponibles</h2><button onclick="loadListings()">Actualiser</button></div>
+<div id="listings"></div>
+<div class="contact" id="contact"><h2>Agence Immobilier Antsirabe</h2><p>Pour une visite ou une information, contactez directement l'agence.</p><p>📞 <a href="tel:0344171196">034 41 711 96</a></p><p>💬 <a href="https://wa.me/261344171196">WhatsApp</a></p></div>
+</main><footer>© Agence Immobilier Antsirabe</footer>
 <script>
-const demo=[
-{ref:"AIA-001",type:"Maison",op:"À vendre",title:"Maison familiale à Antsirabe",price:"Prix sur demande",loc:"Antsirabe",desc:"Maison familiale. Contactez l'agence pour les détails."},
-{ref:"AIA-002",type:"Appartement",op:"À louer",title:"Appartement moderne",price:"Prix sur demande",loc:"Antsirabe",desc:"Appartement disponible à la location."},
-{ref:"AIA-003",type:"Terrain",op:"À vendre",title:"Terrain à Antsirabe",price:"Prix sur demande",loc:"Antsirabe",desc:"Terrain disponible. Informations auprès de l'agence."}];
-function get(){try{return JSON.parse(localStorage.getItem("aia_biens"))||demo}catch(e){return demo}}
-function render(list=get()){cards.innerHTML=list.length?list.map((b,i)=>`<div class="card"><div class="photo">${b.imgs&&b.imgs[0]?`<img src="${b.imgs[0]}">`:"PHOTO DU BIEN"}</div><div class="body"><span class="tag">${b.op} · ${b.type}</span><h3>${b.titre||b.title}</h3><div class="price">${b.prix||b.price}</div><p>${b.loc}<br>Réf. ${b.ref}</p><button onclick="wa('${b.ref}','${(b.titre||b.title).replace(/'/g,"")}')">💬 Demander une visite</button></div></div>`).join(""):"<p>Aucun bien trouvé.</p>"}
-function filter(){let t=type.value,o=op.value,s=q.value.toLowerCase();render(get().filter(b=>(!t||b.type==t)&&(!o||b.op==o)&&(!s||(b.loc||"").toLowerCase().includes(s))))}
-function wa(ref,title){location.href="https://wa.me/261344171196?text="+encodeURIComponent("Bonjour Agence Immobilier Antsirabe, je souhaite visiter le bien "+ref+" - "+title+".")}
-render();
+function loadListings(){
+ let data=JSON.parse(localStorage.getItem('v5_listings')||'[]');
+ let approved=data.filter(x=>x.status==='approved');
+ let t=document.getElementById('type').value.toLowerCase(), tr=document.getElementById('transaction').value.toLowerCase(), loc=document.getElementById('location').value.toLowerCase();
+ approved=approved.filter(x=>(!t||x.type.toLowerCase()===t)&&(!tr||x.transaction.toLowerCase()===tr)&&(!loc||(x.location+x.title).toLowerCase().includes(loc)));
+ const box=document.getElementById('listings');
+ if(!approved.length){box.innerHTML='<div class="empty">Aucune annonce disponible pour le moment.</div>';return}
+ box.innerHTML=approved.map(x=>`<article class="card"><img src="${x.image||'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80'}"><div class="card-body"><span class="tag">${x.type}</span><span class="tag">${x.transaction}</span><h3>${esc(x.title)}</h3><p>📍 ${esc(x.location)}</p><p class="price">${esc(x.price)}</p><p>${esc(x.description||'')}</p><a href="https://wa.me/261344171196?text=${encodeURIComponent('Bonjour, je suis intéressé par l’annonce: '+x.title)}"><button>Contacter l'agence</button></a></div></article>`).join('');
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();loadListings()});loadListings();
 </script></body></html>
