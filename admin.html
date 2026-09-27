@@ -38,8 +38,9 @@ textarea{min-height:90px}button{background:#123b63;color:white;border:0;font-wei
 <input id="price" placeholder="Prix">
 <div style="grid-column:1/-1">
 <label for="imageFile"><strong>Photo de l'annonce</strong></label>
-<input id="imageFile" type="file" accept="image/*">
-<small style="display:block;margin-top:6px;color:#666">Choisissez une photo directement depuis la galerie du téléphone.</small>
+<input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp,image/*" style="display:none">
+<label for="imageFile" style="display:block;background:#123b63;color:white;text-align:center;padding:13px;border-radius:8px;font-weight:bold;cursor:pointer">📷 Choisir une photo dans la galerie</label>
+<small style="display:block;margin-top:6px;color:#666">Appuyez sur le bouton puis choisissez une photo dans votre galerie.</small>
 <div id="imagePreview" style="margin-top:10px"></div>
 </div>
 </div>
@@ -76,7 +77,8 @@ $('imageFile').addEventListener('change',function(){
  if(!file){ $('imagePreview').innerHTML=''; return; }
  if(!file.type.startsWith('image/')){ alert('Choisissez une image.'); this.value=''; return; }
  const reader=new FileReader();
- reader.onload=function(){ $('imagePreview').innerHTML='<img src="'+reader.result+'" style="max-width:100%;max-height:220px;border-radius:10px;object-fit:cover">'; };
+ reader.onload=function(){ $('imagePreview').innerHTML='<p style="color:#23753c;font-weight:bold">✓ Photo sélectionnée : '+esc(file.name)+'</p><img src="'+reader.result+'" style="max-width:100%;max-height:220px;border-radius:10px;object-fit:cover">'; };
+ reader.onerror=function(){ alert('Le téléphone ou le navigateur ne peut pas lire cette photo. Essayez une autre photo.'); };
  reader.readAsDataURL(file);
 });
 
@@ -122,7 +124,7 @@ $('addBtn').addEventListener('click',async function(){
  }
  let d=JSON.parse(localStorage.getItem(KEY)||'[]');
  d.push(x);
- localStorage.setItem(KEY,JSON.stringify(d));
+ try { localStorage.setItem(KEY,JSON.stringify(d)); } catch(e) { alert('Stockage insuffisant. Essayez une photo plus petite ou supprimez une ancienne annonce.'); return; }
  alert('Annonce ajoutée en attente de validation.');
  ['title','location','price','description'].forEach(id=>$(id).value='');
  $('imageFile').value='';
