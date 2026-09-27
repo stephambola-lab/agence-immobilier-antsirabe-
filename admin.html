@@ -36,7 +36,12 @@ textarea{min-height:90px}button{background:#123b63;color:white;border:0;font-wei
 <select id="transaction"><option>Vente</option><option>Location</option></select>
 <input id="location" placeholder="Localisation">
 <input id="price" placeholder="Prix">
-<input id="image" placeholder="URL image (facultatif)">
+<div style="grid-column:1/-1">
+<label for="imageFile"><strong>Photo de l'annonce</strong></label>
+<input id="imageFile" type="file" accept="image/*">
+<small style="display:block;margin-top:6px;color:#666">Choisissez une photo directement depuis la galerie du téléphone.</small>
+<div id="imagePreview" style="margin-top:10px"></div>
+</div>
 </div>
 <br><textarea id="description" placeholder="Description"></textarea>
 <br><br><button type="button" id="addBtn">Ajouter l'annonce</button>
@@ -66,7 +71,40 @@ $('accessCode').addEventListener('keydown',function(e){
  if(e.key==='Enter') $('loginBtn').click();
 });
 
-$('addBtn').addEventListener('click',function(){
+$('imageFile').addEventListener('change',function(){
+ const file=this.files && this.files[0];
+ if(!file){ $('imagePreview').innerHTML=''; return; }
+ if(!file.type.startsWith('image/')){ alert('Choisissez une image.'); this.value=''; return; }
+ const reader=new FileReader();
+ reader.onload=function(){ $('imagePreview').innerHTML='<img src="'+reader.result+'" style="max-width:100%;max-height:220px;border-radius:10px;object-fit:cover">'; };
+ reader.readAsDataURL(file);
+});
+
+function resizeImage(file, maxSize=1200, quality=.78){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onerror=reject;
+  reader.onload=function(){
+   const img=new Image();
+   img.onload=function(){
+    let w=img.width,h=img.height;
+    if(Math.max(w,h)>maxSize){ const r=maxSize/Math.max(w,h); w=Math.round(w*r); h=Math.round(h*r); }
+    const c=document.createElement('canvas'); c.width=w; c.height=h;
+    const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+    resolve(c.toDataURL('image/jpeg',quality));
+   };
+   img.onerror=reject; img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+ });
+}
+
+$('addBtn').addEventListener('click',async function(){
+ let file=$('imageFile').files && $('imageFile').files[0];
+ let imageData='';
+ if(file){
+  try{ imageData=await resizeImage(file); }catch(e){ alert('Impossible de lire cette photo.'); return; }
+ }
  let x={
   id:Date.now(),
   title:$('title').value.trim(),
@@ -74,7 +112,7 @@ $('addBtn').addEventListener('click',function(){
   transaction:$('transaction').value,
   location:$('location').value.trim(),
   price:$('price').value.trim(),
-  image:$('image').value.trim(),
+  image:imageData,
   description:$('description').value.trim(),
   status:'pending'
  };
@@ -86,7 +124,9 @@ $('addBtn').addEventListener('click',function(){
  d.push(x);
  localStorage.setItem(KEY,JSON.stringify(d));
  alert('Annonce ajoutée en attente de validation.');
- ['title','location','price','image','description'].forEach(id=>$(id).value='');
+ ['title','location','price','description'].forEach(id=>$(id).value='');
+ $('imageFile').value='';
+ $('imagePreview').innerHTML='';
  render();
 });
 
