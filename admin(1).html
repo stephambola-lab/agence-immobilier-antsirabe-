@@ -1,0 +1,21 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin - Agence Immobilier Antsirabe</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}header{background:#102a43;color:#fff;padding:16px 5%;font-weight:bold}.panel{background:white;max-width:850px;margin:25px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:bold;font-size:14px}input,select,textarea,button{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font:inherit}textarea{min-height:100px}.full{grid-column:1/-1}button{background:#f4b942;border:0;font-weight:bold}.danger{background:#e45b5b;color:#fff}.grid{max-width:1000px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}.photo{height:150px;background:#dbeafe;display:flex;align-items:center;justify-content:center}.photo img{width:100%;height:100%;object-fit:cover}.body{padding:14px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}@media(max-width:700px){.form,.grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style></head><body><header>🔐 Agence Immobilier Antsirabe — Administration</header>
+<div id="login" class="panel"><h2>Connexion administrateur</h2><input id="pin" type="password" placeholder="Code"><button style="margin-top:10px" onclick="go()">Se connecter</button><p id="err"></p><small>Démo : 1234. À remplacer par une vraie sécurité lors de la mise en ligne.</small></div>
+<main id="app" style="display:none"><div class="panel"><h2>➕ Publier une annonce</h2><div class="form">
+<div><label>Type</label><select id="type"><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select></div>
+<div><label>Transaction</label><select id="op"><option>À vendre</option><option>À louer</option></select></div>
+<div><label>Titre</label><input id="titre" placeholder="Belle maison familiale"></div><div><label>Prix</label><input id="prix" placeholder="180 000 000 Ar"></div>
+<div><label>Localisation</label><input id="loc" placeholder="Antsirabe, quartier..."></div><div><label>Référence</label><input id="ref" placeholder="AIA-004"></div>
+<div class="full"><label>Description</label><textarea id="desc"></textarea></div><div class="full"><label>Photos</label><input id="photos" type="file" accept="image/*" multiple></div></div>
+<button style="margin-top:15px" onclick="add()">Publier</button></div><div id="list" class="grid"></div></main>
+<script>
+let data=JSON.parse(localStorage.getItem("aia_biens")||"[]");
+function go(){if(pin.value==="1234"){login.style.display="none";app.style.display="block";render()}else err.textContent="Code incorrect."}
+function save(){localStorage.setItem("aia_biens",JSON.stringify(data))}
+function add(){if(!titre.value||!loc.value){alert("Titre et localisation obligatoires.");return}Promise.all([...photos.files].map(f=>new Promise(r=>{let x=new FileReader();x.onload=()=>r(x.result);x.readAsDataURL(f)}))).then(imgs=>{data.unshift({id:Date.now(),ref:ref.value||"AIA-"+Date.now().toString().slice(-4),type:type.value,op:op.value,titre:titre.value,prix:prix.value||"Prix sur demande",loc:loc.value,desc:desc.value,imgs});save();render();alert("Annonce publiée sur ce prototype.");titre.value=prix.value=loc.value=ref.value=desc.value="";photos.value=""})}
+function render(){list.innerHTML=data.length?data.map((b,i)=>`<div class="card"><div class="photo">${b.imgs?.[0]?`<img src="${b.imgs[0]}">`:"PHOTO"}</div><div class="body"><b>${b.titre}</b><p>${b.op} · ${b.type}<br>${b.prix}<br>${b.loc}<br>Réf. ${b.ref}</p><div class="actions"><button onclick="edit(${i})">Modifier</button><button class="danger" onclick="del(${i})">Supprimer</button></div></div></div>`).join(""):"<div class='panel'>Aucune annonce.</div>"}
+function del(i){if(confirm("Supprimer ?")){data.splice(i,1);save();render()}}
+function edit(i){let b=data[i];type.value=b.type;op.value=b.op;titre.value=b.titre;prix.value=b.prix;loc.value=b.loc;ref.value=b.ref;desc.value=b.desc;del(i);scrollTo(0,0)}
+</script></body></html>
