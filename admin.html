@@ -1,78 +1,50 @@
 <!doctype html>
 <html lang="fr">
-
 <head>
-
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administration - Agence Immobilier Antsirabe</title>
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
-
-<title>Test Administration</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-body{
-margin:0;
-font-family:Arial;
-background:#f4f6f8;
-color:#172033;
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}
+header{background:#102a43;color:#fff;padding:16px 5%;font-weight:bold}
+.box{max-width:500px;margin:30px auto;background:#fff;padding:25px;border-radius:14px;box-shadow:0 3px 15px #0002}
+.admin{max-width:1000px;margin:20px auto;padding:15px}
+input,select,textarea,button{width:100%;padding:12px;margin-top:8px;border:1px solid #ddd;border-radius:8px;font:inherit}
+button{background:#f4b942;border:0;font-weight:bold}
+.logout{background:#e45b5b;color:#fff;width:auto}
+.ok{background:#3b8c5a;color:#fff}
+.danger{background:#e45b5b;color:#fff}
+.error{color:#c62828}
+.success{color:#2e7d32}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}
+.photo{height:150px;background:#ddd;display:flex;align-items:center;justify-content:center}
+.photo img{width:100%;height:100%;object-fit:cover}
+.body{padding:14px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:700px){
+.form,.grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.box{margin:20px 10px}
 }
-
-header{
-background:#102a43;
-color:white;
-padding:18px;
-font-weight:bold;
-}
-
-.box{
-background:white;
-max-width:500px;
-margin:30px auto;
-padding:25px;
-border-radius:14px;
-box-shadow:0 3px 15px #0002;
-}
-
-input{
-width:100%;
-padding:13px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:8px;
-box-sizing:border-box;
-font-size:16px;
-}
-
-button{
-width:100%;
-padding:13px;
-margin-top:15px;
-border:0;
-border-radius:8px;
-background:#f4b942;
-font-weight:bold;
-font-size:16px;
-}
-
-#result{
-margin-top:20px;
-text-align:center;
-font-weight:bold;
-}
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-🔐 Agence Immobilier Antsirabe
+🔐 Agence Immobilier Antsirabe - Administration
 </header>
 
-<div class="box">
+<!-- CONNEXION -->
+
+<div id="loginBox" class="box">
 
 <h2>Connexion administrateur</h2>
 
@@ -86,29 +58,389 @@ id="password"
 type="password"
 placeholder="Mot de passe">
 
-<button
-id="loginBtn">
+<button id="loginBtn">
 Se connecter
 </button>
 
-<p id="result"></p>
+<p id="message"></p>
 
 </div>
 
+
+<!-- ADMINISTRATION -->
+
+<div id="adminBox" class="admin" style="display:none">
+
+<div style="background:#fff;padding:20px;border-radius:12px">
+
+<div style="display:flex;justify-content:space-between;align-items:center">
+
+<h2>Ajouter une annonce</h2>
+
+<button id="logoutBtn" class="logout">
+Déconnexion
+</button>
+
+</div>
+
+<div class="form">
+
+<div>
+<label>Type</label>
+
+<select id="type">
+<option>Maison</option>
+<option>Appartement</option>
+<option>Terrain</option>
+<option>Local commercial</option>
+</select>
+</div>
+
+<div>
+<label>Transaction</label>
+
+<select id="transaction">
+<option>À vendre</option>
+<option>À louer</option>
+</select>
+</div>
+
+<div>
+<label>Titre</label>
+
+<input id="titre" placeholder="Belle maison">
+</div>
+
+<div>
+<label>Prix (Ar)</label>
+
+<input id="prix" type="number">
+</div>
+
+<div>
+<label>Localisation</label>
+
+<input id="lieu" placeholder="Antsirabe">
+</div>
+
+<div class="full">
+<label>Description</label>
+
+<textarea id="description"></textarea>
+</div>
+
+<div class="full">
+<label>Photo</label>
+
+<input id="photos" type="file" accept="image/*" multiple>
+</div>
+
+</div>
+
+<button id="addBtn">
+Enregistrer l'annonce
+</button>
+
+<p id="status"></p>
+
+</div>
+
+<div id="list" class="grid"></div>
+
+</div>
+
+
 <script>
 
-document
-.getElementById("loginBtn")
-.addEventListener("click",function(){
+const SUPABASE_URL =
+"https://byezzcuqrweyhdjfnaky.supabase.co";
 
-document
-.getElementById("result")
-.textContent="LE BOUTON FONCTIONNE";
+const SUPABASE_KEY =
+"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+
+const BUCKET =
+"annonces-images";
+
+
+/* SUPABASE */
+
+const sb =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* ELEMENTS */
+
+const loginBox =
+document.getElementById("loginBox");
+
+const adminBox =
+document.getElementById("adminBox");
+
+const email =
+document.getElementById("email");
+
+const password =
+document.getElementById("password");
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+const message =
+document.getElementById("message");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const addBtn =
+document.getElementById("addBtn");
+
+const status =
+document.getElementById("status");
+
+const list =
+document.getElementById("list");
+
+
+/* LOGIN */
+
+loginBtn.onclick =
+async function(){
+
+const e =
+email.value.trim();
+
+const p =
+password.value;
+
+
+if(!e || !p){
+
+message.className="error";
+
+message.textContent =
+"Veuillez remplir l'email et le mot de passe.";
+
+return;
+
+}
+
+
+loginBtn.disabled=true;
+
+loginBtn.textContent="Connexion...";
+
+message.textContent="";
+
+
+try{
+
+const result =
+await sb.auth.signInWithPassword({
+
+email:e,
+
+password:p
 
 });
 
-</script>
 
-</body>
+if(result.error){
 
-</html>
+message.className="error";
+
+message.textContent =
+"Email ou mot de passe incorrect.";
+
+loginBtn.disabled=false;
+
+loginBtn.textContent="Se connecter";
+
+return;
+
+}
+
+
+message.className="success";
+
+message.textContent =
+"Connexion réussie.";
+
+
+loginBox.style.display="none";
+
+adminBox.style.display="block";
+
+
+await load();
+
+}catch(error){
+
+message.className="error";
+
+message.textContent =
+"Erreur de connexion. Vérifiez votre connexion Internet.";
+
+loginBtn.disabled=false;
+
+loginBtn.textContent="Se connecter";
+
+}
+
+};
+
+
+/* ENTER */
+
+password.onkeydown =
+function(e){
+
+if(e.key==="Enter"){
+
+loginBtn.click();
+
+}
+
+};
+
+
+/* LOGOUT */
+
+logoutBtn.onclick =
+async function(){
+
+await sb.auth.signOut();
+
+location.reload();
+
+};
+
+
+/* LOAD */
+
+async function load(){
+
+const result =
+await sb
+.from("annonces")
+.select("*")
+.order(
+"created_at",
+{ascending:false}
+);
+
+
+if(result.error){
+
+status.className="error";
+
+status.textContent =
+"Erreur : "+result.error.message;
+
+return;
+
+}
+
+
+render(result.data || []);
+
+}
+
+
+/* UPLOAD */
+
+async function upload(file){
+
+const name =
+file.name.replace(
+/[^a-zA-Z0-9._-]/g,
+"_"
+);
+
+const path =
+Date.now()+"_"+name;
+
+
+const result =
+await sb.storage
+.from(BUCKET)
+.upload(
+path,
+file
+);
+
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+return path;
+
+}
+
+
+/* ADD */
+
+addBtn.onclick =
+async function(){
+
+const titre =
+document.getElementById("titre").value.trim();
+
+const lieu =
+document.getElementById("lieu").value.trim();
+
+const prix =
+document.getElementById("prix").value;
+
+const type =
+document.getElementById("type").value;
+
+const transaction =
+document.getElementById("transaction").value;
+
+const description =
+document.getElementById("description").value;
+
+const files =
+document.getElementById("photos").files;
+
+
+if(!titre || !lieu){
+
+status.className="error";
+
+status.textContent =
+"Titre et localisation sont obligatoires.";
+
+return;
+
+}
+
+
+addBtn.disabled=true;
+
+status.textContent =
+"Enregistrement...";
+
+
+try{
+
+let image=null;
+
+
+if(files.length>0){
+
+image =
+await upload(files[0]);
+
+}
+
+
+const result =
+await sb
