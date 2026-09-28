@@ -46,7 +46,6 @@ button:disabled{opacity:.6}
 🔐 Agence Immobilier Antsirabe - Administration
 </header>
 
-<!-- CONNEXION -->
 <div id="login" class="panel">
 
 <h2>Connexion administrateur</h2>
@@ -73,17 +72,18 @@ Se connecter
 </div>
 
 
-<!-- ESPACE ADMIN -->
 <main id="app" style="display:none">
 
 <div class="panel">
 
 <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+
 <h2>➕ Ajouter une annonce</h2>
 
 <button id="logoutBtn" class="logout">
 Déconnexion
 </button>
+
 </div>
 
 
@@ -147,163 +147,4 @@ placeholder="Antsirabe, quartier...">
 </div>
 
 
-<div class="full">
-<label>Photo</label>
-
-<input
-id="photos"
-type="file"
-accept="image/*"
-multiple>
-</div>
-
-</div>
-
-
-<button id="addBtn" style="margin-top:15px">
-Enregistrer l'annonce
-</button>
-
-<p id="statusMsg" class="notice"></p>
-
-</div>
-
-
-<div id="list" class="grid"></div>
-
-</main>
-
-
-<script>
-
-const SUPABASE_URL =
-"https://byezzcuqrweyhdjfnaky.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
-
-const BUCKET = "annonces-images";
-
-
-/* VERIFIER SUPABASE */
-
-if(!window.supabase){
-
-document.getElementById("err").textContent =
-"Erreur : Supabase ne se charge pas.";
-
-}
-
-
-/* CLIENT SUPABASE */
-
-const client = window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-/* ELEMENTS */
-
-const loginBox = document.getElementById("login");
-const app = document.getElementById("app");
-
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-
-const err = document.getElementById("err");
-
-const addBtn = document.getElementById("addBtn");
-const statusMsg = document.getElementById("statusMsg");
-
-const typeInput = document.getElementById("type");
-const transactionInput = document.getElementById("transaction");
-const titreInput = document.getElementById("titre");
-const prixInput = document.getElementById("prix");
-const lieuInput = document.getElementById("lieu");
-const descriptionInput = document.getElementById("description");
-const photosInput = document.getElementById("photos");
-
-const list = document.getElementById("list");
-
-
-/* CONNEXION */
-
-loginBtn.addEventListener("click", login);
-
-passwordInput.addEventListener("keydown",function(e){
-
-if(e.key==="Enter"){
-login();
-}
-
-});
-
-
-async function login(){
-
-const email = emailInput.value.trim();
-const password = passwordInput.value;
-
-if(!email || !password){
-
-err.className="error";
-err.textContent =
-"Veuillez entrer votre email et votre mot de passe.";
-
-return;
-
-}
-
-
-loginBtn.disabled=true;
-loginBtn.textContent="Connexion...";
-err.className="";
-err.textContent="";
-
-
-try{
-
-const result = await Promise.race([
-
-client.auth.signInWithPassword({
-email:email,
-password:password
-}),
-
-new Promise((_,reject)=>
-
-setTimeout(
-()=>reject(new Error("TIMEOUT")),
-15000
-)
-
-]);
-
-
-const error = result.error;
-
-
-if(error){
-
-err.className="error";
-err.textContent =
-"Erreur : "+error.message;
-
-return;
-
-}
-
-
-loginBox.style.display="none";
-app.style.display="block";
-
-await load();
-
-
-}catch(e){
-
-if(e.message==="TIMEOUT")
+<div
