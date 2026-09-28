@@ -1,150 +1,114 @@
 <!doctype html>
 <html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Administration - Agence Immobilier Antsirabe</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Test Administration</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}
-header{background:#102a43;color:white;padding:16px 5%;font-weight:bold}
-.panel{background:white;max-width:900px;margin:25px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-label{font-weight:bold;font-size:14px}
-input,select,textarea,button{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font:inherit}
-textarea{min-height:100px}
-.full{grid-column:1/-1}
-button{background:#f4b942;border:0;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.6}
-.logout{background:#e45b5b;color:white;width:auto}
-.ok{background:#3b8c5a;color:white}
-.danger{background:#e45b5b;color:white}
-.notice{text-align:center;padding:10px}
-.error{color:#c62828}
-.success{color:#2e7d32}
-.grid{max-width:1000px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}
-.photo{height:150px;background:#dbeafe;display:flex;align-items:center;justify-content:center}
-.photo img{width:100%;height:100%;object-fit:cover}
-.body{padding:14px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 
-@media(max-width:700px){
-.form,.grid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.panel{margin:15px 10px;padding:16px}
+body{
+margin:0;
+font-family:Arial;
+background:#f4f6f8;
+color:#172033;
 }
+
+header{
+background:#102a43;
+color:white;
+padding:18px;
+font-weight:bold;
+}
+
+.box{
+background:white;
+max-width:500px;
+margin:30px auto;
+padding:25px;
+border-radius:14px;
+box-shadow:0 3px 15px #0002;
+}
+
+input{
+width:100%;
+padding:13px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:8px;
+box-sizing:border-box;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:13px;
+margin-top:15px;
+border:0;
+border-radius:8px;
+background:#f4b942;
+font-weight:bold;
+font-size:16px;
+}
+
+#result{
+margin-top:20px;
+text-align:center;
+font-weight:bold;
+}
+
 </style>
+
 </head>
 
 <body>
 
 <header>
-🔐 Agence Immobilier Antsirabe - Administration
+🔐 Agence Immobilier Antsirabe
 </header>
 
-<div id="login" class="panel">
+<div class="box">
 
 <h2>Connexion administrateur</h2>
 
 <input
 id="email"
 type="email"
-placeholder="Adresse email"
-autocomplete="email">
+placeholder="Adresse email">
 
 <input
 id="password"
 type="password"
-placeholder="Mot de passe"
-autocomplete="current-password"
-style="margin-top:10px">
+placeholder="Mot de passe">
 
-<button id="loginBtn" style="margin-top:10px">
+<button
+id="loginBtn">
 Se connecter
 </button>
 
-<p id="err"></p>
+<p id="result"></p>
 
 </div>
 
+<script>
 
-<main id="app" style="display:none">
+document
+.getElementById("loginBtn")
+.addEventListener("click",function(){
 
-<div class="panel">
+document
+.getElementById("result")
+.textContent="LE BOUTON FONCTIONNE";
 
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+});
 
-<h2>➕ Ajouter une annonce</h2>
+</script>
 
-<button id="logoutBtn" class="logout">
-Déconnexion
-</button>
+</body>
 
-</div>
-
-
-<div class="form">
-
-<div>
-<label>Type</label>
-
-<select id="type">
-<option>Maison</option>
-<option>Appartement</option>
-<option>Terrain</option>
-<option>Local commercial</option>
-</select>
-</div>
-
-
-<div>
-<label>Transaction</label>
-
-<select id="transaction">
-<option>À vendre</option>
-<option>À louer</option>
-</select>
-</div>
-
-
-<div>
-<label>Titre</label>
-
-<input
-id="titre"
-placeholder="Belle maison familiale">
-</div>
-
-
-<div>
-<label>Prix (Ar)</label>
-
-<input
-id="prix"
-type="number"
-min="0"
-placeholder="180000000">
-</div>
-
-
-<div>
-<label>Localisation</label>
-
-<input
-id="lieu"
-placeholder="Antsirabe, quartier...">
-</div>
-
-
-<div class="full">
-<label>Description</label>
-
-<textarea id="description"></textarea>
-</div>
-
-
-<div
+</html>
