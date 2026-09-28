@@ -3,34 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Administration — Agence Immobilier Antsirabe</title>
+<title>Administration - Agence Immobilier Antsirabe</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}
-header{background:#102a43;color:#fff;padding:16px 5%;font-weight:bold}
-.panel{background:#fff;max-width:900px;margin:25px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}
+header{background:#102a43;color:white;padding:16px 5%;font-weight:bold}
+.panel{background:white;max-width:900px;margin:25px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 label{font-weight:bold;font-size:14px}
 input,select,textarea,button{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font:inherit}
 textarea{min-height:100px}
 .full{grid-column:1/-1}
 button{background:#f4b942;border:0;font-weight:bold;cursor:pointer}
-.logout{background:#e45b5b;color:#fff;width:auto;padding:9px 15px}
-.ok{background:#3b8c5a;color:#fff}
-.danger{background:#e45b5b;color:#fff}
+button:disabled{opacity:.6}
+.logout{background:#e45b5b;color:white;width:auto}
+.ok{background:#3b8c5a;color:white}
+.danger{background:#e45b5b;color:white}
 .notice{text-align:center;padding:10px}
+.error{color:#c62828}
+.success{color:#2e7d32}
 .grid{max-width:1000px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}
+.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}
 .photo{height:150px;background:#dbeafe;display:flex;align-items:center;justify-content:center}
 .photo img{width:100%;height:100%;object-fit:cover}
 .body{padding:14px}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+
 @media(max-width:700px){
 .form,.grid{grid-template-columns:1fr}
 .full{grid-column:auto}
+.panel{margin:15px 10px;padding:16px}
 }
 </style>
 </head>
@@ -38,17 +43,25 @@ button{background:#f4b942;border:0;font-weight:bold;cursor:pointer}
 <body>
 
 <header>
-🔐 Agence Immobilier Antsirabe — Administration
+🔐 Agence Immobilier Antsirabe - Administration
 </header>
 
 <!-- CONNEXION -->
 <div id="login" class="panel">
+
 <h2>Connexion administrateur</h2>
 
-<input id="email" type="email" placeholder="Adresse email">
+<input
+id="email"
+type="email"
+placeholder="Adresse email"
+autocomplete="email">
 
-<input id="password" type="password"
+<input
+id="password"
+type="password"
 placeholder="Mot de passe"
+autocomplete="current-password"
 style="margin-top:10px">
 
 <button id="loginBtn" style="margin-top:10px">
@@ -56,22 +69,29 @@ Se connecter
 </button>
 
 <p id="err"></p>
+
 </div>
 
-<!-- ADMIN -->
+
+<!-- ESPACE ADMIN -->
 <main id="app" style="display:none">
 
 <div class="panel">
 
 <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
 <h2>➕ Ajouter une annonce</h2>
-<button id="logoutBtn" class="logout">Déconnexion</button>
+
+<button id="logoutBtn" class="logout">
+Déconnexion
+</button>
 </div>
+
 
 <div class="form">
 
 <div>
 <label>Type</label>
+
 <select id="type">
 <option>Maison</option>
 <option>Appartement</option>
@@ -80,40 +100,65 @@ Se connecter
 </select>
 </div>
 
+
 <div>
 <label>Transaction</label>
+
 <select id="transaction">
 <option>À vendre</option>
 <option>À louer</option>
 </select>
 </div>
 
+
 <div>
 <label>Titre</label>
-<input id="titre" placeholder="Belle maison familiale">
+
+<input
+id="titre"
+placeholder="Belle maison familiale">
 </div>
+
 
 <div>
 <label>Prix (Ar)</label>
-<input id="prix" type="number" min="0" placeholder="180000000">
+
+<input
+id="prix"
+type="number"
+min="0"
+placeholder="180000000">
 </div>
+
 
 <div>
 <label>Localisation</label>
-<input id="lieu" placeholder="Antsirabe, quartier...">
+
+<input
+id="lieu"
+placeholder="Antsirabe, quartier...">
 </div>
+
 
 <div class="full">
 <label>Description</label>
+
 <textarea id="description"></textarea>
 </div>
 
+
 <div class="full">
 <label>Photo</label>
-<input id="photos" type="file" accept="image/*" multiple>
+
+<input
+id="photos"
+type="file"
+accept="image/*"
+multiple>
 </div>
 
 </div>
+
 
 <button id="addBtn" style="margin-top:15px">
 Enregistrer l'annonce
@@ -123,338 +168,142 @@ Enregistrer l'annonce
 
 </div>
 
+
 <div id="list" class="grid"></div>
 
 </main>
 
+
 <script>
 
-const SUPABASE_URL="https://byezzcuqrweyhdjfnaky.supabase.co";
+const SUPABASE_URL =
+"https://byezzcuqrweyhdjfnaky.supabase.co";
 
-const SUPABASE_KEY="sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+const SUPABASE_KEY =
+"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 
-const BUCKET="annonces-images";
+const BUCKET = "annonces-images";
 
-const client=supabase.createClient(
+
+/* VERIFIER SUPABASE */
+
+if(!window.supabase){
+
+document.getElementById("err").textContent =
+"Erreur : Supabase ne se charge pas.";
+
+}
+
+
+/* CLIENT SUPABASE */
+
+const client = window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
 
+/* ELEMENTS */
+
+const loginBox = document.getElementById("login");
+const app = document.getElementById("app");
+
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const err = document.getElementById("err");
+
+const addBtn = document.getElementById("addBtn");
+const statusMsg = document.getElementById("statusMsg");
+
+const typeInput = document.getElementById("type");
+const transactionInput = document.getElementById("transaction");
+const titreInput = document.getElementById("titre");
+const prixInput = document.getElementById("prix");
+const lieuInput = document.getElementById("lieu");
+const descriptionInput = document.getElementById("description");
+const photosInput = document.getElementById("photos");
+
+const list = document.getElementById("list");
+
+
 /* CONNEXION */
 
-loginBtn.addEventListener("click",login);
+loginBtn.addEventListener("click", login);
+
+passwordInput.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+login();
+}
+
+});
+
 
 async function login(){
 
-err.textContent="Connexion...";
+const email = emailInput.value.trim();
+const password = passwordInput.value;
 
-const {data,error}=await client.auth.signInWithPassword({
-email:email.value,
-password:password.value
-});
+if(!email || !password){
 
-if(error){
-
-err.textContent="Email ou mot de passe incorrect.";
+err.className="error";
+err.textContent =
+"Veuillez entrer votre email et votre mot de passe.";
 
 return;
 
 }
 
-login.style.display="none";
-app.style.display="block";
 
-load();
+loginBtn.disabled=true;
+loginBtn.textContent="Connexion...";
+err.className="";
+err.textContent="";
 
-}
-
-
-/* DECONNEXION */
-
-logoutBtn.addEventListener("click",async()=>{
-
-await client.auth.signOut();
-
-location.reload();
-
-});
-
-
-/* CHARGER LES ANNONCES */
-
-async function load(){
-
-const {data,error}=await client
-.from("annonces")
-.select("*")
-.order("created_at",{ascending:false});
-
-if(error){
-
-statusMsg.textContent="Erreur : "+error.message;
-
-return;
-
-}
-
-render(data || []);
-
-}
-
-
-/* UPLOAD PHOTO */
-
-async function upload(file){
-
-const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-
-const path=
-Date.now()+"_"+Math.random().toString(36).slice(2)+"_"+safe;
-
-const {error}=await client.storage
-.from(BUCKET)
-.upload(path,file);
-
-if(error)throw error;
-
-return path;
-
-}
-
-
-/* AJOUTER ANNONCE */
-
-addBtn.addEventListener("click",add);
-
-async function add(){
-
-if(!titre.value || !lieu.value){
-
-statusMsg.textContent=
-"Titre et localisation sont obligatoires.";
-
-return;
-
-}
-
-addBtn.disabled=true;
-
-statusMsg.textContent="Enregistrement...";
 
 try{
 
-let paths=[];
+const result = await Promise.race([
 
-for(const f of photos.files){
+client.auth.signInWithPassword({
+email:email,
+password:password
+}),
 
-paths.push(await upload(f));
+new Promise((_,reject)=>
+
+setTimeout(
+()=>reject(new Error("TIMEOUT")),
+15000
+)
+
+]);
+
+
+const error = result.error;
+
+
+if(error){
+
+err.className="error";
+err.textContent =
+"Erreur : "+error.message;
+
+return;
 
 }
 
-const payload={
 
-titre:titre.value,
+loginBox.style.display="none";
+app.style.display="block";
 
-prix:prix.value?Number(prix.value):null,
+await load();
 
-lieu:lieu.value,
-
-type:type.value,
-
-description:description.value,
-
-image_url:paths[0]||null,
-
-statut:"a_valider"
-
-};
-
-const {error}=await client
-.from("annonces")
-.insert(payload);
-
-if(error)throw error;
-
-statusMsg.textContent=
-"Annonce enregistrée. Elle doit être approuvée avant publication.";
-
-titre.value="";
-prix.value="";
-lieu.value="";
-description.value="";
-photos.value="";
-
-load();
 
 }catch(e){
 
-statusMsg.textContent="Erreur : "+e.message;
-
-}
-
-addBtn.disabled=false;
-
-}
-
-
-/* MODIFIER STATUT */
-
-async function updateStatus(id,status){
-
-const {error}=await client
-.from("annonces")
-.update({statut:status})
-.eq("id",id);
-
-if(error){
-
-alert(error.message);
-
-return;
-
-}
-
-load();
-
-}
-
-
-/* SUPPRIMER */
-
-async function remove(id){
-
-if(!confirm("Supprimer cette annonce ?"))return;
-
-const {error}=await client
-.from("annonces")
-.delete()
-.eq("id",id);
-
-if(error){
-
-alert(error.message);
-
-return;
-
-}
-
-load();
-
-}
-
-
-/* AFFICHAGE */
-
-function render(data){
-
-list.innerHTML=data.length?
-
-data.map(b=>{
-
-const img=b.image_url?
-
-SUPABASE_URL+
-"/storage/v1/object/public/"+
-BUCKET+"/"+
-encodeURIComponent(b.image_url)
-.replace(/%2F/g,"/")
-
-:"";
-
-return `
-
-<div class="card">
-
-<div class="photo">
-
-${img?
-
-`<img src="${img}" alt="">`
-
-:"PHOTO"}
-
-</div>
-
-<div class="body">
-
-<b>${esc(b.titre)}</b>
-
-<p>
-
-${esc(b.type)} · ${esc(b.lieu)}
-
-<br>
-
-${b.prix==null?
-
-"Prix sur demande":
-
-new Intl.NumberFormat("fr-FR")
-.format(b.prix)+" Ar"}
-
-<br>
-
-Statut :
-<b>${esc(b.statut)}</b>
-
-</p>
-
-<div class="actions">
-
-${
-b.statut!=="publiee"?
-
-`<button class="ok"
-onclick="updateStatus('${b.id}','publiee')">
-Publier
-</button>`
-
-:
-
-`<button
-onclick="updateStatus('${b.id}','a_valider')">
-Dépublier
-</button>`
-}
-
-<button class="danger"
-onclick="remove('${b.id}')">
-Supprimer
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}).join("")
-
-:
-
-"<p class='notice'>Aucune annonce.</p>";
-
-}
-
-
-function esc(x){
-
-return String(x??"")
-.replace(/[&<>\"]/g,m=>({
-
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;'
-
-}[m]));
-
-}
-
-</script>
-
-</body>
-</html>
+if(e.message==="TIMEOUT")
