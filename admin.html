@@ -1,20 +1,460 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin - Agence Immobilier Antsirabe</title>
-<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}header{background:#102a43;color:#fff;padding:16px 5%;font-weight:bold}.panel{background:white;max-width:900px;margin:25px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:bold;font-size:14px}input,select,textarea,button{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font:inherit}textarea{min-height:100px}.full{grid-column:1/-1}button{background:#f4b942;border:0;font-weight:bold;cursor:pointer}.danger{background:#e45b5b;color:#fff}.ok{background:#3b8c5a;color:#fff}.grid{max-width:1000px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}.photo{height:150px;background:#dbeafe;display:flex;align-items:center;justify-content:center}.photo img{width:100%;height:100%;object-fit:cover}.body{padding:14px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.notice{text-align:center;padding:10px}@media(max-width:700px){.form,.grid{grid-template-columns:1fr}.full{grid-column:auto}}
-</style></head><body><header>🔐 Agence Immobilier Antsirabe — Administration</header>
-<div id="login" class="panel"><h2>Connexion administrateur</h2><input id="pin" type="password" placeholder="Code"><button id="loginBtn" style="margin-top:10px">Se connecter</button><p id="err"></p><small>Code actuel : 1017. Cette connexion par code côté navigateur est un prototype, pas une authentification sécurisée.</small></div>
-<main id="app" style="display:none"><div class="panel"><h2>➕ Ajouter une annonce</h2><div class="form"><div><label>Type</label><select id="type"><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select></div><div><label>Transaction</label><select id="transaction"><option>À vendre</option><option>À louer</option></select></div><div><label>Titre</label><input id="titre" placeholder="Belle maison familiale"></div><div><label>Prix (Ar)</label><input id="prix" type="number" min="0" placeholder="180000000"></div><div><label>Localisation</label><input id="lieu" placeholder="Antsirabe, quartier..."></div><div class="full"><label>Description</label><textarea id="description"></textarea></div><div class="full"><label>Photo</label><input id="photos" type="file" accept="image/*" multiple></div></div><button id="addBtn" style="margin-top:15px">Enregistrer l'annonce</button><p id="statusMsg" class="notice"></p></div><div id="list" class="grid"></div></main>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administration — Agence Immobilier Antsirabe</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}
+header{background:#102a43;color:#fff;padding:16px 5%;font-weight:bold}
+.panel{background:#fff;max-width:900px;margin:25px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-weight:bold;font-size:14px}
+input,select,textarea,button{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font:inherit}
+textarea{min-height:100px}
+.full{grid-column:1/-1}
+button{background:#f4b942;border:0;font-weight:bold;cursor:pointer}
+.logout{background:#e45b5b;color:#fff;width:auto;padding:9px 15px}
+.ok{background:#3b8c5a;color:#fff}
+.danger{background:#e45b5b;color:#fff}
+.notice{text-align:center;padding:10px}
+.grid{max-width:1000px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}
+.photo{height:150px;background:#dbeafe;display:flex;align-items:center;justify-content:center}
+.photo img{width:100%;height:100%;object-fit:cover}
+.body{padding:14px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:700px){
+.form,.grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+🔐 Agence Immobilier Antsirabe — Administration
+</header>
+
+<!-- CONNEXION -->
+<div id="login" class="panel">
+<h2>Connexion administrateur</h2>
+
+<input id="email" type="email" placeholder="Adresse email">
+
+<input id="password" type="password"
+placeholder="Mot de passe"
+style="margin-top:10px">
+
+<button id="loginBtn" style="margin-top:10px">
+Se connecter
+</button>
+
+<p id="err"></p>
+</div>
+
+<!-- ADMIN -->
+<main id="app" style="display:none">
+
+<div class="panel">
+
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+<h2>➕ Ajouter une annonce</h2>
+<button id="logoutBtn" class="logout">Déconnexion</button>
+</div>
+
+<div class="form">
+
+<div>
+<label>Type</label>
+<select id="type">
+<option>Maison</option>
+<option>Appartement</option>
+<option>Terrain</option>
+<option>Local commercial</option>
+</select>
+</div>
+
+<div>
+<label>Transaction</label>
+<select id="transaction">
+<option>À vendre</option>
+<option>À louer</option>
+</select>
+</div>
+
+<div>
+<label>Titre</label>
+<input id="titre" placeholder="Belle maison familiale">
+</div>
+
+<div>
+<label>Prix (Ar)</label>
+<input id="prix" type="number" min="0" placeholder="180000000">
+</div>
+
+<div>
+<label>Localisation</label>
+<input id="lieu" placeholder="Antsirabe, quartier...">
+</div>
+
+<div class="full">
+<label>Description</label>
+<textarea id="description"></textarea>
+</div>
+
+<div class="full">
+<label>Photo</label>
+<input id="photos" type="file" accept="image/*" multiple>
+</div>
+
+</div>
+
+<button id="addBtn" style="margin-top:15px">
+Enregistrer l'annonce
+</button>
+
+<p id="statusMsg" class="notice"></p>
+
+</div>
+
+<div id="list" class="grid"></div>
+
+</main>
+
 <script>
+
 const SUPABASE_URL="https://byezzcuqrweyhdjfnaky.supabase.co";
+
 const SUPABASE_KEY="sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
-const API=SUPABASE_URL+"/rest/v1/annonces";const BUCKET="annonces-images";
-const headers={apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json"};
-loginBtn.addEventListener("click",()=>{if(pin.value==="1017"){login.style.display="none";app.style.display="block";load()}else err.textContent="Code incorrect."});
+
+const BUCKET="annonces-images";
+
+const client=supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* CONNEXION */
+
+loginBtn.addEventListener("click",login);
+
+async function login(){
+
+err.textContent="Connexion...";
+
+const {data,error}=await client.auth.signInWithPassword({
+email:email.value,
+password:password.value
+});
+
+if(error){
+
+err.textContent="Email ou mot de passe incorrect.";
+
+return;
+
+}
+
+login.style.display="none";
+app.style.display="block";
+
+load();
+
+}
+
+
+/* DECONNEXION */
+
+logoutBtn.addEventListener("click",async()=>{
+
+await client.auth.signOut();
+
+location.reload();
+
+});
+
+
+/* CHARGER LES ANNONCES */
+
+async function load(){
+
+const {data,error}=await client
+.from("annonces")
+.select("*")
+.order("created_at",{ascending:false});
+
+if(error){
+
+statusMsg.textContent="Erreur : "+error.message;
+
+return;
+
+}
+
+render(data || []);
+
+}
+
+
+/* UPLOAD PHOTO */
+
+async function upload(file){
+
+const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+const path=
+Date.now()+"_"+Math.random().toString(36).slice(2)+"_"+safe;
+
+const {error}=await client.storage
+.from(BUCKET)
+.upload(path,file);
+
+if(error)throw error;
+
+return path;
+
+}
+
+
+/* AJOUTER ANNONCE */
+
 addBtn.addEventListener("click",add);
-async function load(){try{const r=await fetch(API+"?order=created_at.desc",{headers});if(!r.ok)throw new Error(await r.text());const data=await r.json();render(data)}catch(e){statusMsg.textContent="Erreur de chargement : "+e.message;}}
-async function upload(file){const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");const path=Date.now()+"_"+Math.random().toString(36).slice(2)+"_"+safe;const r=await fetch(SUPABASE_URL+"/storage/v1/object/"+BUCKET+"/"+path,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":file.type||"application/octet-stream","x-upsert":"false"},body:file});if(!r.ok)throw new Error(await r.text());return path}
-async function add(){if(!titre.value||!lieu.value){statusMsg.textContent="Titre et localisation sont obligatoires.";return}addBtn.disabled=true;statusMsg.textContent="Enregistrement...";try{let paths=[];for(const f of photos.files)paths.push(await upload(f));const payload={titre:titre.value,prix:prix.value?Number(prix.value):null,lieu:lieu.value,type:type.value,description:description.value,image_url:paths[0]||null,statut:"a_valider"};const r=await fetch(API,{method:"POST",headers:{...headers,Prefer:"return=minimal"},body:JSON.stringify(payload)});if(!r.ok)throw new Error(await r.text());statusMsg.textContent="Annonce enregistrée. Elle doit être approuvée avant publication.";titre.value=prix.value=lieu.value=description.value="";photos.value="";load()}catch(e){statusMsg.textContent="Erreur : "+e.message}finally{addBtn.disabled=false}}
-async function updateStatus(id,status){const r=await fetch(API+"?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:{...headers,Prefer:"return=minimal"},body:JSON.stringify({statut:status})});if(!r.ok)alert(await r.text());else load()}
-async function remove(id){if(!confirm("Supprimer cette annonce ?"))return;const r=await fetch(API+"?id=eq."+encodeURIComponent(id),{method:"DELETE",headers});if(!r.ok)alert(await r.text());else load()}
-function render(data){list.innerHTML=data.length?data.map(b=>{const img=b.image_url?SUPABASE_URL+"/storage/v1/object/public/"+BUCKET+"/"+encodeURIComponent(b.image_url).replace(/%2F/g,"/"):"";return `<div class="card"><div class="photo">${img?`<img src="${img}" alt="">`:"PHOTO"}</div><div class="body"><b>${esc(b.titre)}</b><p>${esc(b.type)} · ${esc(b.lieu)}<br>${b.prix==null?"Prix sur demande":new Intl.NumberFormat("fr-FR").format(b.prix)+" Ar"}<br>Statut : <b>${esc(b.statut)}</b></p><div class="actions">${b.statut!=="publiee"?`<button class="ok" onclick="updateStatus('${b.id}','publiee')">Publier</button>`:`<button onclick="updateStatus('${b.id}','a_valider')">Dépublier</button>`}<button class="danger" onclick="remove('${b.id}')">Supprimer</button></div></div></div>`}).join(""):"<p class='notice'>Aucune annonce.</p>"}
-function esc(x){return String(x??"").replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
-</script></body></html>
+
+async function add(){
+
+if(!titre.value || !lieu.value){
+
+statusMsg.textContent=
+"Titre et localisation sont obligatoires.";
+
+return;
+
+}
+
+addBtn.disabled=true;
+
+statusMsg.textContent="Enregistrement...";
+
+try{
+
+let paths=[];
+
+for(const f of photos.files){
+
+paths.push(await upload(f));
+
+}
+
+const payload={
+
+titre:titre.value,
+
+prix:prix.value?Number(prix.value):null,
+
+lieu:lieu.value,
+
+type:type.value,
+
+description:description.value,
+
+image_url:paths[0]||null,
+
+statut:"a_valider"
+
+};
+
+const {error}=await client
+.from("annonces")
+.insert(payload);
+
+if(error)throw error;
+
+statusMsg.textContent=
+"Annonce enregistrée. Elle doit être approuvée avant publication.";
+
+titre.value="";
+prix.value="";
+lieu.value="";
+description.value="";
+photos.value="";
+
+load();
+
+}catch(e){
+
+statusMsg.textContent="Erreur : "+e.message;
+
+}
+
+addBtn.disabled=false;
+
+}
+
+
+/* MODIFIER STATUT */
+
+async function updateStatus(id,status){
+
+const {error}=await client
+.from("annonces")
+.update({statut:status})
+.eq("id",id);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+load();
+
+}
+
+
+/* SUPPRIMER */
+
+async function remove(id){
+
+if(!confirm("Supprimer cette annonce ?"))return;
+
+const {error}=await client
+.from("annonces")
+.delete()
+.eq("id",id);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+load();
+
+}
+
+
+/* AFFICHAGE */
+
+function render(data){
+
+list.innerHTML=data.length?
+
+data.map(b=>{
+
+const img=b.image_url?
+
+SUPABASE_URL+
+"/storage/v1/object/public/"+
+BUCKET+"/"+
+encodeURIComponent(b.image_url)
+.replace(/%2F/g,"/")
+
+:"";
+
+return `
+
+<div class="card">
+
+<div class="photo">
+
+${img?
+
+`<img src="${img}" alt="">`
+
+:"PHOTO"}
+
+</div>
+
+<div class="body">
+
+<b>${esc(b.titre)}</b>
+
+<p>
+
+${esc(b.type)} · ${esc(b.lieu)}
+
+<br>
+
+${b.prix==null?
+
+"Prix sur demande":
+
+new Intl.NumberFormat("fr-FR")
+.format(b.prix)+" Ar"}
+
+<br>
+
+Statut :
+<b>${esc(b.statut)}</b>
+
+</p>
+
+<div class="actions">
+
+${
+b.statut!=="publiee"?
+
+`<button class="ok"
+onclick="updateStatus('${b.id}','publiee')">
+Publier
+</button>`
+
+:
+
+`<button
+onclick="updateStatus('${b.id}','a_valider')">
+Dépublier
+</button>`
+}
+
+<button class="danger"
+onclick="remove('${b.id}')">
+Supprimer
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("")
+
+:
+
+"<p class='notice'>Aucune annonce.</p>";
+
+}
+
+
+function esc(x){
+
+return String(x??"")
+.replace(/[&<>\"]/g,m=>({
+
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;'
+
+}[m]));
+
+}
+
+</script>
+
+</body>
+</html>
