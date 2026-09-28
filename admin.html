@@ -5,33 +5,144 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Administration - Agence Immobilier Antsirabe</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f6f8;color:#172033}
-header{background:#102a43;color:#fff;padding:16px 5%;font-weight:bold}
-.box{max-width:500px;margin:30px auto;background:#fff;padding:25px;border-radius:14px;box-shadow:0 3px 15px #0002}
-.admin{max-width:1000px;margin:20px auto;padding:15px}
-input,select,textarea,button{width:100%;padding:12px;margin-top:8px;border:1px solid #ddd;border-radius:8px;font:inherit}
-button{background:#f4b942;border:0;font-weight:bold}
-.logout{background:#e45b5b;color:#fff;width:auto}
-.ok{background:#3b8c5a;color:#fff}
-.danger{background:#e45b5b;color:#fff}
-.error{color:#c62828}
-.success{color:#2e7d32}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.full{grid-column:1/-1}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px #0001}
-.photo{height:150px;background:#ddd;display:flex;align-items:center;justify-content:center}
-.photo img{width:100%;height:100%;object-fit:cover}
-.body{padding:14px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+
+body{
+margin:0;
+font-family:Arial;
+background:#f4f6f8;
+color:#172033
+}
+
+header{
+background:#102a43;
+color:white;
+padding:16px 5%;
+font-weight:bold
+}
+
+.box{
+max-width:500px;
+margin:30px auto;
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 3px 15px #0002
+}
+
+.admin{
+max-width:1000px;
+margin:20px auto;
+padding:15px
+}
+
+input,select,textarea,button{
+width:100%;
+padding:12px;
+margin-top:8px;
+border:1px solid #ddd;
+border-radius:8px;
+font:inherit
+}
+
+button{
+background:#f4b942;
+border:0;
+font-weight:bold;
+cursor:pointer
+}
+
+button:disabled{
+opacity:.6
+}
+
+.logout{
+background:#e45b5b;
+color:white;
+width:auto
+}
+
+.ok{
+background:#3b8c5a;
+color:white
+}
+
+.danger{
+background:#e45b5b;
+color:white
+}
+
+.error{
+color:#c62828;
+font-weight:bold
+}
+
+.success{
+color:#2e7d32;
+font-weight:bold
+}
+
+.form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
+}
+
+.full{
+grid-column:1/-1
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px
+}
+
+.card{
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 12px #0001
+}
+
+.photo{
+height:150px;
+background:#ddd;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.photo img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.body{
+padding:14px
+}
+
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
+}
+
 @media(max-width:700px){
-.form,.grid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.box{margin:20px 10px}
+.form,.grid{
+grid-template-columns:1fr
+}
+
+.full{
+grid-column:auto
+}
+
+.box{
+margin:20px 10px
+}
 }
 </style>
 </head>
@@ -41,6 +152,7 @@ button{background:#f4b942;border:0;font-weight:bold}
 <header>
 🔐 Agence Immobilier Antsirabe - Administration
 </header>
+
 
 <!-- CONNEXION -->
 
@@ -67,21 +179,25 @@ Se connecter
 </div>
 
 
-<!-- ADMINISTRATION -->
+<!-- ADMIN -->
 
-<div id="adminBox" class="admin" style="display:none">
+<div id="adminBox"
+class="admin"
+style="display:none">
 
 <div style="background:#fff;padding:20px;border-radius:12px">
 
-<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
 
 <h2>Ajouter une annonce</h2>
 
-<button id="logoutBtn" class="logout">
+<button id="logoutBtn"
+class="logout">
 Déconnexion
 </button>
 
 </div>
+
 
 <div class="form">
 
@@ -96,6 +212,7 @@ Déconnexion
 </select>
 </div>
 
+
 <div>
 <label>Transaction</label>
 
@@ -105,23 +222,33 @@ Déconnexion
 </select>
 </div>
 
+
 <div>
 <label>Titre</label>
 
-<input id="titre" placeholder="Belle maison">
+<input
+id="titre"
+placeholder="Belle maison">
 </div>
+
 
 <div>
 <label>Prix (Ar)</label>
 
-<input id="prix" type="number">
+<input
+id="prix"
+type="number">
 </div>
+
 
 <div>
 <label>Localisation</label>
 
-<input id="lieu" placeholder="Antsirabe">
+<input
+id="lieu"
+placeholder="Antsirabe">
 </div>
+
 
 <div class="full">
 <label>Description</label>
@@ -129,13 +256,18 @@ Déconnexion
 <textarea id="description"></textarea>
 </div>
 
+
 <div class="full">
 <label>Photo</label>
 
-<input id="photos" type="file" accept="image/*" multiple>
+<input
+id="photos"
+type="file"
+accept="image/*">
 </div>
 
 </div>
+
 
 <button id="addBtn">
 Enregistrer l'annonce
@@ -145,30 +277,26 @@ Enregistrer l'annonce
 
 </div>
 
-<div id="list" class="grid"></div>
+
+<div id="list"
+class="grid">
+</div>
 
 </div>
 
 
 <script>
 
-const SUPABASE_URL =
+/* CONFIGURATION */
+
+const URL =
 "https://byezzcuqrweyhdjfnaky.supabase.co";
 
-const SUPABASE_KEY =
+const KEY =
 "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 
 const BUCKET =
 "annonces-images";
-
-
-/* SUPABASE */
-
-const sb =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
 
 
 /* ELEMENTS */
@@ -204,24 +332,40 @@ const list =
 document.getElementById("list");
 
 
-/* LOGIN */
+/* LOGIN DIRECT SUPABASE */
 
-loginBtn.onclick =
-async function(){
+loginBtn.addEventListener(
+"click",
+login
+);
 
-const e =
+
+password.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+login();
+}
+
+});
+
+
+async function login(){
+
+const mail =
 email.value.trim();
 
-const p =
+const pass =
 password.value;
 
 
-if(!e || !p){
+if(!mail || !pass){
 
 message.className="error";
 
 message.textContent =
-"Veuillez remplir l'email et le mot de passe.";
+"Veuillez entrer votre email et votre mot de passe.";
 
 return;
 
@@ -237,17 +381,35 @@ message.textContent="";
 
 try{
 
-const result =
-await sb.auth.signInWithPassword({
+const response =
+await fetch(
+URL+
+"/auth/v1/token?grant_type=password",
+{
+method:"POST",
 
-email:e,
+headers:{
+"apikey":KEY,
+"Content-Type":"application/json"
+},
 
-password:p
+body:JSON.stringify({
 
-});
+email:mail,
+
+password:pass
+
+})
+
+}
+);
 
 
-if(result.error){
+const data =
+await response.json();
+
+
+if(!response.ok){
 
 message.className="error";
 
@@ -263,6 +425,19 @@ return;
 }
 
 
+/* STOCKER LA SESSION */
+
+localStorage.setItem(
+"admin_access_token",
+data.access_token
+);
+
+localStorage.setItem(
+"admin_refresh_token",
+data.refresh_token
+);
+
+
 message.className="success";
 
 message.textContent =
@@ -274,14 +449,15 @@ loginBox.style.display="none";
 adminBox.style.display="block";
 
 
-await load();
+load();
+
 
 }catch(error){
 
 message.className="error";
 
 message.textContent =
-"Erreur de connexion. Vérifiez votre connexion Internet.";
+"Erreur de connexion. Vérifiez votre Internet.";
 
 loginBtn.disabled=false;
 
@@ -289,126 +465,179 @@ loginBtn.textContent="Se connecter";
 
 }
 
-};
+}
 
 
-/* ENTER */
+/* TOKEN */
 
-password.onkeydown =
-function(e){
+function token(){
 
-if(e.key==="Enter"){
-
-loginBtn.click();
+return localStorage.getItem(
+"admin_access_token"
+);
 
 }
 
+
+/* HEADERS */
+
+function headers(){
+
+return {
+
+"apikey":KEY,
+
+"Authorization":
+"Bearer "+token(),
+
+"Content-Type":
+"application/json"
+
 };
 
-
-/* LOGOUT */
-
-logoutBtn.onclick =
-async function(){
-
-await sb.auth.signOut();
-
-location.reload();
-
-};
+}
 
 
-/* LOAD */
+/* CHARGER */
 
 async function load(){
 
-const result =
-await sb
-.from("annonces")
-.select("*")
-.order(
-"created_at",
-{ascending:false}
+status.textContent =
+"Chargement...";
+
+
+try{
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?select=*&order=created_at.desc",
+{
+headers:headers()
+}
 );
 
 
-if(result.error){
+const data =
+await response.json();
+
+
+if(!response.ok){
 
 status.className="error";
 
 status.textContent =
-"Erreur : "+result.error.message;
+"Erreur : "+JSON.stringify(data);
 
 return;
 
 }
 
 
-render(result.data || []);
+status.textContent="";
+
+render(data);
+
+}catch(error){
+
+status.className="error";
+
+status.textContent =
+"Erreur de connexion.";
+
+}
 
 }
 
 
-/* UPLOAD */
+/* PHOTO */
 
 async function upload(file){
 
-const name =
-file.name.replace(
+const filename =
+Date.now()+"_"+file.name.replace(
 /[^a-zA-Z0-9._-]/g,
 "_"
 );
 
-const path =
-Date.now()+"_"+name;
 
+const response =
+await fetch(
+URL+
+"/storage/v1/object/"+
+BUCKET+
+"/"+
+filename,
+{
+method:"POST",
 
-const result =
-await sb.storage
-.from(BUCKET)
-.upload(
-path,
-file
+headers:{
+"apikey":KEY,
+
+"Authorization":
+"Bearer "+token(),
+
+"Content-Type":
+file.type || "application/octet-stream"
+},
+
+body:file
+}
 );
 
 
-if(result.error){
+if(!response.ok){
 
-throw result.error;
+const text =
+await response.text();
 
-}
-
-
-return path;
+throw new Error(text);
 
 }
 
 
-/* ADD */
+return filename;
 
-addBtn.onclick =
-async function(){
+}
+
+
+/* AJOUT */
+
+addBtn.addEventListener(
+"click",
+add
+);
+
+
+async function add(){
 
 const titre =
-document.getElementById("titre").value.trim();
+document.getElementById("titre")
+.value.trim();
 
 const lieu =
-document.getElementById("lieu").value.trim();
+document.getElementById("lieu")
+.value.trim();
 
 const prix =
-document.getElementById("prix").value;
+document.getElementById("prix")
+.value;
 
 const type =
-document.getElementById("type").value;
+document.getElementById("type")
+.value;
 
 const transaction =
-document.getElementById("transaction").value;
+document.getElementById("transaction")
+.value;
 
 const description =
-document.getElementById("description").value;
+document.getElementById("description")
+.value;
 
 const files =
-document.getElementById("photos").files;
+document.getElementById("photos")
+.files;
 
 
 if(!titre || !lieu){
@@ -425,6 +654,8 @@ return;
 
 addBtn.disabled=true;
 
+status.className="";
+
 status.textContent =
 "Enregistrement...";
 
@@ -434,7 +665,7 @@ try{
 let image=null;
 
 
-if(files.length>0){
+if(files.length){
 
 image =
 await upload(files[0]);
@@ -442,5 +673,368 @@ await upload(files[0]);
 }
 
 
-const result =
-await sb
+const response =
+await fetch(
+URL+"/rest/v1/annonces",
+{
+method:"POST",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+
+titre:titre,
+
+prix:prix
+?Number(prix)
+:null,
+
+lieu:lieu,
+
+type:type,
+
+transaction:transaction,
+
+description:description,
+
+image_url:image,
+
+statut:"a_valider"
+
+})
+}
+);
+
+
+if(!response.ok){
+
+const text =
+await response.text();
+
+throw new Error(text);
+
+}
+
+
+status.className="success";
+
+status.textContent =
+"Annonce enregistrée.";
+
+
+document.getElementById("titre")
+.value="";
+
+document.getElementById("prix")
+.value="";
+
+document.getElementById("lieu")
+.value="";
+
+document.getElementById("description")
+.value="";
+
+document.getElementById("photos")
+.value="";
+
+
+load();
+
+
+}catch(error){
+
+status.className="error";
+
+status.textContent =
+"Erreur : "+error.message;
+
+}
+
+
+addBtn.disabled=false;
+
+}
+
+
+/* PUBLIER */
+
+async function updateStatus(
+id,
+newStatus
+){
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?id=eq."+
+encodeURIComponent(id),
+{
+method:"PATCH",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+statut:newStatus
+})
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+load();
+
+}
+
+
+/* SUPPRIMER */
+
+async function removeAnnonce(id){
+
+if(!confirm(
+"Supprimer cette annonce ?"
+)){
+
+return;
+
+}
+
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?id=eq."+
+encodeURIComponent(id),
+{
+method:"DELETE",
+
+headers:headers()
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+load();
+
+}
+
+
+/* AFFICHAGE */
+
+function render(data){
+
+if(!data.length){
+
+list.innerHTML =
+"<p>Aucune annonce.</p>";
+
+return;
+
+}
+
+
+list.innerHTML =
+data.map(function(a){
+
+let image="";
+
+
+if(a.image_url){
+
+image =
+URL+
+"/storage/v1/object/public/"+
+BUCKET+
+"/"+
+a.image_url;
+
+}
+
+
+const prix =
+a.prix
+?
+new Intl.NumberFormat("fr-FR")
+.format(a.prix)+" Ar"
+:
+"Prix sur demande";
+
+
+const action =
+a.statut==="publiee"
+
+?
+
+`<button
+onclick="updateStatus('${a.id}','a_valider')">
+Dépublier
+</button>`
+
+:
+
+`<button
+class="ok"
+onclick="updateStatus('${a.id}','publiee')">
+Publier
+</button>`;
+
+
+return `
+
+<div class="card">
+
+<div class="photo">
+
+${
+image
+?
+`<img src="${image}" alt="">`
+:
+"PHOTO"
+}
+
+</div>
+
+<div class="body">
+
+<b>
+${esc(a.titre)}
+</b>
+
+<p>
+
+${esc(a.type)}
+
+<br>
+
+${esc(a.lieu)}
+
+<br>
+
+${prix}
+
+<br>
+
+Statut :
+<b>
+${esc(a.statut)}
+</b>
+
+</p>
+
+<div class="actions">
+
+${action}
+
+<button
+class="danger"
+onclick="removeAnnonce('${a.id}')">
+Supprimer
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* SECURITE */
+
+function esc(value){
+
+return String(value ?? "")
+.replace(
+/[&<>"']/g,
+function(c){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[c];
+
+}
+);
+
+}
+
+
+/* SESSION EXISTANTE */
+
+const savedToken =
+localStorage.getItem(
+"admin_access_token"
+);
+
+
+if(savedToken){
+
+loginBox.style.display="none";
+
+adminBox.style.display="block";
+
+load();
+
+}
+
+
+/* LOGOUT */
+
+logoutBtn.addEventListener(
+"click",
+function(){
+
+localStorage.removeItem(
+"admin_access_token"
+);
+
+localStorage.removeItem(
+"admin_refresh_token"
+);
+
+location.reload();
+
+});
+
+</script>
+
+</body>
+</html>
