@@ -111,6 +111,183 @@ cursor:pointer;
 }
 
 
+/* DEMANDE */
+
+.demande-section{
+max-width:1000px;
+margin:35px auto 0;
+padding:0 5%;
+}
+
+.demande-box{
+background:white;
+border-radius:18px;
+padding:28px;
+box-shadow:0 4px 18px #00000012;
+text-align:center;
+}
+
+.demande-box h2{
+margin:0 0 8px;
+font-size:25px;
+}
+
+.demande-box p{
+color:#687386;
+margin:0 0 20px;
+}
+
+.demande-button{
+background:#0b2239;
+color:white;
+border:0;
+padding:13px 22px;
+border-radius:10px;
+font-size:15px;
+font-weight:800;
+cursor:pointer;
+}
+
+.demande-button:hover{
+background:#164b78;
+}
+
+
+/* MODAL DEMANDE */
+
+.demande-modal{
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+z-index:200;
+padding:20px;
+overflow-y:auto;
+}
+
+.demande-modal.show{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.demande-card{
+background:white;
+width:min(650px,100%);
+max-height:90vh;
+overflow-y:auto;
+border-radius:18px;
+padding:28px;
+position:relative;
+box-shadow:0 10px 40px #0008;
+}
+
+.demande-close{
+position:absolute;
+top:12px;
+right:12px;
+width:40px;
+height:40px;
+border:0;
+border-radius:50%;
+background:#eef2f7;
+color:#172033;
+font-size:25px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.demande-card h2{
+margin:0 45px 8px 0;
+font-size:25px;
+}
+
+.demande-card .intro{
+color:#687386;
+margin:0 0 22px;
+line-height:1.5;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group label{
+display:block;
+font-weight:700;
+font-size:14px;
+margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+width:100%;
+border:1px solid #d9dee5;
+border-radius:9px;
+padding:12px;
+font-family:Arial,sans-serif;
+font-size:14px;
+outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+border-color:#2563a6;
+}
+
+.form-group textarea{
+min-height:110px;
+resize:vertical;
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.submit-demande{
+width:100%;
+padding:14px;
+border:0;
+border-radius:10px;
+background:#f4b942;
+color:#172033;
+font-size:15px;
+font-weight:900;
+cursor:pointer;
+margin-top:5px;
+}
+
+.submit-demande:disabled{
+opacity:.6;
+cursor:not-allowed;
+}
+
+.demande-status{
+display:none;
+margin-top:15px;
+padding:12px;
+border-radius:9px;
+font-size:14px;
+font-weight:700;
+}
+
+.demande-status.success{
+display:block;
+background:#e8f7ee;
+color:#146c3a;
+}
+
+.demande-status.error{
+display:block;
+background:#fdecec;
+color:#a52a2a;
+}
+
+
 /* SECTIONS */
 
 section{
@@ -461,6 +638,7 @@ nav{
 width:100%;
 justify-content:center;
 gap:13px;
+flex-wrap:wrap;
 }
 
 nav a{font-size:12px}
@@ -522,6 +700,20 @@ font-size:25px;
 right:3px;
 top:3px;
 }
+
+.demande-section{
+padding:0 4%;
+}
+
+.demande-card{
+padding:22px 17px;
+}
+
+.form-row{
+grid-template-columns:1fr;
+gap:0;
+}
+
 }
 
 
@@ -552,6 +744,7 @@ Agence Immobilier <span>Antsirabe</span>
 <nav>
 <a href="#biens">Biens</a>
 <a href="#agence">L'agence</a>
+<a href="#demande">Demande</a>
 <a href="#contact">Contact</a>
 <a href="admin.html">Administration</a>
 </nav>
@@ -589,6 +782,30 @@ placeholder="📍 Quartier ou localisation">
 
 <button onclick="filter()">
 Rechercher
+</button>
+
+</div>
+
+</div>
+
+
+<!-- DEMANDE CLIENT -->
+
+<div id="demande" class="demande-section">
+
+<div class="demande-box">
+
+<h2>🏠 Vous recherchez un bien ?</h2>
+
+<p>
+Vous ne trouvez pas encore ce que vous cherchez ?
+Décrivez-nous votre besoin et nous vous contacterons.
+</p>
+
+<button
+class="demande-button"
+onclick="openDemande()">
+Déposer une demande
 </button>
 
 </div>
@@ -715,6 +932,173 @@ WhatsApp
 </footer>
 
 
+<!-- MODAL DEMANDE -->
+
+<div
+id="demandeModal"
+class="demande-modal"
+onclick="closeDemande(event)">
+
+<div class="demande-card">
+
+<button
+class="demande-close"
+onclick="closeDemande()">
+×
+</button>
+
+<h2>Déposer une demande</h2>
+
+<p class="intro">
+Dites-nous quel bien vous recherchez.
+Votre demande sera reçue par notre agence.
+</p>
+
+<form onsubmit="sendDemande(event)">
+
+<div class="form-group">
+
+<label for="demandeNom">
+Nom *
+</label>
+
+<input
+id="demandeNom"
+type="text"
+placeholder="Votre nom"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="demandeTelephone">
+Téléphone / WhatsApp *
+</label>
+
+<input
+id="demandeTelephone"
+type="tel"
+placeholder="034 XX XXX XX"
+required>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label for="demandeType">
+Type de bien
+</label>
+
+<select id="demandeType">
+
+<option value="">
+Choisir
+</option>
+
+<option>Maison</option>
+<option>Appartement</option>
+<option>Terrain</option>
+<option>Local commercial</option>
+<option>Autre</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="demandeTransaction">
+Transaction
+</label>
+
+<select id="demandeTransaction">
+
+<option value="">
+Choisir
+</option>
+
+<option>À vendre</option>
+<option>À louer</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label for="demandeBudget">
+Budget
+</label>
+
+<input
+id="demandeBudget"
+type="text"
+placeholder="Ex : 100 000 000 Ar">
+
+</div>
+
+
+<div class="form-group">
+
+<label for="demandeLocalisation">
+Localisation souhaitée
+</label>
+
+<input
+id="demandeLocalisation"
+type="text"
+placeholder="Ex : Antsirabe centre">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="demandeDetails">
+Détails de votre recherche
+</label>
+
+<textarea
+id="demandeDetails"
+placeholder="Ex : maison 3 chambres, cour, douche et WC..."></textarea>
+
+</div>
+
+
+<button
+id="submitDemande"
+class="submit-demande"
+type="submit">
+
+📩 Envoyer ma demande
+
+</button>
+
+<div
+id="demandeStatus"
+class="demande-status">
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
 <!-- GALERIE -->
 
 <div
@@ -769,6 +1153,9 @@ const SUPABASE_KEY =
 const API =
 SUPABASE_URL + "/rest/v1/annonces";
 
+const DEMANDES_API =
+SUPABASE_URL + "/rest/v1/demandes_clients";
+
 const BUCKET =
 "annonces-images";
 
@@ -778,7 +1165,211 @@ let currentGallery = [];
 let currentPhoto = 0;
 
 
-/* CHARGER LES ANNONCES */
+/* =========================
+   DEMANDE CLIENT
+========================= */
+
+function openDemande(){
+
+document
+.getElementById("demandeModal")
+.classList.add("show");
+
+document
+.getElementById("demandeNom")
+.focus();
+
+}
+
+
+function closeDemande(event){
+
+if(event){
+
+event.stopPropagation();
+
+if(
+event.target !==
+document.getElementById("demandeModal")
+){
+return;
+}
+
+}
+
+document
+.getElementById("demandeModal")
+.classList.remove("show");
+
+}
+
+
+async function sendDemande(event){
+
+event.preventDefault();
+
+const button =
+document.getElementById("submitDemande");
+
+const status =
+document.getElementById("demandeStatus");
+
+const nom =
+document.getElementById("demandeNom")
+.value.trim();
+
+const telephone =
+document.getElementById("demandeTelephone")
+.value.trim();
+
+const typeBien =
+document.getElementById("demandeType")
+.value;
+
+const transaction =
+document.getElementById("demandeTransaction")
+.value;
+
+const budget =
+document.getElementById("demandeBudget")
+.value.trim();
+
+const localisation =
+document.getElementById("demandeLocalisation")
+.value.trim();
+
+const details =
+document.getElementById("demandeDetails")
+.value.trim();
+
+
+if(!nom || !telephone){
+
+status.className =
+"demande-status error";
+
+status.textContent =
+"Veuillez remplir votre nom et votre téléphone.";
+
+return;
+
+}
+
+
+button.disabled = true;
+
+button.textContent =
+"Envoi en cours...";
+
+status.className =
+"demande-status";
+
+status.textContent = "";
+
+
+try{
+
+const response =
+await fetch(
+DEMANDES_API,
+{
+method:"POST",
+
+headers:{
+apikey:SUPABASE_KEY,
+Authorization:"Bearer " + SUPABASE_KEY,
+"Content-Type":"application/json",
+Prefer:"return=minimal"
+},
+
+body:JSON.stringify({
+
+nom:nom,
+
+telephone:telephone,
+
+type_bien:typeBien || null,
+
+transaction:transaction || null,
+
+budget:budget || null,
+
+localisation:localisation || null,
+
+details:details || null,
+
+statut:"nouvelle"
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+const errorText =
+await response.text();
+
+throw new Error(errorText);
+
+}
+
+
+status.className =
+"demande-status success";
+
+status.textContent =
+"✅ Votre demande a bien été envoyée. Nous vous contacterons prochainement.";
+
+document
+.querySelector("#demandeModal form")
+.reset();
+
+button.textContent =
+"✓ Demande envoyée";
+
+setTimeout(
+function(){
+
+closeDemande();
+
+button.disabled = false;
+
+button.textContent =
+"📩 Envoyer ma demande";
+
+status.className =
+"demande-status";
+
+},
+2500
+);
+
+
+}catch(error){
+
+console.error(error);
+
+status.className =
+"demande-status error";
+
+status.textContent =
+"❌ Impossible d'envoyer la demande. Veuillez réessayer.";
+
+button.disabled = false;
+
+button.textContent =
+"📩 Envoyer ma demande";
+
+}
+
+}
+
+
+/* =========================
+   CHARGER LES ANNONCES
+========================= */
 
 async function load(){
 
@@ -815,7 +1406,9 @@ console.error(e);
 }
 
 
-/* IMAGE URL */
+/* =========================
+   IMAGE URL
+========================= */
 
 function imgUrl(path){
 
@@ -832,7 +1425,9 @@ encodeURIComponent(path).replace(/%2F/g,"/");
 }
 
 
-/* PHOTOS */
+/* =========================
+   PHOTOS
+========================= */
 
 function getPhotos(value){
 
@@ -855,7 +1450,9 @@ return [value];
 }
 
 
-/* AFFICHAGE */
+/* =========================
+   AFFICHAGE
+========================= */
 
 function render(list){
 
@@ -995,7 +1592,9 @@ onclick="wa('${escAttr(b.id)}','${escAttr(b.titre)}')">
 }
 
 
-/* PAGE DETAIL */
+/* =========================
+   PAGE DETAIL
+========================= */
 
 function openDetails(id){
 
@@ -1010,7 +1609,9 @@ encodeURIComponent(id);
 }
 
 
-/* GALERIE */
+/* =========================
+   GALERIE
+========================= */
 
 function openGalleryEncoded(data){
 
@@ -1131,7 +1732,9 @@ document
 }
 
 
-/* RECHERCHE */
+/* =========================
+   RECHERCHE
+========================= */
 
 function filter(){
 
@@ -1168,7 +1771,9 @@ render(result);
 }
 
 
-/* PRIX */
+/* =========================
+   PRIX
+========================= */
 
 function formatPrice(v){
 
@@ -1196,7 +1801,9 @@ return new Intl.NumberFormat("fr-FR")
 }
 
 
-/* WHATSAPP */
+/* =========================
+   WHATSAPP
+========================= */
 
 function wa(id,title){
 
@@ -1213,7 +1820,9 @@ title +
 }
 
 
-/* SECURITE HTML */
+/* =========================
+   SECURITE HTML
+========================= */
 
 function esc(x){
 
@@ -1234,7 +1843,9 @@ m => ({
 }
 
 
-/* SECURITE ATTRIBUT */
+/* =========================
+   SECURITE ATTRIBUT
+========================= */
 
 function escAttr(x){
 
@@ -1248,7 +1859,9 @@ return String(x ?? "")
 }
 
 
-/* CLAVIER GALERIE */
+/* =========================
+   CLAVIER GALERIE
+========================= */
 
 document.addEventListener(
 "keydown",
@@ -1279,7 +1892,33 @@ previousPhoto();
 );
 
 
-/* LANCER LE CHARGEMENT */
+/* =========================
+   CLAVIER DEMANDE
+========================= */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+const modal =
+document.getElementById("demandeModal");
+
+if(
+modal.classList.contains("show") &&
+e.key === "Escape"
+){
+
+closeDemande();
+
+}
+
+}
+);
+
+
+/* =========================
+   LANCER LE CHARGEMENT
+========================= */
 
 load();
 
