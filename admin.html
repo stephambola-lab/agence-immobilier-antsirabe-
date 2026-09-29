@@ -641,4 +641,1606 @@ Transaction
 
 <label>
 Titre
-</
+</label>
+
+<input
+id="titre"
+placeholder="Belle maison à Antsirabe">
+
+</div>
+
+
+<div>
+
+<label>
+Prix (Ar)
+</label>
+
+<input
+id="prix"
+type="number"
+placeholder="Ex : 150000000">
+
+</div>
+
+
+<div>
+
+<label>
+Localisation
+</label>
+
+<input
+id="lieu"
+placeholder="Ex : Antsenakely, Antsirabe">
+
+</div>
+
+
+<div>
+
+<label>
+Photos du bien
+</label>
+
+<input
+id="photos"
+type="file"
+accept="image/*"
+multiple>
+
+<div
+id="photoCount"
+class="photo-count">
+
+Aucune photo sélectionnée.
+
+</div>
+
+<div
+id="preview"
+class="preview">
+</div>
+
+</div>
+
+
+<div class="full">
+
+<label>
+Description
+</label>
+
+<textarea
+id="description"
+placeholder="Décrivez le bien : chambres, terrain, accès, équipements, etc.">
+</textarea>
+
+</div>
+
+
+</div>
+
+
+<button
+id="addBtn">
+
+Enregistrer l'annonce
+
+</button>
+
+<p id="status"></p>
+
+</div>
+
+
+<div class="separator"></div>
+
+
+<!-- =========================
+     ANNONCES
+========================= -->
+
+<div>
+
+<div class="title-row">
+
+<h2>
+Toutes les annonces
+</h2>
+
+</div>
+
+<div
+id="list"
+class="grid">
+</div>
+
+</div>
+
+
+<div class="separator"></div>
+
+
+<!-- =========================
+     DEMANDES CLIENTS
+========================= -->
+
+<div class="demandes-section">
+
+<div class="demandes-header">
+
+<h2>
+📩 Demandes clients
+</h2>
+
+<div
+id="demandesCount"
+class="demandes-count">
+
+0 demande
+
+</div>
+
+</div>
+
+
+<div
+id="demandesList"
+class="demandes-grid">
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+const URL =
+"https://byezzcuqrweyhdjfnaky.supabase.co";
+
+const KEY =
+"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+
+const BUCKET =
+"annonces-images";
+
+const DEMANDES_API =
+URL + "/rest/v1/demandes_clients";
+
+
+const loginBox =
+document.getElementById("loginBox");
+
+const adminBox =
+document.getElementById("adminBox");
+
+const email =
+document.getElementById("email");
+
+const password =
+document.getElementById("password");
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+const message =
+document.getElementById("message");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const addBtn =
+document.getElementById("addBtn");
+
+const status =
+document.getElementById("status");
+
+const list =
+document.getElementById("list");
+
+const photosInput =
+document.getElementById("photos");
+
+const photoCount =
+document.getElementById("photoCount");
+
+const preview =
+document.getElementById("preview");
+
+const demandesList =
+document.getElementById("demandesList");
+
+const demandesCount =
+document.getElementById("demandesCount");
+
+
+/* =========================
+   APERCU DES PHOTOS
+========================= */
+
+photosInput.addEventListener(
+"change",
+function(){
+
+const files =
+photosInput.files;
+
+preview.innerHTML="";
+
+if(!files.length){
+
+photoCount.textContent =
+"Aucune photo sélectionnée.";
+
+return;
+
+}
+
+photoCount.textContent =
+files.length+
+(files.length>1
+?" photos sélectionnées."
+:" photo sélectionnée.");
+
+
+Array.from(files).forEach(
+function(file){
+
+const img =
+document.createElement("img");
+
+img.src =
+URL.createObjectURL(file);
+
+preview.appendChild(img);
+
+});
+
+});
+
+
+/* =========================
+   LOGIN
+========================= */
+
+loginBtn.addEventListener(
+"click",
+login
+);
+
+
+password.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+
+login();
+
+}
+
+});
+
+
+async function login(){
+
+const mail =
+email.value.trim();
+
+const pass =
+password.value;
+
+
+if(!mail || !pass){
+
+message.className="error";
+
+message.textContent =
+"Veuillez entrer votre email et votre mot de passe.";
+
+return;
+
+}
+
+
+loginBtn.disabled=true;
+
+loginBtn.textContent =
+"Connexion...";
+
+message.textContent="";
+
+
+try{
+
+const response =
+await fetch(
+URL+
+"/auth/v1/token?grant_type=password",
+{
+
+method:"POST",
+
+headers:{
+"apikey":KEY,
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+email:mail,
+password:pass
+
+})
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+message.className="error";
+
+message.textContent =
+"Email ou mot de passe incorrect.";
+
+loginBtn.disabled=false;
+
+loginBtn.textContent =
+"Se connecter";
+
+return;
+
+}
+
+
+localStorage.setItem(
+"admin_access_token",
+data.access_token
+);
+
+localStorage.setItem(
+"admin_refresh_token",
+data.refresh_token
+);
+
+
+loginBox.style.display="none";
+
+adminBox.style.display="block";
+
+load();
+
+loadDemandes();
+
+
+}catch(error){
+
+message.className="error";
+
+message.textContent =
+"Erreur de connexion. Vérifiez votre Internet.";
+
+loginBtn.disabled=false;
+
+loginBtn.textContent =
+"Se connecter";
+
+}
+
+}
+
+
+/* =========================
+   TOKEN
+========================= */
+
+function token(){
+
+return localStorage.getItem(
+"admin_access_token"
+);
+
+}
+
+
+/* =========================
+   HEADERS
+========================= */
+
+function headers(){
+
+return {
+
+"apikey":KEY,
+
+"Authorization":
+"Bearer "+token(),
+
+"Content-Type":
+"application/json"
+
+};
+
+}
+
+
+/* =========================
+   CHARGER ANNONCES
+========================= */
+
+async function load(){
+
+status.textContent =
+"Chargement des annonces...";
+
+
+try{
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?select=*&order=created_at.desc",
+{
+headers:headers()
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+status.className="error";
+
+status.textContent =
+"Erreur : "+JSON.stringify(data);
+
+return;
+
+}
+
+
+status.textContent="";
+
+render(data);
+
+
+}catch(error){
+
+status.className="error";
+
+status.textContent =
+"Erreur de connexion.";
+
+}
+
+}
+
+
+/* =========================
+   UPLOAD PHOTO
+========================= */
+
+async function upload(file){
+
+const filename =
+Date.now()+"_"+Math.random()
+.toString(36)
+.substring(2,8)+"_"+file.name.replace(
+/[^a-zA-Z0-9._-]/g,
+"_"
+);
+
+
+const response =
+await fetch(
+URL+
+"/storage/v1/object/"+
+BUCKET+
+"/"+
+filename,
+{
+
+method:"POST",
+
+headers:{
+
+"apikey":KEY,
+
+"Authorization":
+"Bearer "+token(),
+
+"Content-Type":
+file.type ||
+"application/octet-stream"
+
+},
+
+body:file
+
+}
+);
+
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+
+return filename;
+
+}
+
+
+/* =========================
+   AJOUT ANNONCE
+========================= */
+
+addBtn.addEventListener(
+"click",
+add
+);
+
+
+async function add(){
+
+const titre =
+document.getElementById("titre")
+.value.trim();
+
+const lieu =
+document.getElementById("lieu")
+.value.trim();
+
+const prix =
+document.getElementById("prix")
+.value;
+
+const type =
+document.getElementById("type")
+.value;
+
+const transaction =
+document.getElementById("transaction")
+.value;
+
+const description =
+document.getElementById("description")
+.value;
+
+const files =
+document.getElementById("photos")
+.files;
+
+
+if(!titre || !lieu){
+
+status.className="error";
+
+status.textContent =
+"Titre et localisation sont obligatoires.";
+
+return;
+
+}
+
+
+if(!files.length){
+
+status.className="error";
+
+status.textContent =
+"Veuillez sélectionner au moins une photo.";
+
+return;
+
+}
+
+
+addBtn.disabled=true;
+
+addBtn.textContent =
+"Enregistrement...";
+
+status.className="";
+
+status.textContent =
+"Préparation de l'annonce...";
+
+
+try{
+
+let uploaded=[];
+
+
+/* UPLOAD DE TOUTES LES PHOTOS */
+
+for(let i=0;i<files.length;i++){
+
+status.textContent =
+"Téléversement de la photo "+
+(i+1)+
+" / "+
+files.length+
+"...";
+
+const filename =
+await upload(files[i]);
+
+uploaded.push(filename);
+
+}
+
+
+/* SAUVEGARDE */
+
+status.textContent =
+"Enregistrement de l'annonce...";
+
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces",
+{
+
+method:"POST",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+
+titre:titre,
+
+prix:prix
+?Number(prix)
+:null,
+
+lieu:lieu,
+
+type:type,
+
+transaction:transaction,
+
+description:description,
+
+image_url:
+JSON.stringify(uploaded),
+
+statut:"a_valider"
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+
+status.className="success";
+
+status.textContent =
+"Annonce enregistrée avec "+
+uploaded.length+
+(uploaded.length>1
+?" photos."
+:" photo.");
+
+
+/* RESET */
+
+document.getElementById("titre")
+.value="";
+
+document.getElementById("prix")
+.value="";
+
+document.getElementById("lieu")
+.value="";
+
+document.getElementById("description")
+.value="";
+
+document.getElementById("photos")
+.value="";
+
+photoCount.textContent =
+"Aucune photo sélectionnée.";
+
+preview.innerHTML="";
+
+
+load();
+
+
+}catch(error){
+
+status.className="error";
+
+status.textContent =
+"Erreur : "+error.message;
+
+}
+
+
+addBtn.disabled=false;
+
+addBtn.textContent =
+"Enregistrer l'annonce";
+
+}
+
+
+/* =========================
+   STATUT ANNONCE
+========================= */
+
+async function updateStatus(
+id,
+newStatus
+){
+
+try{
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?id=eq."+
+encodeURIComponent(id),
+{
+
+method:"PATCH",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+
+statut:newStatus
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+load();
+
+
+}catch(error){
+
+alert(
+"Erreur de connexion."
+);
+
+}
+
+}
+
+
+/* =========================
+   SUPPRIMER ANNONCE
+========================= */
+
+async function removeAnnonce(id){
+
+if(!confirm(
+"Supprimer définitivement cette annonce ?"
+)){
+
+return;
+
+}
+
+
+try{
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?id=eq."+
+encodeURIComponent(id),
+{
+
+method:"DELETE",
+
+headers:headers()
+
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+load();
+
+
+}catch(error){
+
+alert(
+"Erreur de connexion."
+);
+
+}
+
+}
+
+
+/* =========================
+   AFFICHAGE ANNONCES
+========================= */
+
+function render(data){
+
+if(!data.length){
+
+list.innerHTML =
+"<div class='empty'>"+
+"Aucune annonce pour le moment."+
+"</div>";
+
+return;
+
+}
+
+
+list.innerHTML =
+data.map(function(a){
+
+let image="";
+
+let photoList=[];
+
+
+/*
+Compatibilité :
+- ancienne annonce = un seul nom
+- nouvelle annonce = JSON avec plusieurs noms
+*/
+
+if(a.image_url){
+
+try{
+
+const parsed =
+JSON.parse(a.image_url);
+
+if(Array.isArray(parsed)){
+
+photoList=parsed;
+
+}
+
+}catch(e){
+
+photoList=[a.image_url];
+
+}
+
+}
+
+
+if(photoList.length){
+
+image =
+URL+
+"/storage/v1/object/public/"+
+BUCKET+
+"/"+
+photoList[0];
+
+}
+
+
+const prix =
+a.prix
+?
+new Intl.NumberFormat("fr-FR")
+.format(a.prix)+" Ar"
+:
+"Prix sur demande";
+
+
+let statusClass =
+"status-badge";
+
+
+if(a.statut==="publiee"){
+
+statusClass +=
+" status-published";
+
+}
+
+
+const action =
+a.statut==="publiee"
+
+?
+
+`<button
+onclick="updateStatus('${a.id}','a_valider')">
+Dépublier
+</button>`
+
+:
+
+`<button
+class="ok"
+onclick="updateStatus('${a.id}','publiee')">
+Publier
+</button>`;
+
+
+/*
+COMPTEUR DE VUES
+*/
+
+const vues =
+Number(a.vues || 0);
+
+
+return `
+
+<div class="card">
+
+<div class="photo">
+
+${
+image
+?
+`<img
+src="${image}"
+alt="">`
+:
+"PHOTO DU BIEN"
+}
+
+</div>
+
+
+<div class="body">
+
+<h3>
+${esc(a.titre)}
+</h3>
+
+
+<div class="info">
+
+${esc(a.type||"Bien immobilier")}
+
+<br>
+
+📍 ${esc(a.lieu||"")}
+
+</div>
+
+
+<div class="price">
+${prix}
+</div>
+
+
+<div class="photo-count">
+
+📸 ${photoList.length}
+${photoList.length>1?"photos":"photo"}
+
+</div>
+
+
+<div class="views">
+
+👁️ ${vues} ${vues>1?"vues":"vue"}
+
+</div>
+
+
+<span class="${statusClass}">
+Statut : ${esc(a.statut)}
+</span>
+
+
+<div class="actions">
+
+${action}
+
+<button
+class="danger"
+onclick="removeAnnonce('${a.id}')">
+
+Supprimer
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =========================
+   DEMANDES CLIENTS
+========================= */
+
+async function loadDemandes(){
+
+demandesList.innerHTML =
+"<div class='empty'>Chargement des demandes...</div>";
+
+
+try{
+
+const response =
+await fetch(
+DEMANDES_API+
+"?select=*&order=created_at.desc",
+{
+headers:headers()
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+demandesList.innerHTML =
+"<div class='empty error'>"+
+"Erreur lors du chargement des demandes."
++
+"</div>";
+
+console.error(data);
+
+return;
+
+}
+
+
+renderDemandes(data);
+
+
+}catch(error){
+
+demandesList.innerHTML =
+"<div class='empty error'>"+
+"Erreur de connexion."
++
+"</div>";
+
+}
+
+}
+
+
+/* =========================
+   AFFICHAGE DEMANDES
+========================= */
+
+function renderDemandes(data){
+
+const nouvelles =
+data.filter(function(d){
+
+return d.statut !== "traitee";
+
+}).length;
+
+
+demandesCount.textContent =
+nouvelles+
+(nouvelles>1
+?" nouvelles demandes"
+:" nouvelle demande");
+
+
+if(!data.length){
+
+demandesList.innerHTML =
+"<div class='no-demandes'>"+
+"📭 Aucune demande client pour le moment."
++
+"</div>";
+
+return;
+
+}
+
+
+demandesList.innerHTML =
+data.map(function(d){
+
+const isTraitee =
+d.statut==="traitee";
+
+
+const date =
+d.created_at
+?
+new Date(d.created_at)
+.toLocaleString(
+"fr-FR",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+:
+"";
+
+
+const phoneRaw =
+String(d.telephone || "");
+
+const phoneDigits =
+phoneRaw.replace(
+/[^0-9+]/g,
+""
+);
+
+let whatsappPhone =
+phoneDigits.replace(
+/^\+/,
+""
+);
+
+if(
+whatsappPhone.startsWith("0")
+){
+
+whatsappPhone =
+"261"+
+whatsappPhone.substring(1);
+
+}
+
+
+const whatsappMessage =
+encodeURIComponent(
+"Bonjour "+(d.nom||"")+
+", concernant votre demande immobilière."
+);
+
+
+const statusBadge =
+isTraitee
+
+?
+
+`<span class="demande-status traitee">
+✓ Traitée
+</span>`
+
+:
+
+`<span class="demande-status nouvelle">
+● Nouvelle
+</span>`;
+
+
+const traiteButton =
+isTraitee
+
+?
+
+`<button
+onclick="updateDemandeStatus('${d.id}','nouvelle')">
+↩️ Réouvrir
+</button>`
+
+:
+
+`<button
+class="traite"
+onclick="updateDemandeStatus('${d.id}','traitee')">
+✓ Marquer comme traité
+</button>`;
+
+
+return `
+
+<div class="demande-card ${isTraitee?"traitee":""}">
+
+<div class="demande-top">
+
+<div>
+
+<h3 class="demande-name">
+${esc(d.nom)}
+</h3>
+
+<div class="demande-date">
+📅 ${esc(date)}
+</div>
+
+</div>
+
+${statusBadge}
+
+</div>
+
+
+<div class="demande-info">
+
+<strong>📞 Téléphone :</strong>
+${esc(d.telephone)}
+
+<br>
+
+<strong>🏠 Type :</strong>
+${esc(d.type_bien || "Non précisé")}
+
+<br>
+
+<strong>🔄 Transaction :</strong>
+${esc(d.transaction || "Non précisée")}
+
+<br>
+
+<strong>💰 Budget :</strong>
+${esc(d.budget || "Non précisé")}
+
+<br>
+
+<strong>📍 Localisation :</strong>
+${esc(d.localisation || "Non précisée")}
+
+</div>
+
+
+${
+d.details
+?
+`
+<div class="demande-details">
+
+<strong>📝 Détails :</strong>
+
+<br>
+
+${esc(d.details)}
+
+</div>
+`
+:
+""
+}
+
+
+<div class="demande-actions">
+
+
+<a
+href="https://wa.me/${whatsappPhone}?text=${whatsappMessage}"
+target="_blank"
+style="text-decoration:none">
+
+<button
+class="whatsapp"
+type="button">
+
+💬 WhatsApp
+
+</button>
+
+</a>
+
+
+<a
+href="tel:${escAttr(phoneRaw)}"
+style="text-decoration:none">
+
+<button
+class="call"
+type="button">
+
+📞 Appeler
+
+</button>
+
+</a>
+
+
+${traiteButton}
+
+
+<button
+class="danger demande-delete"
+onclick="removeDemande('${d.id}')">
+
+🗑️ Supprimer la demande
+
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =========================
+   CHANGER STATUT DEMANDE
+========================= */
+
+async function updateDemandeStatus(
+id,
+newStatus
+){
+
+try{
+
+const response =
+await fetch(
+DEMANDES_API+
+"?id=eq."+
+encodeURIComponent(id),
+{
+
+method:"PATCH",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+
+statut:newStatus
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+loadDemandes();
+
+
+}catch(error){
+
+alert(
+"Erreur de connexion."
+);
+
+}
+
+}
+
+
+/* =========================
+   SUPPRIMER DEMANDE
+========================= */
+
+async function removeDemande(id){
+
+if(!confirm(
+"Supprimer définitivement cette demande client ?"
+)){
+
+return;
+
+}
+
+
+try{
+
+const response =
+await fetch(
+DEMANDES_API+
+"?id=eq."+
+encodeURIComponent(id),
+{
+
+method:"DELETE",
+
+headers:headers()
+
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+loadDemandes();
+
+
+}catch(error){
+
+alert(
+"Erreur de connexion."
+);
+
+}
+
+}
+
+
+/* =========================
+   SECURITE HTML
+========================= */
+
+function esc(value){
+
+return String(value ?? "")
+.replace(
+/[&<>"']/g,
+function(c){
+
+return {
+
+"&":"&amp;",
+
+"<":"&lt;",
+
+">":"&gt;",
+
+'"':"&quot;",
+
+"'":"&#039;"
+
+}[c];
+
+}
+);
+
+}
+
+
+function escAttr(value){
+
+return String(value ?? "")
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+);
+
+}
+
+
+/* =========================
+   SESSION
+========================= */
+
+const savedToken =
+localStorage.getItem(
+"admin_access_token"
+);
+
+
+if(savedToken){
+
+loginBox.style.display="none";
+
+adminBox.style.display="block";
+
+load();
+
+loadDemandes();
+
+}
+
+
+/* =========================
+   DECONNEXION
+========================= */
+
+logoutBtn.addEventListener(
+"click",
+function(){
+
+localStorage.removeItem(
+"admin_access_token"
+);
+
+localStorage.removeItem(
+"admin_refresh_token"
+);
+
+location.reload();
+
+});
+
+</script>
+
+</body>
+</html>
