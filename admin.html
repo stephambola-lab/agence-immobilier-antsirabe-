@@ -294,6 +294,152 @@ border-radius:7px;
 border:1px solid #ddd;
 }
 
+
+/* =========================
+   DEMANDES CLIENTS
+========================= */
+
+.demandes-section{
+margin-top:30px;
+}
+
+.demandes-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+}
+
+.demandes-header h2{
+margin:0;
+}
+
+.demandes-count{
+background:#0b2239;
+color:white;
+padding:7px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:800;
+}
+
+.demandes-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+}
+
+.demande-card{
+background:white;
+border-radius:15px;
+padding:18px;
+box-shadow:0 4px 18px #00000012;
+border-left:5px solid #f4b942;
+}
+
+.demande-card.traitee{
+border-left-color:#3b8c5a;
+opacity:.85;
+}
+
+.demande-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px;
+}
+
+.demande-name{
+font-size:18px;
+font-weight:800;
+margin:0;
+}
+
+.demande-date{
+font-size:12px;
+color:#7a8795;
+margin-top:4px;
+}
+
+.demande-status{
+display:inline-block;
+padding:6px 10px;
+border-radius:20px;
+font-size:11px;
+font-weight:800;
+white-space:nowrap;
+}
+
+.demande-status.nouvelle{
+background:#fff2cc;
+color:#946200;
+}
+
+.demande-status.traitee{
+background:#dff3e6;
+color:#287542;
+}
+
+.demande-info{
+margin-top:14px;
+font-size:14px;
+line-height:1.8;
+color:#4f5d6b;
+}
+
+.demande-info strong{
+color:#172033;
+}
+
+.demande-details{
+margin-top:12px;
+padding:12px;
+background:#f4f6f9;
+border-radius:10px;
+font-size:14px;
+line-height:1.6;
+color:#52606d;
+}
+
+.demande-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:15px;
+}
+
+.whatsapp{
+background:#25d366;
+color:white;
+}
+
+.call{
+background:#174f83;
+color:white;
+}
+
+.traite{
+background:#3b8c5a;
+color:white;
+}
+
+.demande-delete{
+grid-column:1/-1;
+}
+
+.no-demandes{
+background:white;
+padding:30px;
+border-radius:12px;
+text-align:center;
+color:#667788;
+box-shadow:0 4px 18px #00000012;
+}
+
+
+/* MOBILE */
+
 @media(max-width:750px){
 
 header{
@@ -343,6 +489,19 @@ width:auto;
 height:210px;
 }
 
+.demandes-grid{
+grid-template-columns:1fr;
+}
+
+.demandes-header{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.demande-actions{
+grid-template-columns:1fr 1fr;
+}
+
 }
 
 </style>
@@ -371,6 +530,10 @@ class="back">
 
 </header>
 
+
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div
 id="loginBox"
@@ -406,11 +569,17 @@ Se connecter
 </div>
 
 
+<!-- =========================
+     ADMIN
+========================= -->
+
 <div
 id="adminBox"
 class="admin"
 style="display:none">
 
+
+<!-- AJOUT ANNONCE -->
 
 <div class="panel">
 
@@ -472,1078 +641,4 @@ Transaction
 
 <label>
 Titre
-</label>
-
-<input
-id="titre"
-placeholder="Belle maison à Antsirabe">
-
-</div>
-
-
-<div>
-
-<label>
-Prix (Ar)
-</label>
-
-<input
-id="prix"
-type="number"
-placeholder="Ex : 150000000">
-
-</div>
-
-
-<div>
-
-<label>
-Localisation
-</label>
-
-<input
-id="lieu"
-placeholder="Ex : Antsenakely, Antsirabe">
-
-</div>
-
-
-<div>
-
-<label>
-Photos du bien
-</label>
-
-<input
-id="photos"
-type="file"
-accept="image/*"
-multiple>
-
-<div
-id="photoCount"
-class="photo-count">
-
-Aucune photo sélectionnée.
-
-</div>
-
-<div
-id="preview"
-class="preview">
-</div>
-
-</div>
-
-
-<div class="full">
-
-<label>
-Description
-</label>
-
-<textarea
-id="description"
-placeholder="Décrivez le bien : chambres, terrain, accès, équipements, etc.">
-</textarea>
-
-</div>
-
-
-</div>
-
-
-<button
-id="addBtn">
-
-Enregistrer l'annonce
-
-</button>
-
-<p id="status"></p>
-
-</div>
-
-
-<div class="separator"></div>
-
-
-<div>
-
-<div class="title-row">
-
-<h2>
-Toutes les annonces
-</h2>
-
-</div>
-
-<div
-id="list"
-class="grid">
-</div>
-
-</div>
-
-
-</div>
-
-
-<script>
-
-const URL =
-"https://byezzcuqrweyhdjfnaky.supabase.co";
-
-const KEY =
-"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
-
-const BUCKET =
-"annonces-images";
-
-
-const loginBox =
-document.getElementById("loginBox");
-
-const adminBox =
-document.getElementById("adminBox");
-
-const email =
-document.getElementById("email");
-
-const password =
-document.getElementById("password");
-
-const loginBtn =
-document.getElementById("loginBtn");
-
-const message =
-document.getElementById("message");
-
-const logoutBtn =
-document.getElementById("logoutBtn");
-
-const addBtn =
-document.getElementById("addBtn");
-
-const status =
-document.getElementById("status");
-
-const list =
-document.getElementById("list");
-
-const photosInput =
-document.getElementById("photos");
-
-const photoCount =
-document.getElementById("photoCount");
-
-const preview =
-document.getElementById("preview");
-
-
-/* APERCU DES PHOTOS */
-
-photosInput.addEventListener(
-"change",
-function(){
-
-const files =
-photosInput.files;
-
-preview.innerHTML="";
-
-if(!files.length){
-
-photoCount.textContent =
-"Aucune photo sélectionnée.";
-
-return;
-
-}
-
-photoCount.textContent =
-files.length+
-(files.length>1
-?" photos sélectionnées."
-:" photo sélectionnée.");
-
-
-Array.from(files).forEach(
-function(file){
-
-const img =
-document.createElement("img");
-
-img.src =
-URL.createObjectURL(file);
-
-preview.appendChild(img);
-
-});
-
-});
-
-
-/* LOGIN */
-
-loginBtn.addEventListener(
-"click",
-login
-);
-
-
-password.addEventListener(
-"keydown",
-function(e){
-
-if(e.key==="Enter"){
-
-login();
-
-}
-
-});
-
-
-async function login(){
-
-const mail =
-email.value.trim();
-
-const pass =
-password.value;
-
-
-if(!mail || !pass){
-
-message.className="error";
-
-message.textContent =
-"Veuillez entrer votre email et votre mot de passe.";
-
-return;
-
-}
-
-
-loginBtn.disabled=true;
-
-loginBtn.textContent =
-"Connexion...";
-
-message.textContent="";
-
-
-try{
-
-const response =
-await fetch(
-URL+
-"/auth/v1/token?grant_type=password",
-{
-
-method:"POST",
-
-headers:{
-"apikey":KEY,
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-email:mail,
-password:pass
-
-})
-
-}
-);
-
-
-const data =
-await response.json();
-
-
-if(!response.ok){
-
-message.className="error";
-
-message.textContent =
-"Email ou mot de passe incorrect.";
-
-loginBtn.disabled=false;
-
-loginBtn.textContent =
-"Se connecter";
-
-return;
-
-}
-
-
-localStorage.setItem(
-"admin_access_token",
-data.access_token
-);
-
-localStorage.setItem(
-"admin_refresh_token",
-data.refresh_token
-);
-
-
-loginBox.style.display="none";
-
-adminBox.style.display="block";
-
-load();
-
-
-}catch(error){
-
-message.className="error";
-
-message.textContent =
-"Erreur de connexion. Vérifiez votre Internet.";
-
-loginBtn.disabled=false;
-
-loginBtn.textContent =
-"Se connecter";
-
-}
-
-}
-
-
-/* TOKEN */
-
-function token(){
-
-return localStorage.getItem(
-"admin_access_token"
-);
-
-}
-
-
-/* HEADERS */
-
-function headers(){
-
-return {
-
-"apikey":KEY,
-
-"Authorization":
-"Bearer "+token(),
-
-"Content-Type":
-"application/json"
-
-};
-
-}
-
-
-/* CHARGER */
-
-async function load(){
-
-status.textContent =
-"Chargement des annonces...";
-
-
-try{
-
-const response =
-await fetch(
-URL+
-"/rest/v1/annonces?select=*&order=created_at.desc",
-{
-headers:headers()
-}
-);
-
-
-const data =
-await response.json();
-
-
-if(!response.ok){
-
-status.className="error";
-
-status.textContent =
-"Erreur : "+JSON.stringify(data);
-
-return;
-
-}
-
-
-status.textContent="";
-
-render(data);
-
-
-}catch(error){
-
-status.className="error";
-
-status.textContent =
-"Erreur de connexion.";
-
-}
-
-}
-
-
-/* UPLOAD UNE PHOTO */
-
-async function upload(file){
-
-const filename =
-Date.now()+"_"+Math.random()
-.toString(36)
-.substring(2,8)+"_"+file.name.replace(
-/[^a-zA-Z0-9._-]/g,
-"_"
-);
-
-
-const response =
-await fetch(
-URL+
-"/storage/v1/object/"+
-BUCKET+
-"/"+
-filename,
-{
-
-method:"POST",
-
-headers:{
-
-"apikey":KEY,
-
-"Authorization":
-"Bearer "+token(),
-
-"Content-Type":
-file.type ||
-"application/octet-stream"
-
-},
-
-body:file
-
-}
-);
-
-
-if(!response.ok){
-
-throw new Error(
-await response.text()
-);
-
-}
-
-
-return filename;
-
-}
-
-
-/* AJOUT */
-
-addBtn.addEventListener(
-"click",
-add
-);
-
-
-async function add(){
-
-const titre =
-document.getElementById("titre")
-.value.trim();
-
-const lieu =
-document.getElementById("lieu")
-.value.trim();
-
-const prix =
-document.getElementById("prix")
-.value;
-
-const type =
-document.getElementById("type")
-.value;
-
-const transaction =
-document.getElementById("transaction")
-.value;
-
-const description =
-document.getElementById("description")
-.value;
-
-const files =
-document.getElementById("photos")
-.files;
-
-
-if(!titre || !lieu){
-
-status.className="error";
-
-status.textContent =
-"Titre et localisation sont obligatoires.";
-
-return;
-
-}
-
-
-if(!files.length){
-
-status.className="error";
-
-status.textContent =
-"Veuillez sélectionner au moins une photo.";
-
-return;
-
-}
-
-
-addBtn.disabled=true;
-
-addBtn.textContent =
-"Enregistrement...";
-
-status.className="";
-
-status.textContent =
-"Préparation de l'annonce...";
-
-
-try{
-
-let uploaded=[];
-
-
-/* UPLOAD DE TOUTES LES PHOTOS */
-
-for(let i=0;i<files.length;i++){
-
-status.textContent =
-"Téléversement de la photo "+
-(i+1)+
-" / "+
-files.length+
-"...";
-
-const filename =
-await upload(files[i]);
-
-uploaded.push(filename);
-
-}
-
-
-/* SAUVEGARDE */
-
-status.textContent =
-"Enregistrement de l'annonce...";
-
-
-const response =
-await fetch(
-URL+
-"/rest/v1/annonces",
-{
-
-method:"POST",
-
-headers:{
-...headers(),
-"Prefer":"return=minimal"
-},
-
-body:JSON.stringify({
-
-titre:titre,
-
-prix:prix
-?Number(prix)
-:null,
-
-lieu:lieu,
-
-type:type,
-
-transaction:transaction,
-
-description:description,
-
-image_url:
-JSON.stringify(uploaded),
-
-statut:"a_valider"
-
-})
-
-}
-);
-
-
-if(!response.ok){
-
-throw new Error(
-await response.text()
-);
-
-}
-
-
-status.className="success";
-
-status.textContent =
-"Annonce enregistrée avec "+
-uploaded.length+
-(uploaded.length>1
-?" photos."
-:" photo.");
-
-
-/* RESET */
-
-document.getElementById("titre")
-.value="";
-
-document.getElementById("prix")
-.value="";
-
-document.getElementById("lieu")
-.value="";
-
-document.getElementById("description")
-.value="";
-
-document.getElementById("photos")
-.value="";
-
-photoCount.textContent =
-"Aucune photo sélectionnée.";
-
-preview.innerHTML="";
-
-
-load();
-
-
-}catch(error){
-
-status.className="error";
-
-status.textContent =
-"Erreur : "+error.message;
-
-}
-
-
-addBtn.disabled=false;
-
-addBtn.textContent =
-"Enregistrer l'annonce";
-
-}
-
-
-/* STATUT */
-
-async function updateStatus(
-id,
-newStatus
-){
-
-try{
-
-const response =
-await fetch(
-URL+
-"/rest/v1/annonces?id=eq."+
-encodeURIComponent(id),
-{
-
-method:"PATCH",
-
-headers:{
-...headers(),
-"Prefer":"return=minimal"
-},
-
-body:JSON.stringify({
-
-statut:newStatus
-
-})
-
-}
-);
-
-
-if(!response.ok){
-
-alert(
-"Erreur : "+
-await response.text()
-);
-
-return;
-
-}
-
-
-load();
-
-
-}catch(error){
-
-alert(
-"Erreur de connexion."
-);
-
-}
-
-}
-
-
-/* SUPPRIMER */
-
-async function removeAnnonce(id){
-
-if(!confirm(
-"Supprimer définitivement cette annonce ?"
-)){
-
-return;
-
-}
-
-
-try{
-
-const response =
-await fetch(
-URL+
-"/rest/v1/annonces?id=eq."+
-encodeURIComponent(id),
-{
-
-method:"DELETE",
-
-headers:headers()
-
-}
-);
-
-
-if(!response.ok){
-
-alert(
-"Erreur : "+
-await response.text()
-);
-
-return;
-
-}
-
-
-load();
-
-
-}catch(error){
-
-alert(
-"Erreur de connexion."
-);
-
-}
-
-}
-
-
-/* AFFICHAGE ADMIN */
-
-function render(data){
-
-if(!data.length){
-
-list.innerHTML =
-"<div class='empty'>"+
-"Aucune annonce pour le moment."+
-"</div>";
-
-return;
-
-}
-
-
-list.innerHTML =
-data.map(function(a){
-
-let image="";
-
-let photoList=[];
-
-
-/*
-Compatibilité :
-- ancienne annonce = un seul nom
-- nouvelle annonce = JSON avec plusieurs noms
-*/
-
-if(a.image_url){
-
-try{
-
-const parsed =
-JSON.parse(a.image_url);
-
-if(Array.isArray(parsed)){
-
-photoList=parsed;
-
-}
-
-}catch(e){
-
-photoList=[a.image_url];
-
-}
-
-}
-
-
-if(photoList.length){
-
-image =
-URL+
-"/storage/v1/object/public/"+
-BUCKET+
-"/"+
-photoList[0];
-
-}
-
-
-const prix =
-a.prix
-?
-new Intl.NumberFormat("fr-FR")
-.format(a.prix)+" Ar"
-:
-"Prix sur demande";
-
-
-let statusClass =
-"status-badge";
-
-
-if(a.statut==="publiee"){
-
-statusClass +=
-" status-published";
-
-}
-
-
-const action =
-a.statut==="publiee"
-
-?
-
-`<button
-onclick="updateStatus('${a.id}','a_valider')">
-Dépublier
-</button>`
-
-:
-
-`<button
-class="ok"
-onclick="updateStatus('${a.id}','publiee')">
-Publier
-</button>`;
-
-
-/*
-COMPTEUR DE VUES
-*/
-
-const vues =
-Number(a.vues || 0);
-
-
-return `
-
-<div class="card">
-
-<div class="photo">
-
-${
-image
-?
-`<img
-src="${image}"
-alt="">`
-:
-"PHOTO DU BIEN"
-}
-
-</div>
-
-
-<div class="body">
-
-<h3>
-${esc(a.titre)}
-</h3>
-
-
-<div class="info">
-
-${esc(a.type||"Bien immobilier")}
-
-<br>
-
-📍 ${esc(a.lieu||"")}
-
-</div>
-
-
-<div class="price">
-${prix}
-</div>
-
-
-<div class="photo-count">
-
-📸 ${photoList.length}
-${photoList.length>1?"photos":"photo"}
-
-</div>
-
-
-<div class="views">
-
-👁️ ${vues} ${vues>1?"vues":"vue"}
-
-</div>
-
-
-<span class="${statusClass}">
-Statut : ${esc(a.statut)}
-</span>
-
-
-<div class="actions">
-
-${action}
-
-<button
-class="danger"
-onclick="removeAnnonce('${a.id}')">
-
-Supprimer
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}).join("");
-
-}
-
-
-/* SECURITE */
-
-function esc(value){
-
-return String(value ?? "")
-.replace(
-/[&<>"']/g,
-function(c){
-
-return {
-
-"&":"&amp;",
-
-"<":"&lt;",
-
-">":"&gt;",
-
-'"':"&quot;",
-
-"'":"&#039;"
-
-}[c];
-
-}
-);
-
-}
-
-
-/* SESSION */
-
-const savedToken =
-localStorage.getItem(
-"admin_access_token"
-);
-
-
-if(savedToken){
-
-loginBox.style.display="none";
-
-adminBox.style.display="block";
-
-load();
-
-}
-
-
-/* DECONNEXION */
-
-logoutBtn.addEventListener(
-"click",
-function(){
-
-localStorage.removeItem(
-"admin_access_token"
-);
-
-localStorage.removeItem(
-"admin_refresh_token"
-);
-
-location.reload();
-
-});
-
-</script>
-
-</body>
-</html>
+</
