@@ -7,20 +7,13 @@
 <title>Agence Immobilier Antsirabe | Maisons, Terrains & Appartements</title>
 
 <meta name="description" content="Agence Immobilier Antsirabe : maisons, terrains, appartements et locaux commerciaux à vendre ou à louer.">
-
 <meta name="robots" content="index, follow">
-
 <link rel="canonical" href="https://antsirabe-immo.devs.surf/">
 
 <style>
+*{box-sizing:border-box}
 
-*{
-box-sizing:border-box
-}
-
-html{
-scroll-behavior:smooth
-}
+html{scroll-behavior:smooth}
 
 body{
 margin:0;
@@ -47,9 +40,7 @@ font-size:19px;
 font-weight:800;
 }
 
-.logo span{
-color:#f4b942;
-}
+.logo span{color:#f4b942}
 
 nav{
 display:flex;
@@ -63,9 +54,7 @@ font-size:14px;
 font-weight:600;
 }
 
-nav a:hover{
-color:#f4b942;
-}
+nav a:hover{color:#f4b942}
 
 
 /* HERO */
@@ -251,35 +240,29 @@ grid-template-columns:1fr 1fr;
 gap:8px;
 }
 
-.details{
-width:100%;
-padding:12px;
-border:0;
-border-radius:9px;
-background:#f4b942;
-color:#172033;
-font-weight:bold;
-cursor:pointer;
-}
-
-.details:hover{
-background:#e4a92f;
-}
-
+.details,
 .visit{
 width:100%;
 padding:12px;
 border:0;
 border-radius:9px;
-background:#0b2239;
-color:white;
 font-weight:bold;
 cursor:pointer;
 }
 
-.visit:hover{
-background:#164b78;
+.details{
+background:#f4b942;
+color:#172033;
 }
+
+.details:hover{background:#e4a92f}
+
+.visit{
+background:#0b2239;
+color:white;
+}
+
+.visit:hover{background:#164b78}
 
 
 /* AGENCE */
@@ -313,9 +296,7 @@ font-size:30px;
 margin-bottom:10px;
 }
 
-.feature h3{
-margin:8px 0;
-}
+.feature h3{margin:8px 0}
 
 .feature p{
 color:#687386;
@@ -339,9 +320,7 @@ margin-top:0;
 font-size:28px;
 }
 
-.contact p{
-font-size:18px;
-}
+.contact p{font-size:18px}
 
 .contact a{
 display:inline-block;
@@ -398,9 +377,7 @@ justify-content:center;
 padding:20px;
 }
 
-.gallery.show{
-display:flex;
-}
+.gallery.show{display:flex}
 
 .gallery-box{
 position:relative;
@@ -452,13 +429,8 @@ cursor:pointer;
 z-index:5;
 }
 
-.gallery-prev{
-left:10px;
-}
-
-.gallery-next{
-right:10px;
-}
+.gallery-prev{left:10px}
+.gallery-next{right:10px}
 
 .gallery-count{
 position:absolute;
@@ -483,9 +455,7 @@ flex-direction:column;
 gap:12px;
 }
 
-.logo{
-font-size:17px;
-}
+.logo{font-size:17px}
 
 nav{
 width:100%;
@@ -493,17 +463,13 @@ justify-content:center;
 gap:13px;
 }
 
-nav a{
-font-size:12px;
-}
+nav a{font-size:12px}
 
 .hero{
 padding:55px 5% 45px;
 }
 
-.hero h1{
-font-size:30px;
-}
+.hero h1{font-size:30px}
 
 .hero p{
 font-size:15px;
@@ -521,37 +487,21 @@ padding:12px;
 width:100%;
 }
 
-section{
-padding:42px 5%;
-}
+section{padding:42px 5%}
 
-.section-title h2{
-font-size:25px;
-}
+.section-title h2{font-size:25px}
 
-.grid{
-grid-template-columns:1fr;
-}
+.grid{grid-template-columns:1fr}
 
-.features{
-grid-template-columns:1fr;
-}
+.features{grid-template-columns:1fr}
 
-.photo{
-height:220px;
-}
+.photo{height:220px}
 
-.buttons{
-grid-template-columns:1fr;
-}
+.buttons{grid-template-columns:1fr}
 
-.gallery{
-padding:10px;
-}
+.gallery{padding:10px}
 
-.gallery-box{
-height:80vh;
-}
+.gallery-box{height:80vh}
 
 .gallery-main{
 max-width:100%;
@@ -565,19 +515,13 @@ height:42px;
 font-size:25px;
 }
 
-.gallery-prev{
-left:3px;
-}
-
-.gallery-next{
-right:3px;
-}
+.gallery-prev{left:3px}
+.gallery-next{right:3px}
 
 .gallery-close{
 right:3px;
 top:3px;
 }
-
 }
 
 
@@ -594,7 +538,6 @@ grid-template-columns:1fr 1fr;
 }
 
 }
-
 </style>
 </head>
 
@@ -627,27 +570,17 @@ Maisons, appartements, terrains et locaux à vendre ou à louer.
 <div class="search">
 
 <select id="type">
-
-<option value="">
-Tous les types
-</option>
-
+<option value="">Tous les types</option>
 <option>Maison</option>
 <option>Appartement</option>
 <option>Terrain</option>
 <option>Local commercial</option>
-
 </select>
 
 <select id="op">
-
-<option value="">
-Toutes transactions
-</option>
-
+<option value="">Toutes transactions</option>
 <option>À vendre</option>
 <option>À louer</option>
-
 </select>
 
 <input
@@ -667,9 +600,7 @@ Rechercher
 
 <div class="section-title">
 
-<h2>
-Nos biens disponibles
-</h2>
+<h2>Nos biens disponibles</h2>
 
 <p>
 Découvrez les dernières annonces publiées.
@@ -694,9 +625,7 @@ Chargement des biens...
 
 <div class="section-title">
 
-<h2>
-À propos de notre agence
-</h2>
+<h2>À propos de notre agence</h2>
 
 <p>
 Votre partenaire immobilier à Antsirabe.
@@ -716,9 +645,7 @@ l'organisation des visites et la mise en relation.
 
 <div class="icon">🏠</div>
 
-<h3>
-Biens variés
-</h3>
+<h3>Biens variés</h3>
 
 <p>
 Maisons, terrains, appartements et locaux commerciaux.
@@ -726,14 +653,11 @@ Maisons, terrains, appartements et locaux commerciaux.
 
 </div>
 
-
 <div class="feature">
 
 <div class="icon">📍</div>
 
-<h3>
-Antsirabe
-</h3>
+<h3>Antsirabe</h3>
 
 <p>
 Des annonces adaptées aux différents quartiers et alentours.
@@ -741,14 +665,11 @@ Des annonces adaptées aux différents quartiers et alentours.
 
 </div>
 
-
 <div class="feature">
 
 <div class="icon">🤝</div>
 
-<h3>
-Accompagnement
-</h3>
+<h3>Accompagnement</h3>
 
 <p>
 Nous facilitons la prise de contact et l'organisation des visites.
@@ -765,21 +686,15 @@ Nous facilitons la prise de contact et l'organisation des visites.
 
 <section id="contact" class="contact">
 
-<h2>
-Vous cherchez un bien ?
-</h2>
+<h2>Vous cherchez un bien ?</h2>
 
 <p>
 Contactez directement Agence Immobilier Antsirabe.
 </p>
 
-<p>
-📞 034 41 711 96
-</p>
+<p>📞 034 41 711 96</p>
 
-<a
-class="call"
-href="tel:+261344171196">
+<a class="call" href="tel:+261344171196">
 Appeler
 </a>
 
@@ -812,17 +727,13 @@ onclick="closeGallery(event)">
 <button
 class="gallery-close"
 onclick="closeGallery()">
-
 ×
-
 </button>
 
 <button
 class="gallery-prev"
 onclick="previousPhoto(event)">
-
 ‹
-
 </button>
 
 <img
@@ -834,9 +745,7 @@ alt="Photo du bien">
 <button
 class="gallery-next"
 onclick="nextPhoto(event)">
-
 ›
-
 </button>
 
 <div
@@ -858,45 +767,45 @@ const SUPABASE_KEY =
 "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 
 const API =
-SUPABASE_URL+"/rest/v1/annonces";
+SUPABASE_URL + "/rest/v1/annonces";
 
 const BUCKET =
 "annonces-images";
 
-let all=[];
+let all = [];
 
-let currentGallery=[];
-let currentPhoto=0;
+let currentGallery = [];
+let currentPhoto = 0;
 
 
-/* CHARGER */
+/* CHARGER LES ANNONCES */
 
 async function load(){
 
 try{
 
-const r =
-await fetch(
-API+
+const r = await fetch(
+API +
 "?statut=eq.publiee&order=created_at.desc",
 {
 headers:{
 apikey:SUPABASE_KEY,
-Authorization:"Bearer "+SUPABASE_KEY
+Authorization:"Bearer " + SUPABASE_KEY
 }
 }
 );
 
-if(!r.ok)
+if(!r.ok){
 throw new Error(await r.text());
+}
 
-all=await r.json();
+all = await r.json();
 
 render(all);
 
 }catch(e){
 
-document.getElementById("cards").innerHTML=
+document.getElementById("cards").innerHTML =
 '<p class="msg">Impossible de charger les annonces pour le moment.</p>';
 
 console.error(e);
@@ -910,14 +819,15 @@ console.error(e);
 
 function imgUrl(path){
 
-return path
-?
-SUPABASE_URL+
-"/storage/v1/object/public/"+
-BUCKET+
-"/"+
-encodeURIComponent(path).replace(/%2F/g,"/")
-:"";
+if(!path){
+return "";
+}
+
+return SUPABASE_URL +
+"/storage/v1/object/public/" +
+BUCKET +
+"/" +
+encodeURIComponent(path).replace(/%2F/g,"/");
 
 }
 
@@ -932,7 +842,7 @@ return [];
 
 try{
 
-const parsed=JSON.parse(value);
+const parsed = JSON.parse(value);
 
 if(Array.isArray(parsed)){
 return parsed.filter(Boolean);
@@ -949,24 +859,26 @@ return [value];
 
 function render(list){
 
-const cards=document.getElementById("cards");
+const cards =
+document.getElementById("cards");
 
-cards.innerHTML=list.length
+cards.innerHTML = list.length
 
 ?
 
 list.map(b=>{
 
-const photos=getPhotos(b.image_url);
+const photos =
+getPhotos(b.image_url);
 
-const firstImage=
+const firstImage =
 photos.length
 ?
 imgUrl(photos[0])
 :"";
 
-const photoHint=
-photos.length>1
+const photoHint =
+photos.length > 1
 
 ?
 
@@ -976,7 +888,7 @@ photos.length>1
 
 :
 
-photos.length===1
+photos.length === 1
 
 ?
 
@@ -986,13 +898,16 @@ photos.length===1
 
 :"";
 
+const photoData =
+encodeURIComponent(JSON.stringify(photos));
+
 return `
 
 <div class="card">
 
 <div
 class="photo"
-onclick="openGallery(${JSON.stringify(photos).replace(/"/g,'&quot;')})">
+onclick="openGalleryEncoded('${photoData}')">
 
 ${
 firstImage
@@ -1030,7 +945,7 @@ ${esc(b.transaction)}
 <div class="body">
 
 <div class="type">
-${esc(b.type||"Bien immobilier")}
+${esc(b.type || "Bien immobilier")}
 </div>
 
 <h3>
@@ -1042,7 +957,7 @@ ${formatPrice(b.prix)}
 </div>
 
 <div class="location">
-📍 ${esc(b.lieu||"Antsirabe")}
+📍 ${esc(b.lieu || "Antsirabe")}
 </div>
 
 <div class="buttons">
@@ -1088,9 +1003,130 @@ if(!id){
 return;
 }
 
-window.location.href=
-"annonce.html?id="+
+window.location.href =
+"annonce.html?id=" +
 encodeURIComponent(id);
+
+}
+
+
+/* GALERIE */
+
+function openGalleryEncoded(data){
+
+try{
+
+const photos =
+JSON.parse(decodeURIComponent(data));
+
+openGallery(photos);
+
+}catch(e){
+
+console.error(e);
+
+}
+
+}
+
+
+function openGallery(photos){
+
+if(!photos || !photos.length){
+return;
+}
+
+currentGallery = photos;
+currentPhoto = 0;
+
+showCurrentPhoto();
+
+document
+.getElementById("gallery")
+.classList.add("show");
+
+}
+
+
+function showCurrentPhoto(){
+
+const img =
+document.getElementById("galleryImage");
+
+const count =
+document.getElementById("galleryCount");
+
+if(!currentGallery.length){
+return;
+}
+
+img.src =
+imgUrl(currentGallery[currentPhoto]);
+
+count.textContent =
+(currentPhoto + 1) +
+" / " +
+currentGallery.length;
+
+}
+
+
+function nextPhoto(event){
+
+if(event){
+event.stopPropagation();
+}
+
+if(!currentGallery.length){
+return;
+}
+
+currentPhoto =
+(currentPhoto + 1) %
+currentGallery.length;
+
+showCurrentPhoto();
+
+}
+
+
+function previousPhoto(event){
+
+if(event){
+event.stopPropagation();
+}
+
+if(!currentGallery.length){
+return;
+}
+
+currentPhoto =
+(currentPhoto - 1 + currentGallery.length) %
+currentGallery.length;
+
+showCurrentPhoto();
+
+}
+
+
+function closeGallery(event){
+
+if(event){
+
+event.stopPropagation();
+
+if(
+event.target !==
+document.getElementById("gallery")
+){
+return;
+}
+
+}
+
+document
+.getElementById("gallery")
+.classList.remove("show");
 
 }
 
@@ -1099,27 +1135,28 @@ encodeURIComponent(id);
 
 function filter(){
 
-const t=
+const t =
 document.getElementById("type").value;
 
-const o=
+const o =
 document.getElementById("op").value;
 
-const s=
+const s =
 document.getElementById("q")
 .value
-.toLowerCase();
+.toLowerCase()
+.trim();
 
-const result=
-all.filter(b=>
+const result =
+all.filter(b =>
 
-(!t||b.type===t)&&
+(!t || b.type === t) &&
 
-(!o||b.transaction===o)&&
+(!o || b.transaction === o) &&
 
 (
-!s||
-(b.lieu||"")
+!s ||
+(b.lieu || "")
 .toLowerCase()
 .includes(s)
 )
@@ -1135,12 +1172,26 @@ render(result);
 
 function formatPrice(v){
 
-if(v===null||v===undefined||v===""){
+if(
+v === null ||
+v === undefined ||
+v === ""
+){
+
 return "Prix sur demande";
+
+}
+
+const number =
+Number(v);
+
+if(Number.isNaN(number)){
+return String(v);
 }
 
 return new Intl.NumberFormat("fr-FR")
-.format(Number(v))+" Ar";
+.format(number) +
+" Ar";
 
 }
 
@@ -1149,28 +1200,32 @@ return new Intl.NumberFormat("fr-FR")
 
 function wa(id,title){
 
-location.href=
-"https://wa.me/261344171196?text="+
+location.href =
+"https://wa.me/261344171196?text=" +
 encodeURIComponent(
-"Bonjour Agence Immobilier Antsirabe, je souhaite visiter le bien "+
-id+" - "+title+"."
+"Bonjour Agence Immobilier Antsirabe, je souhaite visiter le bien " +
+id +
+" - " +
+title +
+"."
 );
 
 }
 
 
-/* SECURITE */
+/* SECURITE HTML */
 
 function esc(x){
 
-return String(x??"").replace(
+return String(x ?? "")
+.replace(
 /[&<>"]/g,
-m=>({
+m => ({
 
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;'
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;"
 
 }[m])
 
@@ -1179,8 +1234,56 @@ m=>({
 }
 
 
+/* SECURITE ATTRIBUT */
+
 function escAttr(x){
 
-return String(x??"")
+return String(x ?? "")
+.replace(/\\/g,"\\\\")
 .replace(/'/g,"&#39;")
-.replace(/\\/g,"\\\\
+.replace(/"/g,"&quot;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;");
+
+}
+
+
+/* CLAVIER GALERIE */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+const gallery =
+document.getElementById("gallery");
+
+if(
+!gallery.classList.contains("show")
+){
+return;
+}
+
+if(e.key === "Escape"){
+closeGallery();
+}
+
+if(e.key === "ArrowRight"){
+nextPhoto();
+}
+
+if(e.key === "ArrowLeft"){
+previousPhoto();
+}
+
+}
+);
+
+
+/* LANCER LE CHARGEMENT */
+
+load();
+
+</script>
+
+</body>
+</html>
