@@ -10,205 +10,248 @@
 content="Découvrez cette annonce immobilière à Antsirabe.">
 
 <style>
+
 *{
-  box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f7fa;
-  color:#172033;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f7fa;
+color:#172033;
 }
 
 header{
-  background:#102a43;
-  color:white;
-  padding:15px 5%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+background:#102a43;
+color:white;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .logo{
-  font-weight:800;
-  font-size:18px;
+font-weight:800;
+font-size:18px;
 }
 
 .logo b{
-  color:#f4b942;
+color:#f4b942;
 }
 
 header a{
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
+color:white;
+text-decoration:none;
+font-weight:bold;
 }
 
 .container{
-  max-width:1000px;
-  margin:auto;
-  padding:35px 5%;
+max-width:1000px;
+margin:auto;
+padding:35px 5%;
 }
 
 .back{
-  display:inline-block;
-  margin-bottom:20px;
-  color:#1d4e89;
-  text-decoration:none;
-  font-weight:bold;
+display:inline-block;
+margin-bottom:20px;
+color:#1d4e89;
+text-decoration:none;
+font-weight:bold;
 }
 
 .card{
-  background:white;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 3px 15px #0001;
+background:white;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 3px 15px #0001;
 }
 
 .gallery{
-  position:relative;
-  width:100%;
-  height:500px;
-  background:#dbeafe;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+position:relative;
+width:100%;
+height:500px;
+background:#dbeafe;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .gallery img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .gallery button{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:45px;
-  height:45px;
-  border:0;
-  border-radius:50%;
-  background:#0009;
-  color:white;
-  font-size:25px;
-  cursor:pointer;
-  z-index:5;
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:45px;
+height:45px;
+border:0;
+border-radius:50%;
+background:#0009;
+color:white;
+font-size:25px;
+cursor:pointer;
+z-index:5;
 }
 
 .prev{
-  left:15px;
+left:15px;
 }
 
 .next{
-  right:15px;
+right:15px;
 }
 
 .counter{
-  position:absolute;
-  bottom:15px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#0009;
-  color:white;
-  padding:7px 14px;
-  border-radius:20px;
-  font-size:14px;
+position:absolute;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+background:#0009;
+color:white;
+padding:7px 14px;
+border-radius:20px;
+font-size:14px;
 }
 
 .body{
-  padding:28px;
+padding:28px;
 }
 
 .tag{
-  display:inline-block;
-  font-size:13px;
-  background:#eaf1fb;
-  color:#1d4e89;
-  padding:7px 10px;
-  border-radius:20px;
+display:inline-block;
+font-size:13px;
+background:#eaf1fb;
+color:#1d4e89;
+padding:7px 10px;
+border-radius:20px;
 }
 
 h1{
-  margin:15px 0 8px;
-  font-size:30px;
+margin:15px 0 8px;
+font-size:30px;
 }
 
 .price{
-  font-size:27px;
-  font-weight:800;
-  color:#1d4e89;
-  margin:10px 0;
+font-size:27px;
+font-weight:800;
+color:#1d4e89;
+margin:10px 0;
 }
 
 .location{
-  font-size:16px;
-  margin:10px 0 20px;
+font-size:16px;
+margin:10px 0 20px;
 }
 
 .description{
-  line-height:1.7;
-  white-space:pre-line;
+line-height:1.7;
+white-space:pre-line;
 }
 
 .actions{
-  margin-top:25px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+margin-top:25px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
 }
 
-.actions a{
-  padding:13px 18px;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:bold;
+.actions a,
+.actions button{
+padding:13px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+border:0;
+font-size:14px;
+cursor:pointer;
+font-family:Arial,sans-serif;
 }
 
 .wa{
-  background:#25d366;
-  color:white;
+background:#25d366;
+color:white;
 }
 
 .call{
-  background:#102a43;
-  color:white;
+background:#102a43;
+color:white;
+}
+
+.facebook{
+background:#1877f2;
+color:white;
+}
+
+.copy{
+background:#eef2f6;
+color:#172033;
+}
+
+.share{
+background:#f4b942;
+color:#172033;
+}
+
+.copy-message{
+display:none;
+margin-top:12px;
+color:#16803c;
+font-weight:bold;
+font-size:14px;
 }
 
 .msg{
-  text-align:center;
-  padding:40px 20px;
+text-align:center;
+padding:40px 20px;
 }
 
 @media(max-width:750px){
 
-  .container{
-    padding:25px 4%;
-  }
-
-  .gallery{
-    height:300px;
-  }
-
-  h1{
-    font-size:25px;
-  }
-
-  .price{
-    font-size:22px;
-  }
-
-  .body{
-    padding:20px;
-  }
-
-  .gallery button{
-    width:40px;
-    height:40px;
-    font-size:21px;
-  }
+.container{
+padding:25px 4%;
 }
+
+.gallery{
+height:300px;
+}
+
+h1{
+font-size:25px;
+}
+
+.price{
+font-size:22px;
+}
+
+.body{
+padding:20px;
+}
+
+.gallery button{
+width:40px;
+height:40px;
+font-size:21px;
+}
+
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+}
+
+.actions a,
+.actions button{
+width:100%;
+text-align:center;
+padding:12px 8px;
+}
+
+}
+
 </style>
 </head>
 
@@ -216,29 +259,33 @@ h1{
 
 <header>
 
-  <div class="logo">
-    Antsirabe <b>Immo</b>
-  </div>
+<div class="logo">
+Antsirabe <b>Immo</b>
+</div>
 
-  <a href="index.html">← Retour au site</a>
+<a href="index.html">
+← Retour au site
+</a>
 
 </header>
 
+
 <div class="container">
 
-  <a class="back" href="index.html">
-    ← Retour aux annonces
-  </a>
+<a class="back" href="index.html">
+← Retour aux annonces
+</a>
 
-  <div id="content" class="card">
+<div id="content" class="card">
 
-    <div class="msg">
-      Chargement de l'annonce...
-    </div>
-
-  </div>
+<div class="msg">
+Chargement de l'annonce...
+</div>
 
 </div>
+
+</div>
+
 
 <script>
 
@@ -248,13 +295,20 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 
-const BUCKET = "annonces-images";
+const BUCKET =
+"annonces-images";
 
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
+const params =
+new URLSearchParams(location.search);
+
+const id =
+params.get("id");
 
 let photos = [];
+
 let currentPhoto = 0;
+
+let currentAnnonce = null;
 
 
 /* =========================
@@ -263,21 +317,42 @@ let currentPhoto = 0;
 
 function getPhotos(value){
 
-  if(!value){
-    return [];
-  }
+if(!value){
+return [];
+}
 
-  try{
+try{
 
-    const parsed = JSON.parse(value);
+const parsed =
+JSON.parse(value);
 
-    if(Array.isArray(parsed)){
-      return parsed;
-    }
+if(Array.isArray(parsed)){
+return parsed.filter(Boolean);
+}
 
-  }catch(e){}
+}catch(e){}
 
-  return [value];
+return [value];
+
+}
+
+
+/* =========================
+   URL IMAGE
+========================= */
+
+function imageUrl(path){
+
+if(!path){
+return "";
+}
+
+return SUPABASE_URL +
+"/storage/v1/object/public/" +
+BUCKET +
+"/" +
+encodeURIComponent(path).replace(/%2F/g,"/");
+
 }
 
 
@@ -287,66 +362,112 @@ function getPhotos(value){
 
 async function loadAnnonce(){
 
-  const content = document.getElementById("content");
+const content =
+document.getElementById("content");
 
-  if(!id){
+if(!id){
 
-    content.innerHTML = `
-      <div class="msg">
-        <h2>Annonce introuvable</h2>
-        <p>Aucune annonce sélectionnée.</p>
-      </div>
-    `;
+content.innerHTML = `
 
-    return;
-  }
+<div class="msg">
 
-  try{
+<h2>Annonce introuvable</h2>
 
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/annonces?id=eq." +
-      encodeURIComponent(id) +
-      "&statut=eq.publiee&select=*",
-      {
-        headers:{
-          apikey:SUPABASE_KEY,
-          Authorization:"Bearer " + SUPABASE_KEY
-        }
-      }
-    );
+<p>
+Aucune annonce sélectionnée.
+</p>
 
-    const data = await response.json();
+</div>
 
-    if(!data.length){
+`;
 
-      content.innerHTML = `
-        <div class="msg">
-          <h2>Annonce introuvable</h2>
-          <p>Cette annonce n'est pas disponible.</p>
-        </div>
-      `;
+return;
 
-      return;
-    }
+}
 
-    const annonce = data[0];
+try{
 
-    photos = getPhotos(annonce.image_url);
+const response =
+await fetch(
 
-    renderAnnonce(annonce);
+SUPABASE_URL +
+"/rest/v1/annonces?id=eq." +
+encodeURIComponent(id) +
+"&statut=eq.publiee&select=*",
 
-  }catch(error){
+{
 
-    console.error(error);
+headers:{
+apikey:SUPABASE_KEY,
+Authorization:"Bearer " + SUPABASE_KEY
+}
 
-    content.innerHTML = `
-      <div class="msg">
-        <h2>Erreur</h2>
-        <p>Impossible de charger cette annonce.</p>
-      </div>
-    `;
-  }
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+const data =
+await response.json();
+
+if(!data.length){
+
+content.innerHTML = `
+
+<div class="msg">
+
+<h2>Annonce introuvable</h2>
+
+<p>
+Cette annonce n'est pas disponible.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+const annonce =
+data[0];
+
+currentAnnonce =
+annonce;
+
+photos =
+getPhotos(annonce.image_url);
+
+renderAnnonce(annonce);
+
+}catch(error){
+
+console.error(error);
+
+content.innerHTML = `
+
+<div class="msg">
+
+<h2>Erreur</h2>
+
+<p>
+Impossible de charger cette annonce.
+</p>
+
+</div>
+
+`;
+
+}
+
 }
 
 
@@ -356,103 +477,291 @@ async function loadAnnonce(){
 
 function renderAnnonce(a){
 
-  const content = document.getElementById("content");
+const content =
+document.getElementById("content");
 
-  const firstPhoto = photos[0]
-    ? SUPABASE_URL +
-      "/storage/v1/object/public/" +
-      BUCKET +
-      "/" +
-      photos[0]
-    : "";
+const firstPhoto =
+photos[0]
+?
+imageUrl(photos[0])
+:"";
 
-  const whatsapp =
-    "https://wa.me/261344171196?text=" +
-    encodeURIComponent(
-      "Bonjour, je suis intéressé par l'annonce : " +
-      (a.titre || "")
-    );
+const currentUrl =
+window.location.href;
 
-  const phone = "tel:+261344171196";
+const titre =
+a.titre ||
+"Annonce immobilière";
 
-  content.innerHTML = `
+const whatsappMessage =
+"Bonjour, je suis intéressé par cette annonce : " +
+titre +
+"\n\n" +
+currentUrl;
 
-    <div class="gallery">
+const whatsapp =
+"https://wa.me/261344171196?text=" +
+encodeURIComponent(
+whatsappMessage
+);
 
-      ${
-        firstPhoto
-        ?
-        `<img id="mainPhoto"
-              src="${firstPhoto}"
-              alt="${a.titre || "Annonce immobilière"}">`
-        :
-        `<div>Aucune photo disponible</div>`
-      }
+const facebook =
+"https://www.facebook.com/sharer/sharer.php?u=" +
+encodeURIComponent(
+currentUrl
+);
 
-      ${
-        photos.length > 1
-        ?
-        `
-        <button class="prev" onclick="previousPhoto()">
-          ‹
-        </button>
+const phone =
+"tel:+261344171196";
 
-        <button class="next" onclick="nextPhoto()">
-          ›
-        </button>
 
-        <div class="counter" id="counter">
-          1 / ${photos.length}
-        </div>
-        `
-        :
-        ""
-      }
+content.innerHTML = `
 
-    </div>
+<div class="gallery">
 
-    <div class="body">
+${
+firstPhoto
 
-      <span class="tag">
-        ${a.type || "Bien immobilier"}
-        ${a.transaction ? " • " + a.transaction : ""}
-      </span>
+?
 
-      <h1>
-        ${a.titre || "Annonce immobilière"}
-      </h1>
+`
 
-      <div class="price">
-        ${a.prix || "Prix sur demande"}
-      </div>
+<img
+id="mainPhoto"
+src="${firstPhoto}"
+alt="${titre}">
 
-      <div class="location">
-        📍 ${a.localisation || "Antsirabe"}
-      </div>
+`
 
-      <div class="description">
-        ${a.description || "Aucune description disponible."}
-      </div>
+:
 
-      <div class="actions">
+`
 
-        <a
-          class="wa"
-          href="${whatsapp}"
-          target="_blank">
-          💬 WhatsApp
-        </a>
+<div>
+Aucune photo disponible
+</div>
 
-        <a
-          class="call"
-          href="${phone}">
-          📞 Appeler
-        </a>
+`
+}
 
-      </div>
 
-    </div>
-  `;
+${
+photos.length > 1
+
+?
+
+`
+
+<button
+class="prev"
+onclick="previousPhoto()">
+
+‹
+
+</button>
+
+
+<button
+class="next"
+onclick="nextPhoto()">
+
+›
+
+</button>
+
+
+<div
+class="counter"
+id="counter">
+
+1 / ${photos.length}
+
+</div>
+
+`
+
+:
+
+""
+
+}
+
+</div>
+
+
+<div class="body">
+
+<span class="tag">
+
+${a.type || "Bien immobilier"}
+
+${a.transaction
+? " • " + a.transaction
+: ""}
+
+</span>
+
+
+<h1>
+
+${escapeHtml(titre)}
+
+</h1>
+
+
+<div class="price">
+
+${formatPrice(a.prix)}
+
+</div>
+
+
+<div class="location">
+
+📍 ${escapeHtml(
+a.localisation ||
+a.lieu ||
+"Antsirabe"
+)}
+
+</div>
+
+
+<div class="description">
+
+${escapeHtml(
+a.description ||
+"Aucune description disponible."
+)}
+
+</div>
+
+
+<div class="actions">
+
+
+<a
+class="wa"
+href="${whatsapp}"
+target="_blank">
+
+💬 WhatsApp
+
+</a>
+
+
+<a
+class="call"
+href="${phone}">
+
+📞 Appeler
+
+</a>
+
+
+<a
+class="facebook"
+href="${facebook}"
+target="_blank"
+rel="noopener">
+
+📘 Facebook
+
+</a>
+
+
+<a
+class="copy"
+href="#"
+onclick="copyLink(event)">
+
+📋 Copier le lien
+
+</a>
+
+
+<button
+class="share"
+onclick="shareAnnonce()">
+
+📲 Partager
+
+</button>
+
+
+</div>
+
+
+<div
+id="copyMessage"
+class="copy-message">
+
+✅ Lien copié !
+
+</div>
+
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   PRIX
+========================= */
+
+function formatPrice(value){
+
+if(
+value === null ||
+value === undefined ||
+value === ""
+){
+
+return "Prix sur demande";
+
+}
+
+const number =
+Number(value);
+
+if(Number.isNaN(number)){
+return String(value);
+}
+
+return new Intl.NumberFormat("fr-FR")
+.format(number) +
+" Ar";
+
+}
+
+
+/* =========================
+   SÉCURITÉ HTML
+========================= */
+
+function escapeHtml(value){
+
+return String(value ?? "")
+.replace(
+/[&<>"']/g,
+function(match){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[match];
+
+}
+);
+
 }
 
 
@@ -462,15 +771,20 @@ function renderAnnonce(a){
 
 function nextPhoto(){
 
-  if(!photos.length) return;
+if(!photos.length){
+return;
+}
 
-  currentPhoto++;
+currentPhoto++;
 
-  if(currentPhoto >= photos.length){
-    currentPhoto = 0;
-  }
+if(currentPhoto >= photos.length){
 
-  showPhoto();
+currentPhoto = 0;
+
+}
+
+showPhoto();
+
 }
 
 
@@ -480,15 +794,21 @@ function nextPhoto(){
 
 function previousPhoto(){
 
-  if(!photos.length) return;
+if(!photos.length){
+return;
+}
 
-  currentPhoto--;
+currentPhoto--;
 
-  if(currentPhoto < 0){
-    currentPhoto = photos.length - 1;
-  }
+if(currentPhoto < 0){
 
-  showPhoto();
+currentPhoto =
+photos.length - 1;
+
+}
+
+showPhoto();
+
 }
 
 
@@ -498,24 +818,147 @@ function previousPhoto(){
 
 function showPhoto(){
 
-  const img = document.getElementById("mainPhoto");
-  const counter = document.getElementById("counter");
+const img =
+document.getElementById("mainPhoto");
 
-  if(!img) return;
+const counter =
+document.getElementById("counter");
 
-  img.src =
-    SUPABASE_URL +
-    "/storage/v1/object/public/" +
-    BUCKET +
-    "/" +
-    photos[currentPhoto];
+if(!img){
+return;
+}
 
-  if(counter){
-    counter.textContent =
-      (currentPhoto + 1) +
-      " / " +
-      photos.length;
-  }
+img.src =
+imageUrl(
+photos[currentPhoto]
+);
+
+if(counter){
+
+counter.textContent =
+(currentPhoto + 1) +
+" / " +
+photos.length;
+
+}
+
+}
+
+
+/* =========================
+   COPIER LE LIEN
+========================= */
+
+async function copyLink(event){
+
+if(event){
+event.preventDefault();
+}
+
+const url =
+window.location.href;
+
+try{
+
+await navigator.clipboard.writeText(url);
+
+}catch(e){
+
+const textarea =
+document.createElement("textarea");
+
+textarea.value = url;
+
+document.body.appendChild(
+textarea
+);
+
+textarea.select();
+
+document.execCommand("copy");
+
+textarea.remove();
+
+}
+
+const message =
+document.getElementById(
+"copyMessage"
+);
+
+if(message){
+
+message.style.display =
+"block";
+
+setTimeout(
+function(){
+
+message.style.display =
+"none";
+
+},
+2500
+);
+
+}
+
+}
+
+
+/* =========================
+   PARTAGE TÉLÉPHONE
+========================= */
+
+async function shareAnnonce(){
+
+const url =
+window.location.href;
+
+const title =
+currentAnnonce &&
+currentAnnonce.titre
+?
+currentAnnonce.titre
+:
+"Annonce immobilière Antsirabe";
+
+if(
+navigator.share
+){
+
+try{
+
+await navigator.share({
+
+title:title,
+
+text:
+"Découvrez cette annonce immobilière à Antsirabe : " +
+title,
+
+url:url
+
+});
+
+}catch(e){
+
+console.log(
+"Partage annulé."
+);
+
+}
+
+}else{
+
+await copyLink();
+
+alert(
+"Le partage direct n'est pas disponible sur ce navigateur. Le lien a été copié."
+);
+
+}
+
 }
 
 
@@ -523,18 +966,29 @@ function showPhoto(){
    CLAVIER
 ========================= */
 
-document.addEventListener("keydown", function(e){
+document.addEventListener(
+"keydown",
+function(e){
 
-  if(e.key === "ArrowRight"){
-    nextPhoto();
-  }
+if(e.key === "ArrowRight"){
 
-  if(e.key === "ArrowLeft"){
-    previousPhoto();
-  }
+nextPhoto();
 
-});
+}
 
+if(e.key === "ArrowLeft"){
+
+previousPhoto();
+
+}
+
+}
+);
+
+
+/* =========================
+   CHARGEMENT
+========================= */
 
 loadAnnonce();
 
