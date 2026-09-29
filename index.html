@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Immobilier Antsirabe | Maisons, Terrains et Appartements à vendre ou à louer</title>
+<title>Agence Immobilier Antsirabe | Maisons, Terrains & Appartements</title>
 
-<meta name="description" content="Agence Immobilier Antsirabe : découvrez des maisons, terrains, appartements et locaux commerciaux à vendre ou à louer à Antsirabe. Contactez-nous pour une visite.">
+<meta name="description" content="Agence Immobilier Antsirabe : maisons, terrains, appartements et locaux commerciaux à vendre ou à louer.">
 
 <meta name="robots" content="index, follow">
 
@@ -14,125 +14,407 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f7fa;color:#172033}
+
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+color:#172033;
+}
 
 header{
-background:#102a43;color:#fff;padding:15px 5%;
-display:flex;justify-content:space-between;align-items:center;
-position:sticky;top:0;z-index:5
+background:#0b2239;
+color:white;
+padding:14px 5%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;
+top:0;
+z-index:20;
+box-shadow:0 2px 12px #0003;
 }
 
-.logo{font-weight:800}
-.logo b{color:#f4b942}
-
-nav a{
-color:white;text-decoration:none;margin-left:16px;font-size:14px
+.logo{
+font-size:19px;
+font-weight:800;
 }
 
-.hero{
-background:linear-gradient(135deg,#102a43,#2563a6);
-color:#fff;padding:55px 5%;text-align:center
-}
-
-.hero h1{font-size:35px;margin:0 0 10px}
-
-.search{
-max-width:900px;margin:24px auto 0;background:white;padding:14px;
-border-radius:14px;display:grid;
-grid-template-columns:1fr 1fr 1.2fr auto;gap:9px
-}
-
-.search input,.search select,.search button{
-padding:12px;border-radius:8px;border:1px solid #ddd
-}
-
-.search button,button{
-background:#f4b942;border:0;font-weight:bold;cursor:pointer
-}
-
-section{max-width:1200px;margin:auto;padding:42px 5%}
-.center{text-align:center}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px
-}
-
-.card{
-background:white;border-radius:14px;overflow:hidden;
-box-shadow:0 3px 15px #0001
-}
-
-.photo{
-height:180px;
-background:linear-gradient(135deg,#dbeafe,#a8b7c8);
-display:flex;align-items:center;justify-content:center;
-color:#40546b;font-weight:bold
-}
-
-.photo img{
-width:100%;height:100%;object-fit:cover
-}
-
-.body{padding:17px}
-
-.tag{
-font-size:12px;background:#eaf1fb;color:#1d4e89;
-padding:5px 8px;border-radius:20px
-}
-
-.price{
-font-size:19px;font-weight:800;color:#1d4e89;margin:8px 0
-}
-
-.body button{padding:11px 14px;border-radius:8px}
-
-.contact{
-background:#102a43;color:white;max-width:none;text-align:center
-}
-
-.contact a{
-display:inline-block;padding:13px 19px;margin:5px;
-border-radius:8px;text-decoration:none;font-weight:bold
-}
-
-.call{background:white;color:#102a43}
-.wa{background:#25d366;color:white}
-
-footer{
-background:#091c2c;color:#cbd5e1;text-align:center;
-padding:20px;font-size:13px
-}
-
-.msg{text-align:center;padding:20px}
-
-/* VERSION TELEPHONE */
-@media(max-width:750px){
-header{
-flex-direction:column;
-gap:12px;
+.logo span{
+color:#f4b942;
 }
 
 nav{
 display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:7px;
-width:100%;
+gap:20px;
 }
 
 nav a{
-margin-left:0;
-padding:7px 5px;
+color:white;
+text-decoration:none;
+font-size:14px;
+font-weight:600;
+}
+
+nav a:hover{
+color:#f4b942;
+}
+
+/* HERO */
+
+.hero{
+background:
+linear-gradient(#0b2239dd,#164b78ee),
+url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;
+background-position:center;
+color:white;
+padding:80px 5% 65px;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+margin:0 0 12px;
+}
+
+.hero p{
+font-size:18px;
+margin:0;
+opacity:.95;
+}
+
+.search{
+max-width:1000px;
+margin:30px auto 0;
+background:white;
+padding:12px;
+border-radius:16px;
+display:grid;
+grid-template-columns:1fr 1fr 1.4fr auto;
+gap:9px;
+box-shadow:0 8px 30px #0004;
+}
+
+.search select,
+.search input,
+.search button{
+height:48px;
+border-radius:9px;
+border:1px solid #ddd;
+padding:0 13px;
+font-size:14px;
+}
+
+.search button{
+background:#f4b942;
+border:0;
+font-weight:800;
+cursor:pointer;
+}
+
+/* SECTIONS */
+
+section{
+max-width:1200px;
+margin:auto;
+padding:55px 5%;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:30px;
+}
+
+.section-title h2{
+margin:0 0 8px;
+font-size:30px;
+}
+
+.section-title p{
+margin:0;
+color:#687386;
+}
+
+/* CARDS */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:22px;
+}
+
+.card{
+background:white;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 4px 18px #00000012;
+transition:.2s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 8px 25px #0002;
+}
+
+.photo{
+height:210px;
+background:#dce5ed;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#607080;
+font-weight:bold;
+overflow:hidden;
+}
+
+.photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.badge{
+position:absolute;
+top:12px;
+left:12px;
+background:#f4b942;
+color:#172033;
+padding:7px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:800;
+}
+
+.body{
+padding:18px;
+}
+
+.type{
+font-size:12px;
+font-weight:bold;
+color:#2563a6;
+text-transform:uppercase;
+}
+
+.body h3{
+margin:7px 0;
+font-size:19px;
+}
+
+.price{
+font-size:20px;
+font-weight:800;
+color:#174f83;
+margin:10px 0;
+}
+
+.location{
+color:#687386;
+font-size:14px;
+margin-bottom:15px;
+}
+
+.visit{
+width:100%;
+padding:12px;
+border:0;
+border-radius:9px;
+background:#0b2239;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.visit:hover{
+background:#164b78;
+}
+
+/* AGENCE */
+
+.about{
+background:white;
+max-width:none;
+}
+
+.about-inner{
+max-width:1000px;
+margin:auto;
+text-align:center;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:30px;
+}
+
+.feature{
+background:#f4f6f9;
+padding:25px 18px;
+border-radius:14px;
+}
+
+.feature .icon{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.feature h3{
+margin:8px 0;
+}
+
+.feature p{
+color:#687386;
+font-size:14px;
+line-height:1.6;
+}
+
+/* CONTACT */
+
+.contact{
+max-width:none;
+background:#0b2239;
+color:white;
+text-align:center;
+padding:55px 5%;
+}
+
+.contact h2{
+margin-top:0;
+font-size:28px;
+}
+
+.contact p{
+font-size:18px;
+}
+
+.contact a{
+display:inline-block;
+padding:13px 22px;
+margin:6px;
+border-radius:9px;
+text-decoration:none;
+font-weight:800;
+}
+
+.call{
+background:white;
+color:#0b2239;
+}
+
+.wa{
+background:#25d366;
+color:white;
+}
+
+/* FOOTER */
+
+footer{
+background:#071725;
+color:#b9c5d1;
+text-align:center;
+padding:22px;
 font-size:13px;
 }
 
-.hero h1{font-size:29px}
+/* MESSAGE */
 
-.search,.grid{
-grid-template-columns:1fr
+.msg{
+text-align:center;
+padding:35px;
+background:white;
+border-radius:12px;
+color:#687386;
 }
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+header{
+padding:13px 4%;
+flex-direction:column;
+gap:12px;
+}
+
+.logo{
+font-size:17px;
+}
+
+nav{
+width:100%;
+justify-content:center;
+gap:13px;
+}
+
+nav a{
+font-size:12px;
+}
+
+.hero{
+padding:55px 5% 45px;
+}
+
+.hero h1{
+font-size:30px;
+}
+
+.hero p{
+font-size:15px;
+line-height:1.5;
+}
+
+.search{
+grid-template-columns:1fr;
+padding:12px;
+}
+
+.search select,
+.search input,
+.search button{
+width:100%;
+}
+
+section{
+padding:42px 5%;
+}
+
+.section-title h2{
+font-size:25px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.features{
+grid-template-columns:1fr;
+}
+
+.photo{
+height:220px;
+}
+
+}
+
+/* PETIT ECRAN */
+
+@media(min-width:751px) and (max-width:950px){
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.search{
+grid-template-columns:1fr 1fr;
+}
+
 }
 </style>
 </head>
@@ -140,7 +422,10 @@ grid-template-columns:1fr
 <body>
 
 <header>
-<div class="logo">Agence Immobilier <b>Antsirabe</b></div>
+
+<div class="logo">
+Agence Immobilier <span>Antsirabe</span>
+</div>
 
 <nav>
 <a href="#biens">Biens</a>
@@ -148,10 +433,13 @@ grid-template-columns:1fr
 <a href="#contact">Contact</a>
 <a href="admin.html">Administration</a>
 </nav>
+
 </header>
 
+
 <div class="hero">
-<h1>Trouvez votre bien à Antsirabe</h1>
+
+<h1>Trouvez votre prochain bien à Antsirabe</h1>
 
 <p>
 Maisons, appartements, terrains et locaux à vendre ou à louer.
@@ -173,55 +461,137 @@ Maisons, appartements, terrains et locaux à vendre ou à louer.
 <option>À louer</option>
 </select>
 
-<input id="q" placeholder="Quartier / localisation">
+<input
+id="q"
+placeholder="📍 Quartier ou localisation">
 
-<button onclick="filter()">Rechercher</button>
+<button onclick="filter()">
+Rechercher
+</button>
 
 </div>
+
 </div>
+
 
 <section id="biens">
 
-<h2 class="center">Biens disponibles</h2>
+<div class="section-title">
 
-<p class="center">
-Contactez l'agence pour organiser une visite.
+<h2>Nos biens disponibles</h2>
+
+<p>
+Découvrez les dernières annonces publiées.
 </p>
 
+</div>
+
 <div id="cards" class="grid">
-<p class="msg">Chargement des biens...</p>
+
+<p class="msg">
+Chargement des biens...
+</p>
+
 </div>
 
 </section>
 
-<section id="agence">
 
-<h2 class="center">À propos de l'agence</h2>
+<section id="agence" class="about">
 
-<p class="center">
-Agence Immobilier Antsirabe accompagne propriétaires et clients
-dans la présentation des biens, l'organisation des visites et la mise en relation.
+<div class="about-inner">
+
+<div class="section-title">
+
+<h2>À propos de notre agence</h2>
+
+<p>
+Votre partenaire immobilier à Antsirabe.
 </p>
 
+</div>
+
+<p>
+Agence Immobilier Antsirabe accompagne les propriétaires
+et les clients dans la présentation des biens,
+l'organisation des visites et la mise en relation.
+</p>
+
+<div class="features">
+
+<div class="feature">
+
+<div class="icon">🏠</div>
+
+<h3>Biens variés</h3>
+
+<p>
+Maisons, terrains, appartements et locaux commerciaux.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="icon">📍</div>
+
+<h3>Antsirabe</h3>
+
+<p>
+Des annonces adaptées aux différents quartiers et alentours.
+</p>
+
+</div>
+
+<div class="feature">
+
+<div class="icon">🤝</div>
+
+<h3>Accompagnement</h3>
+
+<p>
+Nous facilitons la prise de contact et l'organisation des visites.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
+
 
 <section id="contact" class="contact">
 
-<h2>Agence Immobilier Antsirabe</h2>
+<h2>Vous cherchez un bien ?</h2>
+
+<p>
+Contactez directement Agence Immobilier Antsirabe.
+</p>
 
 <p>📞 034 41 711 96</p>
 
-<a class="call" href="tel:+261344171196">Appeler</a>
+<a class="call" href="tel:+261344171196">
+Appeler
+</a>
 
-<a class="wa"
+<a
+class="wa"
 href="https://wa.me/261344171196"
-target="_blank">WhatsApp</a>
+target="_blank">
+WhatsApp
+</a>
 
 </section>
 
+
 <footer>
+
 © 2026 Agence Immobilier Antsirabe · Tous droits réservés
+
 </footer>
+
 
 <script>
 
@@ -232,6 +602,7 @@ const SUPABASE_KEY="sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 const API=SUPABASE_URL+"/rest/v1/annonces";
 
 let all=[];
+
 
 async function load(){
 
@@ -247,7 +618,8 @@ Authorization:"Bearer "+SUPABASE_KEY
 }
 );
 
-if(!r.ok)throw new Error(await r.text());
+if(!r.ok)
+throw new Error(await r.text());
 
 all=await r.json();
 
@@ -255,7 +627,7 @@ render(all);
 
 }catch(e){
 
-cards.innerHTML=
+document.getElementById("cards").innerHTML=
 '<p class="msg">Impossible de charger les annonces pour le moment.</p>';
 
 console.error(e);
@@ -263,6 +635,7 @@ console.error(e);
 }
 
 }
+
 
 function imgUrl(path){
 
@@ -274,7 +647,10 @@ encodeURIComponent(path).replace(/%2F/g,"/")
 
 }
 
+
 function render(list){
+
+const cards=document.getElementById("cards");
 
 cards.innerHTML=list.length?
 
@@ -283,37 +659,56 @@ list.map(b=>{
 const img=imgUrl(b.image_url);
 
 return `
+
 <div class="card">
 
 <div class="photo">
 
-${img
+${
+img
 ?`<img src="${img}" alt="${esc(b.titre)}">`
-:"PHOTO DU BIEN"}
+:"PHOTO DU BIEN"
+}
+
+${
+b.transaction
+?`<span class="badge">${esc(b.transaction)}</span>`
+:""
+}
 
 </div>
 
 <div class="body">
 
-<span class="tag">
-${esc(b.type)} · ${esc(b.statut)}
-</span>
+<div class="type">
+${esc(b.type||"Bien immobilier")}
+</div>
 
-<h3>${esc(b.titre)}</h3>
+<h3>
+${esc(b.titre)}
+</h3>
 
 <div class="price">
 ${formatPrice(b.prix)}
 </div>
 
-<p>${esc(b.lieu||"")}</p>
+<div class="location">
+📍 ${esc(b.lieu||"Antsirabe")}
+</div>
 
-<button onclick="wa('${b.id}','${escAttr(b.titre)}')">
+<button
+class="visit"
+onclick="wa('${escAttr(b.id)}','${escAttr(b.titre)}')">
+
 💬 Demander une visite
+
 </button>
 
 </div>
+
 </div>
-`
+
+`;
 
 }).join("")
 
@@ -321,30 +716,41 @@ ${formatPrice(b.prix)}
 
 }
 
+
 function filter(){
 
-const t=type.value,
-o=op.value,
-s=q.value.toLowerCase();
+const t=document.getElementById("type").value;
 
-render(
-all.filter(b=>
+const o=document.getElementById("op").value;
+
+const s=document.getElementById("q").value.toLowerCase();
+
+const result=all.filter(b=>
+
 (!t||b.type===t)&&
+
 (!o||b.transaction===o)&&
+
 (!s||(b.lieu||"").toLowerCase().includes(s))
-)
+
 );
 
+render(result);
+
 }
+
 
 function formatPrice(v){
 
 if(v===null||v===undefined||v==="")
+
 return "Prix sur demande";
 
-return new Intl.NumberFormat("fr-FR").format(Number(v))+" Ar";
+return new Intl.NumberFormat("fr-FR")
+.format(Number(v))+" Ar";
 
 }
+
 
 function wa(id,title){
 
@@ -357,25 +763,32 @@ id+" - "+title+"."
 
 }
 
+
 function esc(x){
 
 return String(x??"").replace(
 /[&<>"]/g,
 m=>({
+
 '&':'&amp;',
 '<':'&lt;',
 '>':'&gt;',
 '"':'&quot;'
+
 }[m])
+
 );
 
 }
 
+
 function escAttr(x){
 
-return String(x??"").replace(/'/g,"&#39;");
+return String(x??"")
+.replace(/'/g,"&#39;");
 
 }
+
 
 load();
 
