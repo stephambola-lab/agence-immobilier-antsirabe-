@@ -145,7 +145,18 @@ margin:10px 0;
 
 .location{
 font-size:16px;
-margin:10px 0 20px;
+margin:10px 0 12px;
+}
+
+.views{
+display:inline-block;
+font-size:14px;
+font-weight:bold;
+color:#64748b;
+background:#f1f5f9;
+padding:7px 11px;
+border-radius:20px;
+margin-bottom:20px;
 }
 
 .description{
@@ -357,6 +368,59 @@ encodeURIComponent(path).replace(/%2F/g,"/");
 
 
 /* =========================
+   COMPTEUR DE VUES
+========================= */
+
+async function incrementViews(){
+
+if(!id){
+return;
+}
+
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/rpc/increment_annonce_vues",
+{
+method:"POST",
+
+headers:{
+apikey:SUPABASE_KEY,
+Authorization:"Bearer " + SUPABASE_KEY,
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+p_id:id
+})
+
+}
+);
+
+if(!response.ok){
+
+console.log(
+"Erreur compteur vues:",
+await response.text()
+);
+
+}
+
+}catch(error){
+
+console.log(
+"Erreur compteur vues:",
+error
+);
+
+}
+
+}
+
+
+/* =========================
    CHARGER L'ANNONCE
 ========================= */
 
@@ -419,580 +483,4 @@ await response.json();
 
 if(!data.length){
 
-content.innerHTML = `
-
-<div class="msg">
-
-<h2>Annonce introuvable</h2>
-
-<p>
-Cette annonce n'est pas disponible.
-</p>
-
-</div>
-
-`;
-
-return;
-
-}
-
-const annonce =
-data[0];
-
-currentAnnonce =
-annonce;
-
-photos =
-getPhotos(annonce.image_url);
-
-renderAnnonce(annonce);
-
-}catch(error){
-
-console.error(error);
-
-content.innerHTML = `
-
-<div class="msg">
-
-<h2>Erreur</h2>
-
-<p>
-Impossible de charger cette annonce.
-</p>
-
-</div>
-
-`;
-
-}
-
-}
-
-
-/* =========================
-   AFFICHER L'ANNONCE
-========================= */
-
-function renderAnnonce(a){
-
-const content =
-document.getElementById("content");
-
-const firstPhoto =
-photos[0]
-?
-imageUrl(photos[0])
-:"";
-
-const currentUrl =
-window.location.href;
-
-const titre =
-a.titre ||
-"Annonce immobilière";
-
-const whatsappMessage =
-"Bonjour, je suis intéressé par cette annonce : " +
-titre +
-"\n\n" +
-currentUrl;
-
-const whatsapp =
-"https://wa.me/261344171196?text=" +
-encodeURIComponent(
-whatsappMessage
-);
-
-const facebook =
-"https://www.facebook.com/sharer/sharer.php?u=" +
-encodeURIComponent(
-currentUrl
-);
-
-const phone =
-"tel:+261344171196";
-
-
-content.innerHTML = `
-
-<div class="gallery">
-
-${
-firstPhoto
-
-?
-
-`
-
-<img
-id="mainPhoto"
-src="${firstPhoto}"
-alt="${titre}">
-
-`
-
-:
-
-`
-
-<div>
-Aucune photo disponible
-</div>
-
-`
-}
-
-
-${
-photos.length > 1
-
-?
-
-`
-
-<button
-class="prev"
-onclick="previousPhoto()">
-
-‹
-
-</button>
-
-
-<button
-class="next"
-onclick="nextPhoto()">
-
-›
-
-</button>
-
-
-<div
-class="counter"
-id="counter">
-
-1 / ${photos.length}
-
-</div>
-
-`
-
-:
-
-""
-
-}
-
-</div>
-
-
-<div class="body">
-
-<span class="tag">
-
-${a.type || "Bien immobilier"}
-
-${a.transaction
-? " • " + a.transaction
-: ""}
-
-</span>
-
-
-<h1>
-
-${escapeHtml(titre)}
-
-</h1>
-
-
-<div class="price">
-
-${formatPrice(a.prix)}
-
-</div>
-
-
-<div class="location">
-
-📍 ${escapeHtml(
-a.localisation ||
-a.lieu ||
-"Antsirabe"
-)}
-
-</div>
-
-
-<div class="description">
-
-${escapeHtml(
-a.description ||
-"Aucune description disponible."
-)}
-
-</div>
-
-
-<div class="actions">
-
-
-<a
-class="wa"
-href="${whatsapp}"
-target="_blank">
-
-💬 WhatsApp
-
-</a>
-
-
-<a
-class="call"
-href="${phone}">
-
-📞 Appeler
-
-</a>
-
-
-<a
-class="facebook"
-href="${facebook}"
-target="_blank"
-rel="noopener">
-
-📘 Facebook
-
-</a>
-
-
-<a
-class="copy"
-href="#"
-onclick="copyLink(event)">
-
-📋 Copier le lien
-
-</a>
-
-
-<button
-class="share"
-onclick="shareAnnonce()">
-
-📲 Partager
-
-</button>
-
-
-</div>
-
-
-<div
-id="copyMessage"
-class="copy-message">
-
-✅ Lien copié !
-
-</div>
-
-
-</div>
-
-`;
-
-}
-
-
-/* =========================
-   PRIX
-========================= */
-
-function formatPrice(value){
-
-if(
-value === null ||
-value === undefined ||
-value === ""
-){
-
-return "Prix sur demande";
-
-}
-
-const number =
-Number(value);
-
-if(Number.isNaN(number)){
-return String(value);
-}
-
-return new Intl.NumberFormat("fr-FR")
-.format(number) +
-" Ar";
-
-}
-
-
-/* =========================
-   SÉCURITÉ HTML
-========================= */
-
-function escapeHtml(value){
-
-return String(value ?? "")
-.replace(
-/[&<>"']/g,
-function(match){
-
-return {
-
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-
-}[match];
-
-}
-);
-
-}
-
-
-/* =========================
-   PHOTO SUIVANTE
-========================= */
-
-function nextPhoto(){
-
-if(!photos.length){
-return;
-}
-
-currentPhoto++;
-
-if(currentPhoto >= photos.length){
-
-currentPhoto = 0;
-
-}
-
-showPhoto();
-
-}
-
-
-/* =========================
-   PHOTO PRÉCÉDENTE
-========================= */
-
-function previousPhoto(){
-
-if(!photos.length){
-return;
-}
-
-currentPhoto--;
-
-if(currentPhoto < 0){
-
-currentPhoto =
-photos.length - 1;
-
-}
-
-showPhoto();
-
-}
-
-
-/* =========================
-   AFFICHER PHOTO
-========================= */
-
-function showPhoto(){
-
-const img =
-document.getElementById("mainPhoto");
-
-const counter =
-document.getElementById("counter");
-
-if(!img){
-return;
-}
-
-img.src =
-imageUrl(
-photos[currentPhoto]
-);
-
-if(counter){
-
-counter.textContent =
-(currentPhoto + 1) +
-" / " +
-photos.length;
-
-}
-
-}
-
-
-/* =========================
-   COPIER LE LIEN
-========================= */
-
-async function copyLink(event){
-
-if(event){
-event.preventDefault();
-}
-
-const url =
-window.location.href;
-
-try{
-
-await navigator.clipboard.writeText(url);
-
-}catch(e){
-
-const textarea =
-document.createElement("textarea");
-
-textarea.value = url;
-
-document.body.appendChild(
-textarea
-);
-
-textarea.select();
-
-document.execCommand("copy");
-
-textarea.remove();
-
-}
-
-const message =
-document.getElementById(
-"copyMessage"
-);
-
-if(message){
-
-message.style.display =
-"block";
-
-setTimeout(
-function(){
-
-message.style.display =
-"none";
-
-},
-2500
-);
-
-}
-
-}
-
-
-/* =========================
-   PARTAGE TÉLÉPHONE
-========================= */
-
-async function shareAnnonce(){
-
-const url =
-window.location.href;
-
-const title =
-currentAnnonce &&
-currentAnnonce.titre
-?
-currentAnnonce.titre
-:
-"Annonce immobilière Antsirabe";
-
-if(
-navigator.share
-){
-
-try{
-
-await navigator.share({
-
-title:title,
-
-text:
-"Découvrez cette annonce immobilière à Antsirabe : " +
-title,
-
-url:url
-
-});
-
-}catch(e){
-
-console.log(
-"Partage annulé."
-);
-
-}
-
-}else{
-
-await copyLink();
-
-alert(
-"Le partage direct n'est pas disponible sur ce navigateur. Le lien a été copié."
-);
-
-}
-
-}
-
-
-/* =========================
-   CLAVIER
-========================= */
-
-document.addEventListener(
-"keydown",
-function(e){
-
-if(e.key === "ArrowRight"){
-
-nextPhoto();
-
-}
-
-if(e.key === "ArrowLeft"){
-
-previousPhoto();
-
-}
-
-}
-);
-
-
-/* =========================
-   CHARGEMENT
-========================= */
-
-loadAnnonce();
-
-</script>
-
-</body>
-</html>
+content.innerHTML =
