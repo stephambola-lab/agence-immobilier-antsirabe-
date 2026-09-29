@@ -263,11 +263,748 @@ Enregistrer l'annonce
 
 </div>
 
-<div id="list" class="grid"></div>
+<div id="list"
+class="grid">
+</div>
 
 </div>
 
 <script>
 
 const URL =
-"https
+"https://byezzcuqrweyhdjfnaky.supabase.co";
+
+const KEY =
+"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+
+const BUCKET =
+"annonces-images";
+
+
+const loginBox =
+document.getElementById("loginBox");
+
+const adminBox =
+document.getElementById("adminBox");
+
+const email =
+document.getElementById("email");
+
+const password =
+document.getElementById("password");
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+const message =
+document.getElementById("message");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const addBtn =
+document.getElementById("addBtn");
+
+const status =
+document.getElementById("status");
+
+const list =
+document.getElementById("list");
+
+
+loginBtn.addEventListener(
+"click",
+login
+);
+
+
+password.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+login();
+}
+
+});
+
+
+async function login(){
+
+const mail =
+email.value.trim();
+
+const pass =
+password.value;
+
+
+if(!mail || !pass){
+
+message.className="error";
+
+message.textContent =
+"Veuillez entrer votre email et votre mot de passe.";
+
+return;
+
+}
+
+
+loginBtn.disabled=true;
+
+loginBtn.textContent="Connexion...";
+
+message.textContent="";
+
+
+try{
+
+const response =
+await fetch(
+URL+
+"/auth/v1/token?grant_type=password",
+{
+method:"POST",
+
+headers:{
+"apikey":KEY,
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+email:mail,
+
+password:pass
+
+})
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+message.className="error";
+
+message.textContent =
+"Email ou mot de passe incorrect.";
+
+loginBtn.disabled=false;
+
+loginBtn.textContent="Se connecter";
+
+return;
+
+}
+
+
+localStorage.setItem(
+"admin_access_token",
+data.access_token
+);
+
+localStorage.setItem(
+"admin_refresh_token",
+data.refresh_token
+);
+
+
+message.className="success";
+
+message.textContent =
+"Connexion réussie.";
+
+
+loginBox.style.display="none";
+
+adminBox.style.display="block";
+
+
+load();
+
+
+}catch(error){
+
+message.className="error";
+
+message.textContent =
+"Erreur de connexion. Vérifiez votre Internet.";
+
+loginBtn.disabled=false;
+
+loginBtn.textContent="Se connecter";
+
+}
+
+}
+
+
+function token(){
+
+return localStorage.getItem(
+"admin_access_token"
+);
+
+}
+
+
+function headers(){
+
+return {
+
+"apikey":KEY,
+
+"Authorization":
+"Bearer "+token(),
+
+"Content-Type":
+"application/json"
+
+};
+
+}
+
+
+async function load(){
+
+status.textContent =
+"Chargement...";
+
+
+try{
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?select=*&order=created_at.desc",
+{
+headers:headers()
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+status.className="error";
+
+status.textContent =
+"Erreur : "+JSON.stringify(data);
+
+return;
+
+}
+
+
+status.textContent="";
+
+render(data);
+
+}catch(error){
+
+status.className="error";
+
+status.textContent =
+"Erreur de connexion.";
+
+}
+
+}
+
+
+/* PHOTO */
+
+async function upload(file){
+
+const filename =
+Date.now()+"_"+file.name.replace(
+/[^a-zA-Z0-9._-]/g,
+"_"
+);
+
+
+const response =
+await fetch(
+URL+
+"/storage/v1/object/"+
+BUCKET+
+"/"+
+filename,
+{
+method:"POST",
+
+headers:{
+"apikey":KEY,
+
+"Authorization":
+"Bearer "+token(),
+
+"Content-Type":
+file.type || "application/octet-stream"
+},
+
+body:file
+}
+);
+
+
+if(!response.ok){
+
+const text =
+await response.text();
+
+throw new Error(text);
+
+}
+
+
+return filename;
+
+}
+
+
+/* AJOUT */
+
+addBtn.addEventListener(
+"click",
+add
+);
+
+
+async function add(){
+
+const titre =
+document.getElementById("titre")
+.value.trim();
+
+const lieu =
+document.getElementById("lieu")
+.value.trim();
+
+const prix =
+document.getElementById("prix")
+.value;
+
+const type =
+document.getElementById("type")
+.value;
+
+const transaction =
+document.getElementById("transaction")
+.value;
+
+const description =
+document.getElementById("description")
+.value;
+
+const files =
+document.getElementById("photos")
+.files;
+
+
+if(!titre || !lieu){
+
+status.className="error";
+
+status.textContent =
+"Titre et localisation sont obligatoires.";
+
+return;
+
+}
+
+
+addBtn.disabled=true;
+
+status.className="";
+
+status.textContent =
+"Enregistrement...";
+
+
+try{
+
+let image=null;
+
+
+if(files.length){
+
+image =
+await upload(files[0]);
+
+}
+
+
+const response =
+await fetch(
+URL+"/rest/v1/annonces",
+{
+method:"POST",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+
+titre:titre,
+
+prix:prix
+?Number(prix)
+:null,
+
+lieu:lieu,
+
+type:type,
+
+transaction:transaction,
+
+description:description,
+
+image_url:image,
+
+statut:"a_valider"
+
+})
+}
+);
+
+
+if(!response.ok){
+
+const text =
+await response.text();
+
+throw new Error(text);
+
+}
+
+
+status.className="success";
+
+status.textContent =
+"Annonce enregistrée.";
+
+
+document.getElementById("titre")
+.value="";
+
+document.getElementById("prix")
+.value="";
+
+document.getElementById("lieu")
+.value="";
+
+document.getElementById("description")
+.value="";
+
+document.getElementById("photos")
+.value="";
+
+
+load();
+
+
+}catch(error){
+
+status.className="error";
+
+status.textContent =
+"Erreur : "+error.message;
+
+}
+
+
+addBtn.disabled=false;
+
+}
+
+
+/* PUBLIER */
+
+async function updateStatus(
+id,
+newStatus
+){
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?id=eq."+
+encodeURIComponent(id),
+{
+method:"PATCH",
+
+headers:{
+...headers(),
+"Prefer":"return=minimal"
+},
+
+body:JSON.stringify({
+statut:newStatus
+})
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+load();
+
+}
+
+
+/* SUPPRIMER */
+
+async function removeAnnonce(id){
+
+if(!confirm(
+"Supprimer cette annonce ?"
+)){
+
+return;
+
+}
+
+
+const response =
+await fetch(
+URL+
+"/rest/v1/annonces?id=eq."+
+encodeURIComponent(id),
+{
+method:"DELETE",
+
+headers:headers()
+}
+);
+
+
+if(!response.ok){
+
+alert(
+"Erreur : "+
+await response.text()
+);
+
+return;
+
+}
+
+
+load();
+
+}
+
+
+/* AFFICHAGE */
+
+function render(data){
+
+if(!data.length){
+
+list.innerHTML =
+"<p>Aucune annonce.</p>";
+
+return;
+
+}
+
+
+list.innerHTML =
+data.map(function(a){
+
+let image="";
+
+
+if(a.image_url){
+
+image =
+URL+
+"/storage/v1/object/public/"+
+BUCKET+
+"/"+
+a.image_url;
+
+}
+
+
+const prix =
+a.prix
+?
+new Intl.NumberFormat("fr-FR")
+.format(a.prix)+" Ar"
+:
+"Prix sur demande";
+
+
+const action =
+a.statut==="publiee"
+
+?
+
+`<button
+onclick="updateStatus('${a.id}','a_valider')">
+Dépublier
+</button>`
+
+:
+
+`<button
+class="ok"
+onclick="updateStatus('${a.id}','publiee')">
+Publier
+</button>`;
+
+
+return `
+
+<div class="card">
+
+<div class="photo">
+
+${
+image
+?
+`<img src="${image}" alt="">`
+:
+"PHOTO"
+}
+
+</div>
+
+<div class="body">
+
+<b>
+${esc(a.titre)}
+</b>
+
+<p>
+
+${esc(a.type)}
+
+<br>
+
+${esc(a.lieu)}
+
+<br>
+
+${prix}
+
+<br>
+
+Statut :
+<b>
+${esc(a.statut)}
+</b>
+
+</p>
+
+<div class="actions">
+
+${action}
+
+<button
+class="danger"
+onclick="removeAnnonce('${a.id}')">
+Supprimer
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* SECURITE */
+
+function esc(value){
+
+return String(value ?? "")
+.replace(
+/[&<>"']/g,
+function(c){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[c];
+
+}
+);
+
+}
+
+
+/* SESSION EXISTANTE */
+
+const savedToken =
+localStorage.getItem(
+"admin_access_token"
+);
+
+
+if(savedToken){
+
+loginBox.style.display="none";
+
+adminBox.style.display="block";
+
+load();
+
+}
+
+
+/* LOGOUT */
+
+logoutBtn.addEventListener(
+"click",
+function(){
+
+localStorage.removeItem(
+"admin_access_token"
+);
+
+localStorage.removeItem(
+"admin_refresh_token"
+);
+
+location.reload();
+
+});
+
+</script>
+
+</body>
+</html>
