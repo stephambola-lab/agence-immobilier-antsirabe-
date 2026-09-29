@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b2239">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Antsirabe Immo">
+<link rel="manifest" href="manifest.json">
+<title>Antsirabe Immo — Agence immobilière</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#172033;
+  background:#f5f7fa;
+}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#0b2239;
+  color:#fff;
+  padding:14px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  box-shadow:0 4px 20px #0003;
+}
+.brand{font-weight:900;font-size:20px;letter-spacing:.2px}
+.brand span{color:#f4b942}
+nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+nav a{
+  color:#fff;
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:14px;
+}
+nav a:hover{background:#ffffff18}
+.admin-link{
+  background:#f4b942;
+  color:#102238!important;
+  font-weight:800;
+}
+
+.hero{
+  min-height:430px;
+  padding:75px 5%;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(120deg,#071a2d 0%,#0b3556 55%,#174f83 100%);
+  color:#fff;
+}
+.hero-inner{max-width:1050px;margin:auto;width:100%}
+.badge{
+  display:inline-block;
+  background:#f4b942;
+  color:#102238;
+  padding:8px 13px;
+  border-radius:22px;
+  font-weight:800;
+  font-size:13px;
+}
+.hero h1{
+  font-size:clamp(34px,6vw,62px);
+  line-height:1.03;
+  margin:18px 0 14px;
+  max-width:850px;
+}
+.hero p{
+  font-size:18px;
+  line-height:1.7;
+  color:#dceaf5;
+  max-width:720px;
+  margin:0;
+}
+
+.search-box{
+  max-width:1050px;
+  margin:-42px auto 45px;
+  position:relative;
+  z-index:5;
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 12px 40px #0002;
+  display:grid;
+  grid-template-columns:1fr 1fr 1.4fr auto;
+  gap:10px;
+}
+.search-box select,.search-box input{
+  width:100%;
+  min-height:48px;
+  border:1px solid #d9e0e7;
+  border-radius:11px;
+  padding:0 13px;
+  background:#fff;
+  color:#172033;
+  outline:none;
+}
+.search-box input:focus,.search-box select:focus{
+  border-color:#174f83;
+  box-shadow:0 0 0 3px #174f8315;
+}
+.primary{
+  min-height:48px;
+  background:#174f83;
+  color:#fff;
+  padding:0 20px;
+  border-radius:11px;
+  font-weight:800;
+}
+.primary:hover{background:#0e3d68}
+
+section{padding:55px 5%}
+.container{max-width:1100px;margin:auto}
+.section-head{text-align:center;margin-bottom:28px}
+.section-head h2{font-size:30px;margin:0 0 9px}
+.section-head p{margin:0;color:#697586}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.card{
+  background:#fff;
+  border-radius:17px;
+  overflow:hidden;
+  box-shadow:0 5px 24px #00000012;
+  border:1px solid #e9edf2;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0002}
+.card-photo{
+  height:220px;
+  background:#dfe6ed;
+  position:relative;
+  overflow:hidden;
+}
+.card-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.no-photo{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  color:#718096;font-weight:800;
+}
+.tag{
+  position:absolute;
+  top:12px;left:12px;
+  background:#f4b942;
+  color:#102238;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:900;
+}
+.photo-count{
+  position:absolute;
+  right:12px;bottom:12px;
+  background:#0009;color:#fff;
+  padding:6px 9px;border-radius:18px;
+  font-size:12px;font-weight:800;
+}
+.card-body{padding:17px}
+.card h3{margin:0 0 8px;font-size:19px}
+.meta{color:#667587;font-size:14px;line-height:1.7}
+.price{font-size:20px;font-weight:900;color:#174f83;margin:11px 0}
+.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.card-actions button,.card-actions a{
+  text-align:center;padding:11px 8px;border-radius:9px;font-weight:800;font-size:13px;
+}
+.details{background:#174f83;color:#fff}
+.whatsapp{background:#25d366;color:#fff}
+
+.empty,.msg{
+  grid-column:1/-1;
+  text-align:center;
+  background:#fff;
+  padding:30px;
+  border-radius:14px;
+  color:#667587;
+  box-shadow:0 5px 20px #0000000c;
+}
+.error-box{
+  grid-column:1/-1;
+  background:#fff4f4;
+  color:#a02b2b;
+  padding:20px;
+  border-radius:14px;
+  text-align:center;
+}
+
+.info-section{background:#fff}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+.info-box{
+  background:#f5f7fa;
+  border-radius:16px;
+  padding:24px;
+}
+.info-box h3{margin-top:0}
+.info-box p{line-height:1.75;color:#596779}
+
+.demand-banner{
+  background:linear-gradient(120deg,#0b2239,#174f83);
+  color:#fff;
+  border-radius:20px;
+  padding:30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.demand-banner h2{margin:0 0 8px}
+.demand-banner p{margin:0;color:#d9e8f5;line-height:1.6}
+.gold-btn{
+  background:#f4b942;
+  color:#102238;
+  padding:13px 18px;
+  border-radius:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.contact{
+  background:#0b2239;
+  color:#fff;
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+.contact-box{
+  border:1px solid #ffffff18;
+  border-radius:16px;
+  padding:22px;
+  background:#ffffff08;
+}
+.contact-box h3{margin-top:0;color:#f4b942}
+.contact-box p{line-height:1.8;color:#dce7f0}
+.contact-btn{
+  display:inline-block;
+  padding:11px 15px;
+  border-radius:9px;
+  background:#25d366;
+  color:#fff;
+  font-weight:800;
+  margin-top:5px;
+}
+
+footer{
+  background:#071725;
+  color:#aebdca;
+  text-align:center;
+  padding:22px;
+  font-size:13px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#0009;
+  padding:18px;
+  overflow:auto;
+}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modal-box{
+  width:min(620px,100%);
+  background:#fff;
+  border-radius:18px;
+  padding:23px;
+  position:relative;
+  box-shadow:0 20px 70px #0005;
+}
+.close{
+  position:absolute;
+  top:10px;right:12px;
+  width:38px;height:38px;
+  border-radius:50%;
+  background:#edf1f5;
+  color:#172033;
+  font-size:22px;
+}
+.modal-box h2{margin:0 45px 8px 0}
+.modal-box>p{color:#697586;line-height:1.5}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.form-grid .full{grid-column:1/-1}
+.form-grid label{
+  display:block;
+  font-size:13px;
+  font-weight:800;
+  margin:0 0 6px;
+}
+.form-grid input,.form-grid select,.form-grid textarea{
+  width:100%;
+  border:1px solid #d7dfe7;
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+.form-grid textarea{min-height:110px;resize:vertical}
+.form-grid input:focus,.form-grid select:focus,.form-grid textarea:focus{
+  border-color:#174f83;
+  box-shadow:0 0 0 3px #174f8315;
+}
+.form-submit{
+  width:100%;
+  margin-top:14px;
+  min-height:48px;
+}
+.small-note{font-size:12px;color:#7b8794;margin-top:9px}
+
+.gallery{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:150;
+  background:#000e;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+.gallery.show{display:flex}
+.gallery img{
+  max-width:94vw;
+  max-height:82vh;
+  object-fit:contain;
+  border-radius:10px;
+}
+.gallery-close,.gallery-prev,.gallery-next{
+  position:absolute;
+  background:#ffffff18;
+  color:#fff;
+  border:1px solid #fff4;
+  width:46px;height:46px;
+  border-radius:50%;
+  font-size:25px;
+}
+.gallery-close{right:18px;top:18px}
+.gallery-prev{left:18px;top:50%;transform:translateY(-50%)}
+.gallery-next{right:18px;top:50%;transform:translateY(-50%)}
+.gallery-count{
+  position:absolute;bottom:20px;left:50%;
+  transform:translateX(-50%);
+  color:#fff;font-weight:800;
+  background:#0008;padding:7px 12px;border-radius:20px;
+}
+
+@media(max-width:850px){
+  nav a{display:none}
+  nav a.admin-link{display:block}
+  .search-box{grid-template-columns:1fr 1fr}
+  .search-box button{grid-column:1/-1}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  header{padding:12px 4%}
+  .brand{font-size:16px}
+  .hero{min-height:390px;padding:60px 5%}
+  .hero p{font-size:16px}
+  .search-box{margin:-30px 4% 20px;padding:13px;grid-template-columns:1fr}
+  .search-box button{grid-column:auto}
+  section{padding:42px 4%}
+  .grid{grid-template-columns:1fr}
+  .card-photo{height:235px}
+  .demand-banner{flex-direction:column;align-items:flex-start}
+  .form-grid{grid-template-columns:1fr}
+  .form-grid .full{grid-column:auto}
+  .gallery-prev{left:8px}
+  .gallery-next{right:8px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="index.html">Antsirabe <span>Immo</span></a>
+  <nav>
+    <a href="#biens">Biens</a>
+    <a href="#agence">L'agence</a>
+    <a href="#demande">Demande</a>
+    <a href="#contact">Contact</a>
+    <a class="admin-link" href="admin.html">Administration</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="badge">AGENCE IMMOBILIÈRE À ANTSIRABE</span>
+    <h1>Trouvez votre prochain bien immobilier.</h1>
+    <p>Maisons, appartements, terrains et locaux commerciaux à Antsirabe. Consultez les annonces disponibles et contactez directement l'agence.</p>
+  </div>
+</section>
+
+<div class="search-box">
+  <select id="type">
+    <option value="">Tous les types</option>
+    <option>Maison</option>
+    <option>Appartement</option>
+    <option>Terrain</option>
+    <option>Local commercial</option>
+  </select>
+
+  <select id="op">
+    <option value="">Toutes les transactions</option>
+    <option>À vendre</option>
+    <option>À louer</option>
+  </select>
+
+  <input id="q" type="search" placeholder="📍 Quartier ou localisation">
+
+  <button class="primary" type="button" onclick="filter()">Rechercher</button>
+</div>
+
+<section id="biens">
+  <div class="container">
+    <div class="section-head">
+      <h2>Nos biens disponibles</h2>
+      <p>Les annonces publiées par Antsirabe Immo.</p>
+    </div>
+
+    <div id="cards" class="grid">
+      <p class="msg">Chargement des biens...</p>
+    </div>
+  </div>
+</section>
+
+<section id="demande">
+  <div class="container">
+    <div class="demand-banner">
+      <div>
+        <h2>Vous cherchez un bien précis ?</h2>
+        <p>Envoyez-nous votre demande avec votre budget et la localisation souhaitée.</p>
+      </div>
+      <button class="gold-btn" type="button" onclick="openDemande()">Faire une demande</button>
+    </div>
+  </div>
+</section>
+
+<section id="agence" class="info-section">
+  <div class="container">
+    <div class="section-head">
+      <h2>L'agence</h2>
+      <p>Un service immobilier simple et direct à Antsirabe.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="info-box">
+        <h3>🏠 Immobilier</h3>
+        <p>Nous présentons des biens à vendre ou à louer : maisons, appartements, terrains et locaux commerciaux.</p>
+      </div>
+      <div class="info-box">
+        <h3>🤝 Accompagnement</h3>
+        <p>Vous pouvez consulter les annonces, demander un bien correspondant à vos besoins et contacter l'agence directement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p>Pour toute information concernant une annonce.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-box">
+        <h3>📞 Téléphone</h3>
+        <p>034 41 711 96</p>
+        <a class="contact-btn" href="tel:+261344171196">Appeler</a>
+      </div>
+      <div class="contact-box">
+        <h3>💬 WhatsApp</h3>
+        <p>Écrivez-nous directement sur WhatsApp.</p>
+        <a class="contact-btn" href="https://wa.me/261344171196" target="_blank" rel="noopener">Ouvrir WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Antsirabe Immo — Agence immobilière
+</footer>
+
+<!-- DEMANDE CLIENT -->
+<div id="demandeModal" class="modal" onclick="if(event.target===this)closeDemande()">
+  <div class="modal-box">
+    <button class="close" type="button" onclick="closeDemande()">×</button>
+    <h2>📩 Votre demande immobilière</h2>
+    <p>Remplissez les informations ci-dessous. L'agence pourra vous contacter.</p>
+
+    <form onsubmit="sendDemande(event)">
+      <div class="form-grid">
+        <div>
+          <label for="demandeNom">Nom</label>
+          <input id="demandeNom" required placeholder="Votre nom">
+        </div>
+
+        <div>
+          <label for="demandeTelephone">Téléphone</label>
+          <input id="demandeTelephone" required type="tel" placeholder="034 xx xxx xx">
+        </div>
+
+        <div>
+          <label for="demandeType">Type de bien</label>
+          <select id="demandeType">
+            <option value="">Choisir</option>
+            <option>Maison</option>
+            <option>Appartement</option>
+            <option>Terrain</option>
+            <option>Local commercial</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="demandeTransaction">Transaction</label>
+          <select id="demandeTransaction">
+            <option value="">Choisir</option>
+            <option>À vendre</option>
+            <option>À louer</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="demandeBudget">Budget</label>
+          <input id="demandeBudget" placeholder="Ex : 100 000 000 Ar">
+        </div>
+
+        <div>
+          <label for="demandeLocalisation">Localisation</label>
+          <input id="demandeLocalisation" placeholder="Ex : Antsenakely">
+        </div>
+
+        <div class="full">
+          <label for="demandeDetails">Détails de votre recherche</label>
+          <textarea id="demandeDetails" placeholder="Ex : 3 chambres, cour, accès voiture..."></textarea>
+        </div>
+      </div>
+
+      <button class="primary form-submit" id="demandeSubmit" type="submit">Envoyer la demande</button>
+      <div class="small-note">Vos informations servent uniquement à traiter votre demande immobilière.</div>
+    </form>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="gallery" onclick="if(event.target===this)closeGallery()">
+  <button class="gallery-close" type="button" onclick="closeGallery()">×</button>
+  <button class="gallery-prev" type="button" onclick="previousPhoto()">‹</button>
+  <img id="galleryImg" src="" alt="Photo du bien">
+  <button class="gallery-next" type="button" onclick="nextPhoto()">›</button>
+  <div id="galleryCount" class="gallery-count"></div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://byezzcuqrweyhdjfnaky.supabase.co";
+const SUPABASE_KEY = "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+const API = SUPABASE_URL + "/rest/v1/annonces";
+const DEMANDES_API = SUPABASE_URL + "/rest/v1/demandes_clients";
+const BUCKET = "annonces-images";
+
+let allAnnonces = [];
+let currentPhotos = [];
+let currentPhoto = 0;
+
+function escapeHtml(text){
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function formatPrice(price){
+  if(price === null || price === undefined || price === "") return "Prix sur demande";
+  const n = Number(String(price).replace(/\s/g,"").replace(/,/g,""));
+  if(Number.isNaN(n)) return escapeHtml(price);
+  return n.toLocaleString("fr-FR") + " Ar";
+}
+
+function imgUrl(path){
+  if(!path) return "";
+  const value = String(path);
+  if(/^https?:\/\//i.test(value)) return value;
+  return SUPABASE_URL + "/storage/v1/object/public/" + BUCKET + "/" +
+    value.replace(/^\/+/,"");
+}
+
+function getPhotos(a){
+  let photos = [];
+
+  if(Array.isArray(a.images)) photos = a.images;
+  else if(typeof a.images === "string"){
+    try{
+      const parsed = JSON.parse(a.images);
+      if(Array.isArray(parsed)) photos = parsed;
+    }catch(e){
+      if(a.images.trim()) photos = a.images.split(",").map(x=>x.trim()).filter(Boolean);
+    }
+  }
+
+  if(!photos.length && a.image) photos = [a.image];
+
+  return photos.filter(Boolean).map(imgUrl);
+}
+
+async function fetchWithTimeout(url, options={}, timeout=12000){
+  const controller = new AbortController();
+  const timer = setTimeout(()=>controller.abort(), timeout);
+  try{
+    return await fetch(url,{...options,signal:controller.signal});
+  }finally{
+    clearTimeout(timer);
+  }
+}
+
+async function load(){
+  const cards = document.getElementById("cards");
+  cards.innerHTML = '<p class="msg">Chargement des biens...</p>';
+
+  try{
+    const url = API +
+      "?statut=eq.publiee" +
+      "&select=*" +
+      "&order=created_at.desc";
+
+    const response = await fetchWithTimeout(url,{
+      headers:{
+        apikey:SUPABASE_KEY,
+        Authorization:"Bearer " + SUPABASE_KEY
+      }
+    });
+
+    if(!response.ok){
+      const errorText = await response.text();
+      console.error("Supabase:",errorText);
+      throw new Error("Erreur Supabase");
+    }
+
+    const data = await response.json();
+    allAnnonces = Array.isArray(data) ? data : [];
+    render(allAnnonces);
+
+  }catch(error){
+    console.error(error);
+    cards.innerHTML =
+      '<div class="error-box">' +
+      '<strong>Impossible de charger les biens.</strong><br>' +
+      'Vérifiez votre connexion puis actualisez la page.' +
+      '</div>';
+  }
+}
+
+function render(data){
+  const cards = document.getElementById("cards");
+
+  if(!data.length){
+    cards.innerHTML =
+      '<div class="empty">Aucun bien publié pour le moment.</div>';
+    return;
+  }
+
+  cards.innerHTML = data.map(a=>{
+    const photos = getPhotos(a);
+    const first = photos[0] || "";
+    const title = escapeHtml(a.titre || "Bien immobilier");
+    const type = escapeHtml(a.type || "Bien");
+    const transaction = escapeHtml(a.transaction || "");
+    const lieu = escapeHtml(a.localisation || a.lieu || "Antsirabe");
+    const price = formatPrice(a.prix);
+    const id = encodeURIComponent(a.id);
+
+    return `
+      <article class="card">
+        <div class="card-photo">
+          ${first
+            ? `<img src="${first}" alt="${title}" loading="lazy" onclick="openGalleryFor('${escapeHtml(a.id)}')">`
+            : `<div class="no-photo">Aucune photo</div>`
+          }
+          <span class="tag">${transaction || type}</span>
+          ${photos.length > 1 ? `<span class="photo-count">📷 ${photos.length}</span>` : ""}
+        </div>
+
+        <div class="card-body">
+          <h3>${title}</h3>
+          <div class="meta">🏠 ${type}<br>📍 ${lieu}</div>
+          <div class="price">${price}</div>
+
+          <div class="card-actions">
+            <a class="details" href="annonce.html?id=${id}">Voir les détails</a>
+            <a class="whatsapp" target="_blank" rel="noopener"
+              href="https://wa.me/261344171196?text=${encodeURIComponent("Bonjour, je suis intéressé(e) par : " + (a.titre || "une annonce") + " — " + window.location.origin + "/annonce.html?id=" + id)}">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function filter(){
+  const type = document.getElementById("type").value.toLowerCase();
+  const op = document.getElementById("op").value.toLowerCase();
+  const q = document.getElementById("q").value.trim().toLowerCase();
+
+  const result = allAnnonces.filter(a=>{
+    const aType = String(a.type || "").toLowerCase();
+    const aOp = String(a.transaction || "").toLowerCase();
+    const aLieu = String(a.localisation || a.lieu || "").toLowerCase();
+    const aTitle = String(a.titre || "").toLowerCase();
+
+    return (!type || aType === type) &&
+           (!op || aOp === op) &&
+           (!q || aLieu.includes(q) || aTitle.includes(q));
+  });
+
+  render(result);
+  document.getElementById("biens").scrollIntoView({behavior:"smooth"});
+}
+
+function openDemande(){
+  document.getElementById("demandeModal").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+
+function closeDemande(){
+  document.getElementById("demandeModal").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+async function sendDemande(event){
+  event.preventDefault();
+
+  const button = document.getElementById("demandeSubmit");
+  button.disabled = true;
+  button.textContent = "Envoi...";
+
+  const payload = {
+    nom: document.getElementById("demandeNom").value.trim(),
+    telephone: document.getElementById("demandeTelephone").value.trim(),
+    type_bien: document.getElementById("demandeType").value,
+    transaction: document.getElementById("demandeTransaction").value,
+    budget: document.getElementById("demandeBudget").value.trim(),
+    localisation: document.getElementById("demandeLocalisation").value.trim(),
+    details: document.getElementById("demandeDetails").value.trim(),
+    statut: "nouvelle"
+  };
+
+  try{
+    const response = await fetchWithTimeout(DEMANDES_API,{
+      method:"POST",
+      headers:{
+        apikey:SUPABASE_KEY,
+        Authorization:"Bearer " + SUPABASE_KEY,
+        "Content-Type":"application/json",
+        Prefer:"return=minimal"
+      },
+      body:JSON.stringify(payload)
+    });
+
+    if(!response.ok){
+      const text = await response.text();
+      console.error(text);
+      throw new Error("Erreur");
+    }
+
+    alert("Votre demande a bien été envoyée. Merci !");
+    event.target.reset();
+    closeDemande();
+
+  }catch(error){
+    console.error(error);
+    alert("Impossible d'envoyer la demande. Vérifiez votre connexion puis réessayez.");
+  }finally{
+    button.disabled = false;
+    button.textContent = "Envoyer la demande";
+  }
+}
+
+function openGalleryFor(id){
+  const a = allAnnonces.find(x=>String(x.id)===String(id));
+  if(!a) return;
+  currentPhotos = getPhotos(a);
+  currentPhoto = 0;
+  if(!currentPhotos.length) return;
+  updateGallery();
+  document.getElementById("gallery").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+
+function updateGallery(){
+  const img = document.getElementById("galleryImg");
+  img.src = currentPhotos[currentPhoto] || "";
+  document.getElementById("galleryCount").textContent =
+    (currentPhoto + 1) + " / " + currentPhotos.length;
+}
+
+function nextPhoto(){
+  if(currentPhotos.length <= 1) return;
+  currentPhoto = (currentPhoto + 1) % currentPhotos.length;
+  updateGallery();
+}
+
+function previousPhoto(){
+  if(currentPhotos.length <= 1) return;
+  currentPhoto = (currentPhoto - 1 + currentPhotos.length) % currentPhotos.length;
+  updateGallery();
+}
+
+function closeGallery(){
+  document.getElementById("gallery").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){
+    closeDemande();
+    closeGallery();
+  }
+  if(document.getElementById("gallery").classList.contains("show")){
+    if(e.key==="ArrowRight") nextPhoto();
+    if(e.key==="ArrowLeft") previousPhoto();
+  }
+});
+
+document.getElementById("q").addEventListener("keydown",function(e){
+  if(e.key==="Enter") filter();
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",function(){
+    navigator.serviceWorker.register("service-worker.js")
+      .then(()=>console.log("Service Worker activé"))
+      .catch(error=>console.log("Service Worker non disponible:",error));
+  });
+}
+
+load();
+</script>
+</body>
+</html>
