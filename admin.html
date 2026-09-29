@@ -53,10 +53,6 @@ font-weight:800;
 white-space:nowrap;
 }
 
-.back:hover{
-opacity:.9;
-}
-
 .box{
 max-width:480px;
 margin:45px auto;
@@ -295,9 +291,7 @@ border:1px solid #ddd;
 }
 
 
-/* =========================
-   DEMANDES CLIENTS
-========================= */
+/* DEMANDES */
 
 .demandes-section{
 margin-top:30px;
@@ -438,8 +432,6 @@ box-shadow:0 4px 18px #00000012;
 }
 
 
-/* MOBILE */
-
 @media(max-width:750px){
 
 header{
@@ -498,10 +490,6 @@ align-items:flex-start;
 flex-direction:column;
 }
 
-.demande-actions{
-grid-template-columns:1fr 1fr;
-}
-
 }
 
 </style>
@@ -531,9 +519,7 @@ class="back">
 </header>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div
 id="loginBox"
@@ -550,12 +536,14 @@ Connectez-vous pour gérer les annonces.
 <input
 id="email"
 type="email"
-placeholder="Adresse email">
+placeholder="Adresse email"
+autocomplete="email">
 
 <input
 id="password"
 type="password"
-placeholder="Mot de passe">
+placeholder="Mot de passe"
+autocomplete="current-password">
 
 <button
 id="loginBtn">
@@ -569,9 +557,7 @@ Se connecter
 </div>
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- ADMIN -->
 
 <div
 id="adminBox"
@@ -602,12 +588,9 @@ Déconnexion
 
 <div class="form">
 
-
 <div>
 
-<label>
-Type
-</label>
+<label>Type</label>
 
 <select id="type">
 
@@ -623,9 +606,7 @@ Type
 
 <div>
 
-<label>
-Transaction
-</label>
+<label>Transaction</label>
 
 <select id="transaction">
 
@@ -639,9 +620,7 @@ Transaction
 
 <div>
 
-<label>
-Titre
-</label>
+<label>Titre</label>
 
 <input
 id="titre"
@@ -652,9 +631,7 @@ placeholder="Belle maison à Antsirabe">
 
 <div>
 
-<label>
-Prix (Ar)
-</label>
+<label>Prix (Ar)</label>
 
 <input
 id="prix"
@@ -666,9 +643,7 @@ placeholder="Ex : 150000000">
 
 <div>
 
-<label>
-Localisation
-</label>
+<label>Localisation</label>
 
 <input
 id="lieu"
@@ -679,9 +654,7 @@ placeholder="Ex : Antsenakely, Antsirabe">
 
 <div>
 
-<label>
-Photos du bien
-</label>
+<label>Photos du bien</label>
 
 <input
 id="photos"
@@ -707,9 +680,7 @@ class="preview">
 
 <div class="full">
 
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
 id="description"
@@ -717,7 +688,6 @@ placeholder="Décrivez le bien : chambres, terrain, accès, équipements, etc.">
 </textarea>
 
 </div>
-
 
 </div>
 
@@ -737,9 +707,7 @@ Enregistrer l'annonce
 <div class="separator"></div>
 
 
-<!-- =========================
-     ANNONCES
-========================= -->
+<!-- ANNONCES -->
 
 <div>
 
@@ -762,9 +730,7 @@ class="grid">
 <div class="separator"></div>
 
 
-<!-- =========================
-     DEMANDES CLIENTS
-========================= -->
+<!-- DEMANDES CLIENTS -->
 
 <div class="demandes-section">
 
@@ -784,11 +750,9 @@ class="demandes-count">
 
 </div>
 
-
 <div
 id="demandesList"
 class="demandes-grid">
-
 </div>
 
 </div>
@@ -799,18 +763,27 @@ class="demandes-grid">
 
 <script>
 
-const URL =
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
 "https://byezzcuqrweyhdjfnaky.supabase.co";
 
-const KEY =
+const SUPABASE_KEY =
 "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 
 const BUCKET =
 "annonces-images";
 
 const DEMANDES_API =
-URL + "/rest/v1/demandes_clients";
+SUPABASE_URL +
+"/rest/v1/demandes_clients";
 
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const loginBox =
 document.getElementById("loginBox");
@@ -859,7 +832,7 @@ document.getElementById("demandesCount");
 
 
 /* =========================
-   APERCU DES PHOTOS
+   APERCU PHOTOS
 ========================= */
 
 photosInput.addEventListener(
@@ -869,7 +842,7 @@ function(){
 const files =
 photosInput.files;
 
-preview.innerHTML="";
+preview.innerHTML = "";
 
 if(!files.length){
 
@@ -881,10 +854,10 @@ return;
 }
 
 photoCount.textContent =
-files.length+
-(files.length>1
-?" photos sélectionnées."
-:" photo sélectionnée.");
+files.length +
+(files.length > 1
+? " photos sélectionnées."
+: " photo sélectionnée.");
 
 
 Array.from(files).forEach(
@@ -894,7 +867,7 @@ const img =
 document.createElement("img");
 
 img.src =
-URL.createObjectURL(file);
+window.URL.createObjectURL(file);
 
 preview.appendChild(img);
 
@@ -917,7 +890,7 @@ password.addEventListener(
 "keydown",
 function(e){
 
-if(e.key==="Enter"){
+if(e.key === "Enter"){
 
 login();
 
@@ -937,7 +910,8 @@ password.value;
 
 if(!mail || !pass){
 
-message.className="error";
+message.className =
+"error";
 
 message.textContent =
 "Veuillez entrer votre email et votre mot de passe.";
@@ -947,26 +921,28 @@ return;
 }
 
 
-loginBtn.disabled=true;
+loginBtn.disabled = true;
 
 loginBtn.textContent =
 "Connexion...";
 
-message.textContent="";
+message.className = "";
+
+message.textContent = "";
 
 
 try{
 
 const response =
 await fetch(
-URL+
+SUPABASE_URL +
 "/auth/v1/token?grant_type=password",
 {
 
 method:"POST",
 
 headers:{
-"apikey":KEY,
+"apikey":SUPABASE_KEY,
 "Content-Type":"application/json"
 },
 
@@ -987,12 +963,13 @@ await response.json();
 
 if(!response.ok){
 
-message.className="error";
+message.className =
+"error";
 
 message.textContent =
 "Email ou mot de passe incorrect.";
 
-loginBtn.disabled=false;
+loginBtn.disabled = false;
 
 loginBtn.textContent =
 "Se connecter";
@@ -1013,9 +990,12 @@ data.refresh_token
 );
 
 
-loginBox.style.display="none";
+loginBox.style.display =
+"none";
 
-adminBox.style.display="block";
+adminBox.style.display =
+"block";
+
 
 load();
 
@@ -1024,12 +1004,15 @@ loadDemandes();
 
 }catch(error){
 
-message.className="error";
+console.error(error);
+
+message.className =
+"error";
 
 message.textContent =
 "Erreur de connexion. Vérifiez votre Internet.";
 
-loginBtn.disabled=false;
+loginBtn.disabled = false;
 
 loginBtn.textContent =
 "Se connecter";
@@ -1060,10 +1043,10 @@ function headers(){
 
 return {
 
-"apikey":KEY,
+"apikey":SUPABASE_KEY,
 
 "Authorization":
-"Bearer "+token(),
+"Bearer " + token(),
 
 "Content-Type":
 "application/json"
@@ -1087,7 +1070,7 @@ try{
 
 const response =
 await fetch(
-URL+
+SUPABASE_URL +
 "/rest/v1/annonces?select=*&order=created_at.desc",
 {
 headers:headers()
@@ -1101,24 +1084,31 @@ await response.json();
 
 if(!response.ok){
 
-status.className="error";
+status.className =
+"error";
 
 status.textContent =
-"Erreur : "+JSON.stringify(data);
+"Erreur : " +
+JSON.stringify(data);
 
 return;
 
 }
 
 
-status.textContent="";
+status.className = "";
+
+status.textContent = "";
 
 render(data);
 
 
 }catch(error){
 
-status.className="error";
+console.error(error);
+
+status.className =
+"error";
 
 status.textContent =
 "Erreur de connexion.";
@@ -1135,9 +1125,13 @@ status.textContent =
 async function upload(file){
 
 const filename =
-Date.now()+"_"+Math.random()
+Date.now() +
+"_" +
+Math.random()
 .toString(36)
-.substring(2,8)+"_"+file.name.replace(
+.substring(2,8) +
+"_" +
+file.name.replace(
 /[^a-zA-Z0-9._-]/g,
 "_"
 );
@@ -1145,10 +1139,10 @@ Date.now()+"_"+Math.random()
 
 const response =
 await fetch(
-URL+
-"/storage/v1/object/"+
-BUCKET+
-"/"+
+SUPABASE_URL +
+"/storage/v1/object/" +
+BUCKET +
+"/" +
 filename,
 {
 
@@ -1156,10 +1150,10 @@ method:"POST",
 
 headers:{
 
-"apikey":KEY,
+"apikey":SUPABASE_KEY,
 
 "Authorization":
-"Bearer "+token(),
+"Bearer " + token(),
 
 "Content-Type":
 file.type ||
@@ -1230,7 +1224,8 @@ document.getElementById("photos")
 
 if(!titre || !lieu){
 
-status.className="error";
+status.className =
+"error";
 
 status.textContent =
 "Titre et localisation sont obligatoires.";
@@ -1242,7 +1237,8 @@ return;
 
 if(!files.length){
 
-status.className="error";
+status.className =
+"error";
 
 status.textContent =
 "Veuillez sélectionner au moins une photo.";
@@ -1252,12 +1248,12 @@ return;
 }
 
 
-addBtn.disabled=true;
+addBtn.disabled = true;
 
 addBtn.textContent =
 "Enregistrement...";
 
-status.className="";
+status.className = "";
 
 status.textContent =
 "Préparation de l'annonce...";
@@ -1265,19 +1261,22 @@ status.textContent =
 
 try{
 
-let uploaded=[];
+let uploaded = [];
 
 
-/* UPLOAD DE TOUTES LES PHOTOS */
-
-for(let i=0;i<files.length;i++){
+for(
+let i = 0;
+i < files.length;
+i++
+){
 
 status.textContent =
-"Téléversement de la photo "+
-(i+1)+
-" / "+
-files.length+
+"Téléversement de la photo " +
+(i + 1) +
+" / " +
+files.length +
 "...";
+
 
 const filename =
 await upload(files[i]);
@@ -1287,15 +1286,13 @@ uploaded.push(filename);
 }
 
 
-/* SAUVEGARDE */
-
 status.textContent =
 "Enregistrement de l'annonce...";
 
 
 const response =
 await fetch(
-URL+
+SUPABASE_URL +
 "/rest/v1/annonces",
 {
 
@@ -1311,7 +1308,7 @@ body:JSON.stringify({
 titre:titre,
 
 prix:prix
-?Number(prix)
+? Number(prix)
 :null,
 
 lieu:lieu,
@@ -1342,37 +1339,36 @@ await response.text()
 }
 
 
-status.className="success";
+status.className =
+"success";
 
 status.textContent =
-"Annonce enregistrée avec "+
-uploaded.length+
-(uploaded.length>1
-?" photos."
-:" photo.");
+"Annonce enregistrée avec " +
+uploaded.length +
+(uploaded.length > 1
+? " photos."
+: " photo.");
 
-
-/* RESET */
 
 document.getElementById("titre")
-.value="";
+.value = "";
 
 document.getElementById("prix")
-.value="";
+.value = "";
 
 document.getElementById("lieu")
-.value="";
+.value = "";
 
 document.getElementById("description")
-.value="";
+.value = "";
 
 document.getElementById("photos")
-.value="";
+.value = "";
 
 photoCount.textContent =
 "Aucune photo sélectionnée.";
 
-preview.innerHTML="";
+preview.innerHTML = "";
 
 
 load();
@@ -1380,15 +1376,19 @@ load();
 
 }catch(error){
 
-status.className="error";
+console.error(error);
+
+status.className =
+"error";
 
 status.textContent =
-"Erreur : "+error.message;
+"Erreur : " +
+error.message;
 
 }
 
 
-addBtn.disabled=false;
+addBtn.disabled = false;
 
 addBtn.textContent =
 "Enregistrer l'annonce";
@@ -1409,8 +1409,8 @@ try{
 
 const response =
 await fetch(
-URL+
-"/rest/v1/annonces?id=eq."+
+SUPABASE_URL +
+"/rest/v1/annonces?id=eq." +
 encodeURIComponent(id),
 {
 
@@ -1434,7 +1434,7 @@ statut:newStatus
 if(!response.ok){
 
 alert(
-"Erreur : "+
+"Erreur : " +
 await response.text()
 );
 
@@ -1447,6 +1447,8 @@ load();
 
 
 }catch(error){
+
+console.error(error);
 
 alert(
 "Erreur de connexion."
@@ -1476,8 +1478,8 @@ try{
 
 const response =
 await fetch(
-URL+
-"/rest/v1/annonces?id=eq."+
+SUPABASE_URL +
+"/rest/v1/annonces?id=eq." +
 encodeURIComponent(id),
 {
 
@@ -1492,7 +1494,7 @@ headers:headers()
 if(!response.ok){
 
 alert(
-"Erreur : "+
+"Erreur : " +
 await response.text()
 );
 
@@ -1505,6 +1507,8 @@ load();
 
 
 }catch(error){
+
+console.error(error);
 
 alert(
 "Erreur de connexion."
@@ -1524,8 +1528,8 @@ function render(data){
 if(!data.length){
 
 list.innerHTML =
-"<div class='empty'>"+
-"Aucune annonce pour le moment."+
+"<div class='empty'>" +
+"Aucune annonce pour le moment." +
 "</div>";
 
 return;
@@ -1536,16 +1540,10 @@ return;
 list.innerHTML =
 data.map(function(a){
 
-let image="";
+let image = "";
 
-let photoList=[];
+let photoList = [];
 
-
-/*
-Compatibilité :
-- ancienne annonce = un seul nom
-- nouvelle annonce = JSON avec plusieurs noms
-*/
 
 if(a.image_url){
 
@@ -1556,13 +1554,13 @@ JSON.parse(a.image_url);
 
 if(Array.isArray(parsed)){
 
-photoList=parsed;
+photoList = parsed;
 
 }
 
 }catch(e){
 
-photoList=[a.image_url];
+photoList = [a.image_url];
 
 }
 
@@ -1572,10 +1570,10 @@ photoList=[a.image_url];
 if(photoList.length){
 
 image =
-URL+
-"/storage/v1/object/public/"+
-BUCKET+
-"/"+
+SUPABASE_URL +
+"/storage/v1/object/public/" +
+BUCKET +
+"/" +
 photoList[0];
 
 }
@@ -1585,7 +1583,8 @@ const prix =
 a.prix
 ?
 new Intl.NumberFormat("fr-FR")
-.format(a.prix)+" Ar"
+.format(a.prix) +
+" Ar"
 :
 "Prix sur demande";
 
@@ -1594,7 +1593,7 @@ let statusClass =
 "status-badge";
 
 
-if(a.statut==="publiee"){
+if(a.statut === "publiee"){
 
 statusClass +=
 " status-published";
@@ -1603,7 +1602,7 @@ statusClass +=
 
 
 const action =
-a.statut==="publiee"
+a.statut === "publiee"
 
 ?
 
@@ -1621,10 +1620,6 @@ Publier
 </button>`;
 
 
-/*
-COMPTEUR DE VUES
-*/
-
 const vues =
 Number(a.vues || 0);
 
@@ -1638,9 +1633,7 @@ return `
 ${
 image
 ?
-`<img
-src="${image}"
-alt="">`
+`<img src="${escAttr(image)}" alt="">`
 :
 "PHOTO DU BIEN"
 }
@@ -1657,11 +1650,11 @@ ${esc(a.titre)}
 
 <div class="info">
 
-${esc(a.type||"Bien immobilier")}
+${esc(a.type || "Bien immobilier")}
 
 <br>
 
-📍 ${esc(a.lieu||"")}
+📍 ${esc(a.lieu || "")}
 
 </div>
 
@@ -1674,20 +1667,28 @@ ${prix}
 <div class="photo-count">
 
 📸 ${photoList.length}
-${photoList.length>1?"photos":"photo"}
+${photoList.length > 1
+? "photos"
+: "photo"}
 
 </div>
 
 
 <div class="views">
 
-👁️ ${vues} ${vues>1?"vues":"vue"}
+👁️ ${vues}
+${vues > 1
+? "vues"
+: "vue"}
 
 </div>
 
 
 <span class="${statusClass}">
-Statut : ${esc(a.statut)}
+
+Statut :
+${esc(a.statut)}
+
 </span>
 
 
@@ -1723,14 +1724,16 @@ Supprimer
 async function loadDemandes(){
 
 demandesList.innerHTML =
-"<div class='empty'>Chargement des demandes...</div>";
+"<div class='empty'>" +
+"Chargement des demandes..." +
+"</div>";
 
 
 try{
 
 const response =
 await fetch(
-DEMANDES_API+
+DEMANDES_API +
 "?select=*&order=created_at.desc",
 {
 headers:headers()
@@ -1744,13 +1747,12 @@ await response.json();
 
 if(!response.ok){
 
-demandesList.innerHTML =
-"<div class='empty error'>"+
-"Erreur lors du chargement des demandes."
-+
-"</div>";
-
 console.error(data);
+
+demandesList.innerHTML =
+"<div class='empty error'>" +
+"Erreur lors du chargement des demandes." +
+"</div>";
 
 return;
 
@@ -1762,10 +1764,11 @@ renderDemandes(data);
 
 }catch(error){
 
+console.error(error);
+
 demandesList.innerHTML =
-"<div class='empty error'>"+
-"Erreur de connexion."
-+
+"<div class='empty error'>" +
+"Erreur de connexion." +
 "</div>";
 
 }
@@ -1788,18 +1791,17 @@ return d.statut !== "traitee";
 
 
 demandesCount.textContent =
-nouvelles+
-(nouvelles>1
-?" nouvelles demandes"
-:" nouvelle demande");
+nouvelles +
+(nouvelles > 1
+? " nouvelles demandes"
+: " nouvelle demande");
 
 
 if(!data.length){
 
 demandesList.innerHTML =
-"<div class='no-demandes'>"+
-"📭 Aucune demande client pour le moment."
-+
+"<div class='no-demandes'>" +
+"📭 Aucune demande client pour le moment." +
 "</div>";
 
 return;
@@ -1811,7 +1813,7 @@ demandesList.innerHTML =
 data.map(function(d){
 
 const isTraitee =
-d.statut==="traitee";
+d.statut === "traitee";
 
 
 const date =
@@ -1835,11 +1837,13 @@ minute:"2-digit"
 const phoneRaw =
 String(d.telephone || "");
 
+
 const phoneDigits =
 phoneRaw.replace(
 /[^0-9+]/g,
 ""
 );
+
 
 let whatsappPhone =
 phoneDigits.replace(
@@ -1847,12 +1851,13 @@ phoneDigits.replace(
 ""
 );
 
+
 if(
 whatsappPhone.startsWith("0")
 ){
 
 whatsappPhone =
-"261"+
+"261" +
 whatsappPhone.substring(1);
 
 }
@@ -1860,7 +1865,8 @@ whatsappPhone.substring(1);
 
 const whatsappMessage =
 encodeURIComponent(
-"Bonjour "+(d.nom||"")+
+"Bonjour " +
+(d.nom || "") +
 ", concernant votre demande immobilière."
 );
 
@@ -1902,7 +1908,7 @@ onclick="updateDemandeStatus('${d.id}','traitee')">
 
 return `
 
-<div class="demande-card ${isTraitee?"traitee":""}">
+<div class="demande-card ${isTraitee ? "traitee" : ""}">
 
 <div class="demande-top">
 
@@ -1972,10 +1978,10 @@ ${esc(d.details)}
 
 <div class="demande-actions">
 
-
 <a
-href="https://wa.me/${whatsappPhone}?text=${whatsappMessage}"
+href="https://wa.me/${escAttr(whatsappPhone)}?text=${whatsappMessage}"
 target="_blank"
+rel="noopener"
 style="text-decoration:none">
 
 <button
@@ -2015,7 +2021,6 @@ onclick="removeDemande('${d.id}')">
 
 </button>
 
-
 </div>
 
 
@@ -2029,7 +2034,7 @@ onclick="removeDemande('${d.id}')">
 
 
 /* =========================
-   CHANGER STATUT DEMANDE
+   MODIFIER STATUT DEMANDE
 ========================= */
 
 async function updateDemandeStatus(
@@ -2041,8 +2046,8 @@ try{
 
 const response =
 await fetch(
-DEMANDES_API+
-"?id=eq."+
+DEMANDES_API +
+"?id=eq." +
 encodeURIComponent(id),
 {
 
@@ -2066,7 +2071,7 @@ statut:newStatus
 if(!response.ok){
 
 alert(
-"Erreur : "+
+"Erreur : " +
 await response.text()
 );
 
@@ -2079,6 +2084,8 @@ loadDemandes();
 
 
 }catch(error){
+
+console.error(error);
 
 alert(
 "Erreur de connexion."
@@ -2108,8 +2115,8 @@ try{
 
 const response =
 await fetch(
-DEMANDES_API+
-"?id=eq."+
+DEMANDES_API +
+"?id=eq." +
 encodeURIComponent(id),
 {
 
@@ -2124,7 +2131,7 @@ headers:headers()
 if(!response.ok){
 
 alert(
-"Erreur : "+
+"Erreur : " +
 await response.text()
 );
 
@@ -2137,6 +2144,8 @@ loadDemandes();
 
 
 }catch(error){
+
+console.error(error);
 
 alert(
 "Erreur de connexion."
@@ -2161,13 +2170,9 @@ function(c){
 return {
 
 "&":"&amp;",
-
 "<":"&lt;",
-
 ">":"&gt;",
-
 '"':"&quot;",
-
 "'":"&#039;"
 
 }[c];
@@ -2181,6 +2186,10 @@ return {
 function escAttr(value){
 
 return String(value ?? "")
+.replace(
+/&/g,
+"&amp;"
+)
 .replace(
 /"/g,
 "&quot;"
@@ -2198,7 +2207,7 @@ return String(value ?? "")
 
 
 /* =========================
-   SESSION
+   SESSION EXISTANTE
 ========================= */
 
 const savedToken =
@@ -2209,9 +2218,11 @@ localStorage.getItem(
 
 if(savedToken){
 
-loginBox.style.display="none";
+loginBox.style.display =
+"none";
 
-adminBox.style.display="block";
+adminBox.style.display =
+"block";
 
 load();
 
