@@ -145,7 +145,18 @@ margin:10px 0;
 
 .location{
 font-size:16px;
-margin:10px 0 20px;
+margin:10px 0 8px;
+}
+
+.views{
+display:inline-block;
+font-size:14px;
+font-weight:bold;
+color:#64748b;
+background:#f1f5f9;
+padding:7px 12px;
+border-radius:20px;
+margin-bottom:20px;
 }
 
 .description{
@@ -357,6 +368,59 @@ encodeURIComponent(path).replace(/%2F/g,"/");
 
 
 /* =========================
+   COMPTEUR DE VUES
+========================= */
+
+async function incrementViews(){
+
+if(!id){
+return;
+}
+
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/rpc/increment_annonce_vues",
+{
+method:"POST",
+
+headers:{
+apikey:SUPABASE_KEY,
+Authorization:"Bearer " + SUPABASE_KEY,
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+p_id:id
+})
+
+}
+);
+
+if(!response.ok){
+
+console.log(
+"Compteur non disponible:",
+await response.text()
+);
+
+}
+
+}catch(error){
+
+console.log(
+"Erreur compteur:",
+error
+);
+
+}
+
+}
+
+
+/* =========================
    CHARGER L'ANNONCE
 ========================= */
 
@@ -446,7 +510,22 @@ annonce;
 photos =
 getPhotos(annonce.image_url);
 
+
+/*
+   IMPORTANT :
+   L'annonce est affichée AVANT
+   de lancer le compteur.
+*/
+
 renderAnnonce(annonce);
+
+
+/*
+   Le compteur travaille ensuite
+   en arrière-plan.
+*/
+
+incrementViews();
 
 }catch(error){
 
@@ -515,6 +594,15 @@ const phone =
 "tel:+261344171196";
 
 
+/*
+   On affiche la valeur actuelle + 1,
+   car cette ouverture devient une vue.
+*/
+
+const vues =
+Number(a.vues || 0) + 1;
+
+
 content.innerHTML = `
 
 <div class="gallery">
@@ -529,7 +617,7 @@ firstPhoto
 <img
 id="mainPhoto"
 src="${firstPhoto}"
-alt="${titre}">
+alt="${escapeHtml(titre)}">
 
 `
 
@@ -554,7 +642,7 @@ photos.length > 1
 
 <button
 class="prev"
-onclick="previousPhoto()">
+onclick="previousPhoto">
 
 ‹
 
@@ -593,10 +681,10 @@ id="counter">
 
 <span class="tag">
 
-${a.type || "Bien immobilier"}
+${escapeHtml(a.type || "Bien immobilier")}
 
 ${a.transaction
-? " • " + a.transaction
+? " • " + escapeHtml(a.transaction)
 : ""}
 
 </span>
@@ -623,6 +711,13 @@ a.localisation ||
 a.lieu ||
 "Antsirabe"
 )}
+
+</div>
+
+
+<div class="views">
+
+👁️ ${vues} vues
 
 </div>
 
