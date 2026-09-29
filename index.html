@@ -13,9 +13,14 @@
 <link rel="canonical" href="https://antsirabe-immo.devs.surf/">
 
 <style>
-*{box-sizing:border-box}
 
-html{scroll-behavior:smooth}
+*{
+box-sizing:border-box
+}
+
+html{
+scroll-behavior:smooth
+}
 
 body{
 margin:0;
@@ -61,6 +66,7 @@ font-weight:600;
 nav a:hover{
 color:#f4b942;
 }
+
 
 /* HERO */
 
@@ -115,6 +121,7 @@ font-weight:800;
 cursor:pointer;
 }
 
+
 /* SECTIONS */
 
 section{
@@ -137,6 +144,7 @@ font-size:30px;
 margin:0;
 color:#687386;
 }
+
 
 /* CARDS */
 
@@ -169,6 +177,7 @@ justify-content:center;
 color:#607080;
 font-weight:bold;
 overflow:hidden;
+cursor:pointer;
 }
 
 .photo img{
@@ -176,6 +185,22 @@ width:100%;
 height:100%;
 object-fit:cover;
 display:block;
+}
+
+.photo:hover img{
+transform:scale(1.03);
+transition:.25s;
+}
+
+.photo-hint{
+position:absolute;
+bottom:10px;
+right:10px;
+background:#0009;
+color:white;
+padding:6px 9px;
+border-radius:20px;
+font-size:11px;
 }
 
 .badge{
@@ -188,6 +213,7 @@ padding:7px 10px;
 border-radius:20px;
 font-size:12px;
 font-weight:800;
+z-index:2;
 }
 
 .body{
@@ -234,6 +260,7 @@ cursor:pointer;
 background:#164b78;
 }
 
+
 /* AGENCE */
 
 .about{
@@ -275,6 +302,7 @@ font-size:14px;
 line-height:1.6;
 }
 
+
 /* CONTACT */
 
 .contact{
@@ -313,6 +341,7 @@ background:#25d366;
 color:white;
 }
 
+
 /* FOOTER */
 
 footer{
@@ -323,6 +352,7 @@ padding:22px;
 font-size:13px;
 }
 
+
 /* MESSAGE */
 
 .msg{
@@ -332,6 +362,95 @@ background:white;
 border-radius:12px;
 color:#687386;
 }
+
+
+/* GALERIE */
+
+.gallery{
+display:none;
+position:fixed;
+inset:0;
+background:#000d;
+z-index:100;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.gallery.show{
+display:flex;
+}
+
+.gallery-box{
+position:relative;
+width:min(950px,100%);
+height:min(85vh,700px);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.gallery-main{
+max-width:100%;
+max-height:100%;
+object-fit:contain;
+border-radius:10px;
+box-shadow:0 5px 30px #0008;
+}
+
+.gallery-close{
+position:absolute;
+top:-5px;
+right:-5px;
+width:42px;
+height:42px;
+border:0;
+border-radius:50%;
+background:white;
+color:#172033;
+font-size:25px;
+font-weight:bold;
+cursor:pointer;
+z-index:5;
+}
+
+.gallery-prev,
+.gallery-next{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:48px;
+height:48px;
+border:0;
+border-radius:50%;
+background:#ffffffdd;
+color:#172033;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
+z-index:5;
+}
+
+.gallery-prev{
+left:10px;
+}
+
+.gallery-next{
+right:10px;
+}
+
+.gallery-count{
+position:absolute;
+bottom:10px;
+left:50%;
+transform:translateX(-50%);
+background:#0009;
+color:white;
+padding:7px 12px;
+border-radius:20px;
+font-size:13px;
+}
+
 
 /* MOBILE */
 
@@ -401,7 +520,41 @@ grid-template-columns:1fr;
 height:220px;
 }
 
+.gallery{
+padding:10px;
 }
+
+.gallery-box{
+height:80vh;
+}
+
+.gallery-main{
+max-width:100%;
+max-height:75vh;
+}
+
+.gallery-prev,
+.gallery-next{
+width:42px;
+height:42px;
+font-size:25px;
+}
+
+.gallery-prev{
+left:3px;
+}
+
+.gallery-next{
+right:3px;
+}
+
+.gallery-close{
+right:3px;
+top:3px;
+}
+
+}
+
 
 /* PETIT ECRAN */
 
@@ -416,10 +569,12 @@ grid-template-columns:1fr 1fr;
 }
 
 }
+
 </style>
 </head>
 
 <body>
+
 
 <header>
 
@@ -448,17 +603,27 @@ Maisons, appartements, terrains et locaux à vendre ou à louer.
 <div class="search">
 
 <select id="type">
-<option value="">Tous les types</option>
+
+<option value="">
+Tous les types
+</option>
+
 <option>Maison</option>
 <option>Appartement</option>
 <option>Terrain</option>
 <option>Local commercial</option>
+
 </select>
 
 <select id="op">
-<option value="">Toutes transactions</option>
+
+<option value="">
+Toutes transactions
+</option>
+
 <option>À vendre</option>
 <option>À louer</option>
+
 </select>
 
 <input
@@ -478,7 +643,9 @@ Rechercher
 
 <div class="section-title">
 
-<h2>Nos biens disponibles</h2>
+<h2>
+Nos biens disponibles
+</h2>
 
 <p>
 Découvrez les dernières annonces publiées.
@@ -503,7 +670,9 @@ Chargement des biens...
 
 <div class="section-title">
 
-<h2>À propos de notre agence</h2>
+<h2>
+À propos de notre agence
+</h2>
 
 <p>
 Votre partenaire immobilier à Antsirabe.
@@ -523,7 +692,9 @@ l'organisation des visites et la mise en relation.
 
 <div class="icon">🏠</div>
 
-<h3>Biens variés</h3>
+<h3>
+Biens variés
+</h3>
 
 <p>
 Maisons, terrains, appartements et locaux commerciaux.
@@ -531,11 +702,14 @@ Maisons, terrains, appartements et locaux commerciaux.
 
 </div>
 
+
 <div class="feature">
 
 <div class="icon">📍</div>
 
-<h3>Antsirabe</h3>
+<h3>
+Antsirabe
+</h3>
 
 <p>
 Des annonces adaptées aux différents quartiers et alentours.
@@ -543,11 +717,14 @@ Des annonces adaptées aux différents quartiers et alentours.
 
 </div>
 
+
 <div class="feature">
 
 <div class="icon">🤝</div>
 
-<h3>Accompagnement</h3>
+<h3>
+Accompagnement
+</h3>
 
 <p>
 Nous facilitons la prise de contact et l'organisation des visites.
@@ -564,15 +741,21 @@ Nous facilitons la prise de contact et l'organisation des visites.
 
 <section id="contact" class="contact">
 
-<h2>Vous cherchez un bien ?</h2>
+<h2>
+Vous cherchez un bien ?
+</h2>
 
 <p>
 Contactez directement Agence Immobilier Antsirabe.
 </p>
 
-<p>📞 034 41 711 96</p>
+<p>
+📞 034 41 711 96
+</p>
 
-<a class="call" href="tel:+261344171196">
+<a
+class="call"
+href="tel:+261344171196">
 Appeler
 </a>
 
@@ -593,23 +776,88 @@ WhatsApp
 </footer>
 
 
+<!-- GALERIE -->
+
+<div
+id="gallery"
+class="gallery"
+onclick="closeGallery(event)">
+
+<div class="gallery-box">
+
+<button
+class="gallery-close"
+onclick="closeGallery()">
+
+×
+
+</button>
+
+<button
+class="gallery-prev"
+onclick="previousPhoto(event)">
+
+‹
+
+</button>
+
+<img
+id="galleryImage"
+class="gallery-main"
+src=""
+alt="Photo du bien">
+
+<button
+class="gallery-next"
+onclick="nextPhoto(event)">
+
+›
+
+</button>
+
+<div
+id="galleryCount"
+class="gallery-count">
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
-const SUPABASE_URL="https://byezzcuqrweyhdjfnaky.supabase.co";
+const SUPABASE_URL =
+"https://byezzcuqrweyhdjfnaky.supabase.co";
 
-const SUPABASE_KEY="sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+const SUPABASE_KEY =
+"sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
 
-const API=SUPABASE_URL+"/rest/v1/annonces";
+const API =
+SUPABASE_URL+"/rest/v1/annonces";
+
+const BUCKET =
+"annonces-images";
 
 let all=[];
 
+
+/* GALERIE */
+
+let currentGallery=[];
+let currentPhoto=0;
+
+
+/* CHARGER */
 
 async function load(){
 
 try{
 
-const r=await fetch(
-API+"?statut=eq.publiee&order=created_at.desc",
+const r =
+await fetch(
+API+
+"?statut=eq.publiee&order=created_at.desc",
 {
 headers:{
 apikey:SUPABASE_KEY,
@@ -637,46 +885,153 @@ console.error(e);
 }
 
 
+/* IMAGE URL */
+
 function imgUrl(path){
 
 return path
-?SUPABASE_URL+
-"/storage/v1/object/public/annonces-images/"+
+?
+SUPABASE_URL+
+"/storage/v1/object/public/"+
+BUCKET+
+"/"+
 encodeURIComponent(path).replace(/%2F/g,"/")
 :"";
 
 }
 
 
+/* RECUPERER LES PHOTOS */
+
+function getPhotos(value){
+
+if(!value){
+
+return [];
+
+}
+
+
+/*
+Nouvelle annonce :
+image_url contient un JSON
+exemple :
+["photo1.jpg","photo2.jpg","photo3.jpg"]
+*/
+
+try{
+
+const parsed =
+JSON.parse(value);
+
+if(Array.isArray(parsed)){
+
+return parsed.filter(Boolean);
+
+}
+
+}catch(e){
+
+}
+
+
+/*
+Ancienne annonce :
+image_url contient directement
+un seul nom de fichier.
+*/
+
+return [value];
+
+}
+
+
+/* AFFICHAGE */
+
 function render(list){
 
-const cards=document.getElementById("cards");
+const cards =
+document.getElementById("cards");
 
-cards.innerHTML=list.length?
+cards.innerHTML =
+list.length
+
+?
 
 list.map(b=>{
 
-const img=imgUrl(b.image_url);
+const photos =
+getPhotos(b.image_url);
+
+const firstImage =
+photos.length
+?
+imgUrl(photos[0])
+:"";
+
+
+const photoHint =
+photos.length>1
+
+?
+
+`<span class="photo-hint">
+📸 ${photos.length} photos · Cliquer pour voir
+</span>`
+
+:
+
+photos.length===1
+
+?
+
+`<span class="photo-hint">
+🔍 Cliquer pour agrandir
+</span>`
+
+:"";
+
 
 return `
 
 <div class="card">
 
-<div class="photo">
+<div
+class="photo"
+onclick="openGallery(${JSON.stringify(photos).replace(/"/g,'&quot;')})">
 
 ${
-img
-?`<img src="${img}" alt="${esc(b.titre)}">`
-:"PHOTO DU BIEN"
+firstImage
+
+?
+
+`<img
+src="${firstImage}"
+alt="${esc(b.titre)}">`
+
+:
+
+"PHOTO DU BIEN"
+
 }
+
+${photoHint}
 
 ${
 b.transaction
-?`<span class="badge">${esc(b.transaction)}</span>`
+
+?
+
+`<span class="badge">
+${esc(b.transaction)}
+</span>`
+
 :""
+
 }
 
 </div>
+
 
 <div class="body">
 
@@ -684,17 +1039,21 @@ b.transaction
 ${esc(b.type||"Bien immobilier")}
 </div>
 
+
 <h3>
 ${esc(b.titre)}
 </h3>
+
 
 <div class="price">
 ${formatPrice(b.prix)}
 </div>
 
+
 <div class="location">
 📍 ${esc(b.lieu||"Antsirabe")}
 </div>
+
 
 <button
 class="visit"
@@ -712,26 +1071,41 @@ onclick="wa('${escAttr(b.id)}','${escAttr(b.titre)}')">
 
 }).join("")
 
-:"<p class='msg'>Aucun bien publié pour le moment.</p>";
+:
+
+"<p class='msg'>Aucun bien publié pour le moment.</p>";
 
 }
 
 
+/* RECHERCHE */
+
 function filter(){
 
-const t=document.getElementById("type").value;
+const t =
+document.getElementById("type").value;
 
-const o=document.getElementById("op").value;
+const o =
+document.getElementById("op").value;
 
-const s=document.getElementById("q").value.toLowerCase();
+const s =
+document.getElementById("q")
+.value
+.toLowerCase();
 
-const result=all.filter(b=>
+const result =
+all.filter(b=>
 
 (!t||b.type===t)&&
 
 (!o||b.transaction===o)&&
 
-(!s||(b.lieu||"").toLowerCase().includes(s))
+(
+!s||
+(b.lieu||"")
+.toLowerCase()
+.includes(s)
+)
 
 );
 
@@ -739,6 +1113,8 @@ render(result);
 
 }
 
+
+/* PRIX */
 
 function formatPrice(v){
 
@@ -752,6 +1128,8 @@ return new Intl.NumberFormat("fr-FR")
 }
 
 
+/* WHATSAPP */
+
 function wa(id,title){
 
 location.href=
@@ -763,6 +1141,8 @@ id+" - "+title+"."
 
 }
 
+
+/* SECURITE TEXTE */
 
 function esc(x){
 
@@ -785,10 +1165,187 @@ m=>({
 function escAttr(x){
 
 return String(x??"")
-.replace(/'/g,"&#39;");
+.replace(/'/g,"&#39;")
+.replace(/\\/g,"\\\\")
+.replace(/"/g,"&quot;");
 
 }
 
+
+/* OUVRIR GALERIE */
+
+function openGallery(photos){
+
+if(!photos||!photos.length){
+
+return;
+
+}
+
+currentGallery =
+photos.map(function(photo){
+
+return imgUrl(photo);
+
+});
+
+currentPhoto=0;
+
+showCurrentPhoto();
+
+document
+.getElementById("gallery")
+.classList.add("show");
+
+document.body.style.overflow="hidden";
+
+}
+
+
+/* AFFICHER PHOTO */
+
+function showCurrentPhoto(){
+
+const image =
+document.getElementById("galleryImage");
+
+const count =
+document.getElementById("galleryCount");
+
+image.src =
+currentGallery[currentPhoto];
+
+count.textContent =
+(currentPhoto+1)+
+" / "+
+currentGallery.length;
+
+
+/* cacher les boutons s'il n'y a
+qu'une seule photo */
+
+document.querySelector(".gallery-prev")
+.style.display =
+currentGallery.length>1
+?"block"
+:"none";
+
+document.querySelector(".gallery-next")
+.style.display =
+currentGallery.length>1
+?"block"
+:"none";
+
+}
+
+
+/* PHOTO SUIVANTE */
+
+function nextPhoto(event){
+
+if(event)
+event.stopPropagation();
+
+if(!currentGallery.length)
+return;
+
+currentPhoto++;
+
+if(currentPhoto>=currentGallery.length){
+
+currentPhoto=0;
+
+}
+
+showCurrentPhoto();
+
+}
+
+
+/* PHOTO PRECEDENTE */
+
+function previousPhoto(event){
+
+if(event)
+event.stopPropagation();
+
+if(!currentGallery.length)
+return;
+
+currentPhoto--;
+
+if(currentPhoto<0){
+
+currentPhoto=
+currentGallery.length-1;
+
+}
+
+showCurrentPhoto();
+
+}
+
+
+/* FERMER */
+
+function closeGallery(event){
+
+if(event){
+
+if(
+event.target.id!=="gallery" &&
+event.target.className!=="gallery-close"
+){
+
+return;
+
+}
+
+}
+
+document
+.getElementById("gallery")
+.classList.remove("show");
+
+document.body.style.overflow="";
+
+}
+
+
+/* CLAVIER */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+const gallery =
+document.getElementById("gallery");
+
+if(!gallery.classList.contains("show"))
+return;
+
+if(e.key==="Escape"){
+
+closeGallery();
+
+}
+
+if(e.key==="ArrowRight"){
+
+nextPhoto();
+
+}
+
+if(e.key==="ArrowLeft"){
+
+previousPhoto();
+
+}
+
+});
+
+
+/* CHARGEMENT */
 
 load();
 
