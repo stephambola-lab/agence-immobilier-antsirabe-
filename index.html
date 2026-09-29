@@ -245,6 +245,27 @@ font-size:14px;
 margin-bottom:15px;
 }
 
+.buttons{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.details{
+width:100%;
+padding:12px;
+border:0;
+border-radius:9px;
+background:#f4b942;
+color:#172033;
+font-weight:bold;
+cursor:pointer;
+}
+
+.details:hover{
+background:#e4a92f;
+}
+
 .visit{
 width:100%;
 padding:12px;
@@ -520,6 +541,10 @@ grid-template-columns:1fr;
 height:220px;
 }
 
+.buttons{
+grid-template-columns:1fr;
+}
+
 .gallery{
 padding:10px;
 }
@@ -574,7 +599,6 @@ grid-template-columns:1fr 1fr;
 </head>
 
 <body>
-
 
 <header>
 
@@ -841,9 +865,6 @@ const BUCKET =
 
 let all=[];
 
-
-/* GALERIE */
-
 let currentGallery=[];
 let currentPhoto=0;
 
@@ -901,45 +922,23 @@ encodeURIComponent(path).replace(/%2F/g,"/")
 }
 
 
-/* RECUPERER LES PHOTOS */
+/* PHOTOS */
 
 function getPhotos(value){
 
 if(!value){
-
 return [];
-
 }
-
-
-/*
-Nouvelle annonce :
-image_url contient un JSON
-exemple :
-["photo1.jpg","photo2.jpg","photo3.jpg"]
-*/
 
 try{
 
-const parsed =
-JSON.parse(value);
+const parsed=JSON.parse(value);
 
 if(Array.isArray(parsed)){
-
 return parsed.filter(Boolean);
-
 }
 
-}catch(e){
-
-}
-
-
-/*
-Ancienne annonce :
-image_url contient directement
-un seul nom de fichier.
-*/
+}catch(e){}
 
 return [value];
 
@@ -950,27 +949,23 @@ return [value];
 
 function render(list){
 
-const cards =
-document.getElementById("cards");
+const cards=document.getElementById("cards");
 
-cards.innerHTML =
-list.length
+cards.innerHTML=list.length
 
 ?
 
 list.map(b=>{
 
-const photos =
-getPhotos(b.image_url);
+const photos=getPhotos(b.image_url);
 
-const firstImage =
+const firstImage=
 photos.length
 ?
 imgUrl(photos[0])
 :"";
 
-
-const photoHint =
+const photoHint=
 photos.length>1
 
 ?
@@ -990,7 +985,6 @@ photos.length===1
 </span>`
 
 :"";
-
 
 return `
 
@@ -1039,29 +1033,37 @@ ${esc(b.transaction)}
 ${esc(b.type||"Bien immobilier")}
 </div>
 
-
 <h3>
 ${esc(b.titre)}
 </h3>
-
 
 <div class="price">
 ${formatPrice(b.prix)}
 </div>
 
-
 <div class="location">
 📍 ${esc(b.lieu||"Antsirabe")}
 </div>
 
+<div class="buttons">
+
+<button
+class="details"
+onclick="openDetails('${escAttr(b.id)}')">
+
+👁️ Voir les détails
+
+</button>
 
 <button
 class="visit"
 onclick="wa('${escAttr(b.id)}','${escAttr(b.titre)}')">
 
-💬 Demander une visite
+💬 Visite
 
 </button>
+
+</div>
 
 </div>
 
@@ -1078,22 +1080,37 @@ onclick="wa('${escAttr(b.id)}','${escAttr(b.titre)}')">
 }
 
 
+/* PAGE DETAIL */
+
+function openDetails(id){
+
+if(!id){
+return;
+}
+
+window.location.href=
+"annonce.html?id="+
+encodeURIComponent(id);
+
+}
+
+
 /* RECHERCHE */
 
 function filter(){
 
-const t =
+const t=
 document.getElementById("type").value;
 
-const o =
+const o=
 document.getElementById("op").value;
 
-const s =
+const s=
 document.getElementById("q")
 .value
 .toLowerCase();
 
-const result =
+const result=
 all.filter(b=>
 
 (!t||b.type===t)&&
@@ -1118,9 +1135,9 @@ render(result);
 
 function formatPrice(v){
 
-if(v===null||v===undefined||v==="")
-
+if(v===null||v===undefined||v===""){
 return "Prix sur demande";
+}
 
 return new Intl.NumberFormat("fr-FR")
 .format(Number(v))+" Ar";
@@ -1142,7 +1159,7 @@ id+" - "+title+"."
 }
 
 
-/* SECURITE TEXTE */
+/* SECURITE */
 
 function esc(x){
 
@@ -1166,190 +1183,4 @@ function escAttr(x){
 
 return String(x??"")
 .replace(/'/g,"&#39;")
-.replace(/\\/g,"\\\\")
-.replace(/"/g,"&quot;");
-
-}
-
-
-/* OUVRIR GALERIE */
-
-function openGallery(photos){
-
-if(!photos||!photos.length){
-
-return;
-
-}
-
-currentGallery =
-photos.map(function(photo){
-
-return imgUrl(photo);
-
-});
-
-currentPhoto=0;
-
-showCurrentPhoto();
-
-document
-.getElementById("gallery")
-.classList.add("show");
-
-document.body.style.overflow="hidden";
-
-}
-
-
-/* AFFICHER PHOTO */
-
-function showCurrentPhoto(){
-
-const image =
-document.getElementById("galleryImage");
-
-const count =
-document.getElementById("galleryCount");
-
-image.src =
-currentGallery[currentPhoto];
-
-count.textContent =
-(currentPhoto+1)+
-" / "+
-currentGallery.length;
-
-
-/* cacher les boutons s'il n'y a
-qu'une seule photo */
-
-document.querySelector(".gallery-prev")
-.style.display =
-currentGallery.length>1
-?"block"
-:"none";
-
-document.querySelector(".gallery-next")
-.style.display =
-currentGallery.length>1
-?"block"
-:"none";
-
-}
-
-
-/* PHOTO SUIVANTE */
-
-function nextPhoto(event){
-
-if(event)
-event.stopPropagation();
-
-if(!currentGallery.length)
-return;
-
-currentPhoto++;
-
-if(currentPhoto>=currentGallery.length){
-
-currentPhoto=0;
-
-}
-
-showCurrentPhoto();
-
-}
-
-
-/* PHOTO PRECEDENTE */
-
-function previousPhoto(event){
-
-if(event)
-event.stopPropagation();
-
-if(!currentGallery.length)
-return;
-
-currentPhoto--;
-
-if(currentPhoto<0){
-
-currentPhoto=
-currentGallery.length-1;
-
-}
-
-showCurrentPhoto();
-
-}
-
-
-/* FERMER */
-
-function closeGallery(event){
-
-if(event){
-
-if(
-event.target.id!=="gallery" &&
-event.target.className!=="gallery-close"
-){
-
-return;
-
-}
-
-}
-
-document
-.getElementById("gallery")
-.classList.remove("show");
-
-document.body.style.overflow="";
-
-}
-
-
-/* CLAVIER */
-
-document.addEventListener(
-"keydown",
-function(e){
-
-const gallery =
-document.getElementById("gallery");
-
-if(!gallery.classList.contains("show"))
-return;
-
-if(e.key==="Escape"){
-
-closeGallery();
-
-}
-
-if(e.key==="ArrowRight"){
-
-nextPhoto();
-
-}
-
-if(e.key==="ArrowLeft"){
-
-previousPhoto();
-
-}
-
-});
-
-
-/* CHARGEMENT */
-
-load();
-
-</script>
-
-</body>
-</html>
+.replace(/\\/g,"\\\\
