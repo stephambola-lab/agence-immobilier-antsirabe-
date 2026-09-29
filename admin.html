@@ -1,161 +1,380 @@
 <!doctype html>
 <html lang="fr">
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Administration - Agence Immobilier Antsirabe</title>
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Administration | Agence Immobilier Antsirabe</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box
+}
 
 body{
 margin:0;
-font-family:Arial;
-background:#f4f6f8;
-color:#172033
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+color:#172033;
 }
+
+/* HEADER */
 
 header{
-background:#102a43;
+background:#0b2239;
 color:white;
-padding:16px 5%;
-font-weight:bold
+padding:14px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+box-shadow:0 2px 12px #0003;
 }
+
+.brand{
+font-size:18px;
+font-weight:800;
+}
+
+.brand span{
+color:#f4b942;
+}
+
+.back{
+background:#f4b942;
+color:#172033;
+text-decoration:none;
+padding:10px 15px;
+border-radius:9px;
+font-size:14px;
+font-weight:800;
+white-space:nowrap;
+}
+
+.back:hover{
+opacity:.9;
+}
+
+/* LOGIN */
 
 .box{
-max-width:500px;
-margin:30px auto;
+max-width:480px;
+margin:45px auto;
 background:white;
-padding:25px;
-border-radius:14px;
-box-shadow:0 3px 15px #0002
+padding:28px;
+border-radius:16px;
+box-shadow:0 5px 25px #00000012;
 }
+
+.box h2{
+margin-top:0;
+}
+
+/* ADMIN */
 
 .admin{
-max-width:1000px;
-margin:20px auto;
-padding:15px
+max-width:1100px;
+margin:25px auto;
+padding:0 15px;
 }
 
-input,select,textarea,button{
+.panel{
+background:white;
+padding:24px;
+border-radius:16px;
+box-shadow:0 4px 18px #00000012;
+}
+
+/* FORM */
+
+.form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.full{
+grid-column:1/-1;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-bottom:4px;
+}
+
+input,
+select,
+textarea,
+button{
 width:100%;
 padding:12px;
-margin-top:8px;
-border:1px solid #ddd;
-border-radius:8px;
-font:inherit
+margin-top:5px;
+border:1px solid #d9dee5;
+border-radius:9px;
+font:inherit;
+}
+
+textarea{
+min-height:120px;
+resize:vertical;
 }
 
 button{
 background:#f4b942;
 border:0;
-font-weight:bold;
-cursor:pointer
+font-weight:800;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
 }
 
 button:disabled{
-opacity:.6
+opacity:.6;
+cursor:not-allowed;
 }
 
+/* BUTTONS */
+
 .logout{
-background:#e45b5b;
+background:#df5757;
 color:white;
-width:auto
+width:auto;
+padding:10px 15px;
 }
 
 .ok{
 background:#3b8c5a;
-color:white
+color:white;
 }
 
 .danger{
-background:#e45b5b;
-color:white
+background:#df5757;
+color:white;
 }
+
+/* STATUS */
 
 .error{
 color:#c62828;
-font-weight:bold
+font-weight:bold;
 }
 
 .success{
 color:#2e7d32;
-font-weight:bold
+font-weight:bold;
 }
 
-.form{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px
+/* SEPARATOR */
+
+.separator{
+height:1px;
+background:#e4e8ed;
+margin:25px 0;
 }
 
-.full{
-grid-column:1/-1
+/* ANNONCES */
+
+.title-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
+}
+
+.title-row h2{
+margin:0;
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:15px;
-margin-top:20px
+gap:20px;
 }
 
 .card{
 background:white;
-border-radius:12px;
+border-radius:15px;
 overflow:hidden;
-box-shadow:0 3px 12px #0001
+box-shadow:0 4px 18px #00000012;
 }
 
 .photo{
-height:150px;
-background:#ddd;
+height:180px;
+background:#dce3ea;
 display:flex;
 align-items:center;
-justify-content:center
+justify-content:center;
+color:#667788;
+font-weight:bold;
+overflow:hidden;
 }
 
 .photo img{
 width:100%;
 height:100%;
-object-fit:cover
+object-fit:cover;
+display:block;
 }
 
 .body{
-padding:14px
+padding:16px;
+}
+
+.body h3{
+margin:0 0 8px;
+font-size:18px;
+}
+
+.info{
+font-size:14px;
+line-height:1.7;
+color:#5e6a78;
+}
+
+.price{
+font-size:18px;
+font-weight:800;
+color:#174f83;
+margin:8px 0;
+}
+
+.status-badge{
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+background:#edf1f5;
+color:#52606d;
+margin-top:5px;
+}
+
+.status-published{
+background:#dff3e6;
+color:#287542;
 }
 
 .actions{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:7px
+gap:8px;
+margin-top:14px;
 }
 
-@media(max-width:700px){
-.form,.grid{
-grid-template-columns:1fr
+/* MESSAGE */
+
+.empty{
+background:white;
+padding:30px;
+border-radius:12px;
+text-align:center;
+color:#667788;
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+header{
+padding:12px 4%;
+}
+
+.brand{
+font-size:15px;
+}
+
+.back{
+font-size:12px;
+padding:9px 11px;
+}
+
+.admin{
+margin:15px auto;
+padding:0 10px;
+}
+
+.panel{
+padding:18px;
+}
+
+.form{
+grid-template-columns:1fr;
 }
 
 .full{
-grid-column:auto
+grid-column:auto;
 }
 
-.box{
-margin:20px 10px
+.grid{
+grid-template-columns:1fr;
 }
+
+.title-row{
+align-items:flex-start;
+flex-direction:column;
 }
+
+.logout{
+width:auto;
+}
+
+.photo{
+height:210px;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
-🔐 Agence Immobilier Antsirabe - Administration
+
+<div class="brand">
+
+🔐 Agence Immobilier
+<span>Antsirabe</span>
+
+</div>
+
+<a
+href="index.html"
+class="back">
+
+← Retour au site
+
+</a>
+
 </header>
 
-<div id="loginBox" class="box">
 
-<h2>Connexion administrateur</h2>
+<!-- LOGIN -->
+
+<div
+id="loginBox"
+class="box">
+
+<h2>
+Connexion administrateur
+</h2>
+
+<p>
+Connectez-vous pour gérer les annonces.
+</p>
 
 <input
 id="email"
@@ -167,109 +386,213 @@ id="password"
 type="password"
 placeholder="Mot de passe">
 
-<button id="loginBtn">
+<button
+id="loginBtn">
+
 Se connecter
+
 </button>
 
 <p id="message"></p>
 
 </div>
 
-<div id="adminBox"
+
+<!-- ADMIN -->
+
+<div
+id="adminBox"
 class="admin"
 style="display:none">
 
-<div style="background:#fff;padding:20px;border-radius:12px">
 
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+<!-- AJOUT -->
 
-<h2>Ajouter une annonce</h2>
+<div class="panel">
 
-<button id="logoutBtn"
+<div class="title-row">
+
+<h2>
+Ajouter une annonce
+</h2>
+
+<button
+id="logoutBtn"
 class="logout">
+
 Déconnexion
+
 </button>
 
 </div>
 
+
 <div class="form">
 
+
 <div>
-<label>Type</label>
+
+<label>
+Type
+</label>
 
 <select id="type">
-<option>Maison</option>
-<option>Appartement</option>
-<option>Terrain</option>
-<option>Local commercial</option>
+
+<option>
+Maison
+</option>
+
+<option>
+Appartement
+</option>
+
+<option>
+Terrain
+</option>
+
+<option>
+Local commercial
+</option>
+
 </select>
+
 </div>
 
+
 <div>
-<label>Transaction</label>
+
+<label>
+Transaction
+</label>
 
 <select id="transaction">
-<option>À vendre</option>
-<option>À louer</option>
+
+<option>
+À vendre
+</option>
+
+<option>
+À louer
+</option>
+
 </select>
+
 </div>
 
+
 <div>
-<label>Titre</label>
+
+<label>
+Titre
+</label>
 
 <input
 id="titre"
-placeholder="Belle maison">
+placeholder="Belle maison à Antsirabe">
+
 </div>
 
+
 <div>
-<label>Prix (Ar)</label>
+
+<label>
+Prix (Ar)
+</label>
 
 <input
 id="prix"
-type="number">
+type="number"
+placeholder="Ex : 150000000">
+
 </div>
 
+
 <div>
-<label>Localisation</label>
+
+<label>
+Localisation
+</label>
 
 <input
 id="lieu"
-placeholder="Antsirabe">
+placeholder="Ex : Antsenakely, Antsirabe">
+
 </div>
 
-<div class="full">
-<label>Description</label>
 
-<textarea id="description"></textarea>
-</div>
+<div>
 
-<div class="full">
-<label>Photo</label>
+<label>
+Photo
+</label>
 
 <input
 id="photos"
 type="file"
 accept="image/*">
-</div>
 
 </div>
 
-<button id="addBtn">
+
+<div class="full">
+
+<label>
+Description
+</label>
+
+<textarea
+id="description"
+placeholder="Décrivez le bien : chambres, terrain, accès, équipements, etc.">
+</textarea>
+
+</div>
+
+
+</div>
+
+
+<button
+id="addBtn">
+
 Enregistrer l'annonce
+
 </button>
 
 <p id="status"></p>
 
 </div>
 
-<div id="list"
+
+<div class="separator"></div>
+
+
+<!-- LISTE -->
+
+<div>
+
+<div class="title-row">
+
+<h2>
+Toutes les annonces
+</h2>
+
+</div>
+
+<div
+id="list"
 class="grid">
 </div>
 
 </div>
 
+
+</div>
+
+
 <script>
+
+
+/* SUPABASE */
 
 const URL =
 "https://byezzcuqrweyhdjfnaky.supabase.co";
@@ -280,6 +603,8 @@ const KEY =
 const BUCKET =
 "annonces-images";
 
+
+/* ELEMENTS */
 
 const loginBox =
 document.getElementById("loginBox");
@@ -312,6 +637,8 @@ const list =
 document.getElementById("list");
 
 
+/* LOGIN */
+
 loginBtn.addEventListener(
 "click",
 login
@@ -323,7 +650,9 @@ password.addEventListener(
 function(e){
 
 if(e.key==="Enter"){
+
 login();
+
 }
 
 });
@@ -352,7 +681,8 @@ return;
 
 loginBtn.disabled=true;
 
-loginBtn.textContent="Connexion...";
+loginBtn.textContent =
+"Connexion...";
 
 message.textContent="";
 
@@ -364,6 +694,7 @@ await fetch(
 URL+
 "/auth/v1/token?grant_type=password",
 {
+
 method:"POST",
 
 headers:{
@@ -396,7 +727,8 @@ message.textContent =
 
 loginBtn.disabled=false;
 
-loginBtn.textContent="Se connecter";
+loginBtn.textContent =
+"Se connecter";
 
 return;
 
@@ -412,12 +744,6 @@ localStorage.setItem(
 "admin_refresh_token",
 data.refresh_token
 );
-
-
-message.className="success";
-
-message.textContent =
-"Connexion réussie.";
 
 
 loginBox.style.display="none";
@@ -437,12 +763,15 @@ message.textContent =
 
 loginBtn.disabled=false;
 
-loginBtn.textContent="Se connecter";
+loginBtn.textContent =
+"Se connecter";
 
 }
 
 }
 
+
+/* TOKEN */
 
 function token(){
 
@@ -452,6 +781,8 @@ return localStorage.getItem(
 
 }
 
+
+/* HEADERS */
 
 function headers(){
 
@@ -470,10 +801,12 @@ return {
 }
 
 
+/* CHARGER */
+
 async function load(){
 
 status.textContent =
-"Chargement...";
+"Chargement des annonces...";
 
 
 try{
@@ -508,6 +841,7 @@ status.textContent="";
 
 render(data);
 
+
 }catch(error){
 
 status.className="error";
@@ -520,7 +854,7 @@ status.textContent =
 }
 
 
-/* PHOTO */
+/* UPLOAD PHOTO */
 
 async function upload(file){
 
@@ -539,29 +873,33 @@ BUCKET+
 "/"+
 filename,
 {
+
 method:"POST",
 
 headers:{
+
 "apikey":KEY,
 
 "Authorization":
 "Bearer "+token(),
 
 "Content-Type":
-file.type || "application/octet-stream"
+file.type ||
+"application/octet-stream"
+
 },
 
 body:file
+
 }
 );
 
 
 if(!response.ok){
 
-const text =
-await response.text();
-
-throw new Error(text);
+throw new Error(
+await response.text()
+);
 
 }
 
@@ -624,10 +962,13 @@ return;
 
 addBtn.disabled=true;
 
+addBtn.textContent =
+"Enregistrement...";
+
 status.className="";
 
 status.textContent =
-"Enregistrement...";
+"Préparation de l'annonce...";
 
 
 try{
@@ -637,16 +978,25 @@ let image=null;
 
 if(files.length){
 
+status.textContent =
+"Téléversement de la photo...";
+
 image =
 await upload(files[0]);
 
 }
 
 
+status.textContent =
+"Enregistrement de l'annonce...";
+
+
 const response =
 await fetch(
-URL+"/rest/v1/annonces",
+URL+
+"/rest/v1/annonces",
 {
+
 method:"POST",
 
 headers:{
@@ -675,16 +1025,16 @@ image_url:image,
 statut:"a_valider"
 
 })
+
 }
 );
 
 
 if(!response.ok){
 
-const text =
-await response.text();
-
-throw new Error(text);
+throw new Error(
+await response.text()
+);
 
 }
 
@@ -692,8 +1042,10 @@ throw new Error(text);
 status.className="success";
 
 status.textContent =
-"Annonce enregistrée.";
+"Annonce enregistrée avec succès.";
 
+
+/* RESET */
 
 document.getElementById("titre")
 .value="";
@@ -726,15 +1078,20 @@ status.textContent =
 
 addBtn.disabled=false;
 
+addBtn.textContent =
+"Enregistrer l'annonce";
+
 }
 
 
-/* PUBLIER */
+/* STATUT */
 
 async function updateStatus(
 id,
 newStatus
 ){
+
+try{
 
 const response =
 await fetch(
@@ -742,6 +1099,7 @@ URL+
 "/rest/v1/annonces?id=eq."+
 encodeURIComponent(id),
 {
+
 method:"PATCH",
 
 headers:{
@@ -750,8 +1108,11 @@ headers:{
 },
 
 body:JSON.stringify({
+
 statut:newStatus
+
 })
+
 }
 );
 
@@ -769,6 +1130,15 @@ return;
 
 
 load();
+
+
+}catch(error){
+
+alert(
+"Erreur de connexion."
+);
+
+}
 
 }
 
@@ -778,7 +1148,7 @@ load();
 async function removeAnnonce(id){
 
 if(!confirm(
-"Supprimer cette annonce ?"
+"Supprimer définitivement cette annonce ?"
 )){
 
 return;
@@ -786,15 +1156,19 @@ return;
 }
 
 
+try{
+
 const response =
 await fetch(
 URL+
 "/rest/v1/annonces?id=eq."+
 encodeURIComponent(id),
 {
+
 method:"DELETE",
 
 headers:headers()
+
 }
 );
 
@@ -812,6 +1186,15 @@ return;
 
 
 load();
+
+
+}catch(error){
+
+alert(
+"Erreur de connexion."
+);
+
+}
 
 }
 
@@ -823,7 +1206,10 @@ function render(data){
 if(!data.length){
 
 list.innerHTML =
-"<p>Aucune annonce.</p>";
+
+"<div class='empty'>"+
+"Aucune annonce pour le moment."+
+"</div>";
 
 return;
 
@@ -832,6 +1218,7 @@ return;
 
 list.innerHTML =
 data.map(function(a){
+
 
 let image="";
 
@@ -855,6 +1242,18 @@ new Intl.NumberFormat("fr-FR")
 .format(a.prix)+" Ar"
 :
 "Prix sur demande";
+
+
+let statusClass =
+"status-badge";
+
+
+if(a.statut==="publiee"){
+
+statusClass +=
+" status-published";
+
+}
 
 
 const action =
@@ -885,39 +1284,43 @@ return `
 ${
 image
 ?
-`<img src="${image}" alt="">`
+`<img
+src="${image}"
+alt="">`
 :
-"PHOTO"
+"PHOTO DU BIEN"
 }
 
 </div>
 
+
 <div class="body">
 
-<b>
+<h3>
 ${esc(a.titre)}
-</b>
+</h3>
 
-<p>
 
-${esc(a.type)}
+<div class="info">
 
-<br>
-
-${esc(a.lieu)}
+${esc(a.type||"Bien immobilier")}
 
 <br>
 
+📍 ${esc(a.lieu||"")}
+
+</div>
+
+
+<div class="price">
 ${prix}
+</div>
 
-<br>
 
-Statut :
-<b>
-${esc(a.statut)}
-</b>
+<span class="${statusClass}">
+Statut : ${esc(a.statut)}
+</span>
 
-</p>
 
 <div class="actions">
 
@@ -926,7 +1329,9 @@ ${action}
 <button
 class="danger"
 onclick="removeAnnonce('${a.id}')">
+
 Supprimer
+
 </button>
 
 </div>
@@ -942,7 +1347,7 @@ Supprimer
 }
 
 
-/* SECURITE */
+/* SECURITE TEXTE */
 
 function esc(value){
 
@@ -954,9 +1359,13 @@ function(c){
 return {
 
 "&":"&amp;",
+
 "<":"&lt;",
+
 ">":"&gt;",
+
 '"':"&quot;",
+
 "'":"&#039;"
 
 }[c];
@@ -986,7 +1395,7 @@ load();
 }
 
 
-/* LOGOUT */
+/* DECONNEXION */
 
 logoutBtn.addEventListener(
 "click",
@@ -1003,6 +1412,7 @@ localStorage.removeItem(
 location.reload();
 
 });
+
 
 </script>
 
