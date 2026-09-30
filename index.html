@@ -3,836 +3,592 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b2239">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Antsirabe Immo">
-<link rel="manifest" href="manifest.json">
-<title>Antsirabe Immo — Agence immobilière</title>
+<meta name="theme-color" content="#0f172a">
+
+<title>Antsirabe Immo - Agence Immobilière</title>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
+*{
+  box-sizing:border-box;
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#172033;
-  background:#f5f7fa;
+  padding:0;
 }
 
-a{text-decoration:none;color:inherit}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0}
+html{
+  scroll-behavior:smooth;
+}
 
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fa;
+  color:#172033;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button,
+input,
+select,
+textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* HEADER */
 header{
+  background:#0f172a;
+  color:white;
+  padding:15px 5%;
   position:sticky;
   top:0;
-  z-index:50;
-  background:#0b2239;
-  color:#fff;
-  padding:14px 5%;
+  z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
-  box-shadow:0 4px 20px #0003;
+  gap:20px;
 }
 
-.brand{
-  font-weight:900;
-  font-size:20px;
-  letter-spacing:.2px;
+.logo{
+  font-size:24px;
+  font-weight:800;
   white-space:nowrap;
+}
+
+.logo span{
+  color:#22c55e;
 }
 
 nav{
   display:flex;
-  gap:8px;
+  gap:20px;
   align-items:center;
-  flex-wrap:wrap;
 }
 
 nav a{
-  color:#fff;
-  padding:9px 12px;
-  border-radius:9px;
+  color:white;
   font-size:14px;
+  font-weight:600;
 }
 
-nav a:hover{background:#ffffff18}
-
-.demand-link,
-.admin-link{
-  background:#f4b942;
-  color:#102238!important;
-  font-weight:800;
+nav a:hover{
+  color:#22c55e;
 }
 
+.menu-btn{
+  display:none;
+  background:none;
+  border:0;
+  color:white;
+  font-size:28px;
+}
+
+/* HERO */
 .hero{
-  min-height:430px;
-  padding:75px 5%;
+  min-height:440px;
+  background:
+    linear-gradient(rgba(15,23,42,.75),rgba(15,23,42,.72)),
+    url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1800&q=80")
+    center/cover;
   display:flex;
   align-items:center;
-  background:
-    linear-gradient(120deg,#071a2d 0%,#0b3556 55%,#174f83 100%);
-  color:#fff;
+  justify-content:center;
+  text-align:center;
+  padding:50px 20px;
+  color:white;
 }
 
-.hero-inner{
-  max-width:1050px;
-  margin:auto;
-  width:100%;
-}
-
-.badge{
-  display:inline-block;
-  background:#f4b942;
-  color:#102238;
-  padding:8px 13px;
-  border-radius:22px;
-  font-weight:800;
-  font-size:13px;
+.hero-content{
+  max-width:900px;
 }
 
 .hero h1{
-  font-size:clamp(34px,6vw,62px);
-  line-height:1.03;
-  margin:18px 0 14px;
-  max-width:850px;
+  font-size:42px;
+  margin-bottom:15px;
+  line-height:1.15;
 }
 
 .hero p{
-  font-size:18px;
-  line-height:1.7;
-  color:#dceaf5;
-  max-width:720px;
-  margin:0;
+  font-size:20px;
+  opacity:.95;
+  margin-bottom:30px;
 }
 
+/* SEARCH */
 .search-box{
-  max-width:1050px;
-  margin:-42px auto 45px;
-  position:relative;
-  z-index:5;
-  background:#fff;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 12px 40px #0002;
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
   display:grid;
-  grid-template-columns:1fr 1fr 1.4fr auto;
-  gap:10px;
+  grid-template-columns:1fr 1fr 1fr auto;
+  gap:12px;
+  max-width:1000px;
+  margin:auto;
 }
 
 .search-box select,
 .search-box input{
-  width:100%;
-  min-height:48px;
-  border:1px solid #d9e0e7;
-  border-radius:11px;
-  padding:0 13px;
-  background:#fff;
-  color:#172033;
+  border:1px solid #d8dee8;
+  border-radius:8px;
+  padding:13px;
   outline:none;
+  width:100%;
 }
 
-.search-box input:focus,
-.search-box select:focus{
-  border-color:#174f83;
-  box-shadow:0 0 0 3px #174f8315;
+.search-btn{
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+  color:white;
+  padding:13px 22px;
+  font-weight:bold;
 }
 
-.primary{
-  min-height:48px;
-  background:#174f83;
-  color:#fff;
-  padding:0 20px;
-  border-radius:11px;
-  font-weight:800;
+/* SECTIONS */
+section{
+  padding:60px 5%;
 }
-
-.primary:hover{background:#0e3d68}
-
-.primary:disabled{
-  opacity:.65;
-  cursor:not-allowed;
-}
-
-section{padding:55px 5%}
 
 .container{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
 }
 
-.section-head{
+.section-title{
   text-align:center;
-  margin-bottom:28px;
+  margin-bottom:35px;
 }
 
-.section-head h2{
+.section-title h2{
   font-size:30px;
-  margin:0 0 9px;
+  margin-bottom:10px;
 }
 
-.section-head p{
-  margin:0;
-  color:#697586;
+.section-title p{
+  color:#667085;
 }
 
-.grid{
+/* CARDS */
+.cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:22px;
 }
 
 .card{
-  background:#fff;
-  border-radius:17px;
+  background:white;
+  border-radius:14px;
   overflow:hidden;
-  box-shadow:0 5px 24px #00000012;
-  border:1px solid #e9edf2;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
   transition:.2s;
 }
 
 .card:hover{
   transform:translateY(-3px);
-  box-shadow:0 12px 28px #0002;
 }
 
-.card-photo{
+.card-image{
   height:220px;
-  background:#dfe6ed;
   position:relative;
+  background:#e5e7eb;
   overflow:hidden;
 }
 
-.card-photo img{
+.card-image img{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
-  cursor:pointer;
-}
-
-.no-photo{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#718096;
-  font-weight:800;
-}
-
-.tag{
-  position:absolute;
-  top:12px;
-  left:12px;
-  background:#f4b942;
-  color:#102238;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:900;
 }
 
 .photo-count{
   position:absolute;
-  right:12px;
-  bottom:12px;
-  background:#0009;
-  color:#fff;
-  padding:6px 9px;
-  border-radius:18px;
+  right:10px;
+  bottom:10px;
+  background:rgba(0,0,0,.7);
+  color:white;
+  padding:6px 10px;
+  border-radius:20px;
   font-size:12px;
-  font-weight:800;
 }
 
-.card-body{padding:17px}
+.card-body{
+  padding:18px;
+}
 
-.card h3{
-  margin:0 0 8px;
+.card-title{
   font-size:19px;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
-.meta{
-  color:#667587;
+.card-location{
+  color:#667085;
   font-size:14px;
-  line-height:1.7;
+  margin-bottom:12px;
 }
 
-.price{
+.card-price{
+  color:#16a34a;
   font-size:20px;
-  font-weight:900;
-  color:#174f83;
-  margin:11px 0;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.card-meta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.badge{
+  background:#eef2ff;
+  color:#3730a3;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
 }
 
 .card-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  display:flex;
   gap:8px;
-  margin-top:14px;
 }
 
-.card-actions button,
-.card-actions a{
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:11px 14px;
+  font-weight:bold;
   text-align:center;
-  padding:11px 8px;
-  border-radius:9px;
-  font-weight:800;
-  font-size:13px;
+  flex:1;
 }
 
-.details{
-  background:#174f83;
-  color:#fff;
+.btn-primary{
+  background:#0f172a;
+  color:white;
 }
 
-.whatsapp{
+.btn-whatsapp{
   background:#25d366;
-  color:#fff;
+  color:white;
 }
 
-.empty,
-.msg{
-  grid-column:1/-1;
+/* EMPTY */
+.empty{
   text-align:center;
-  background:#fff;
-  padding:30px;
-  border-radius:14px;
-  color:#667587;
-  box-shadow:0 5px 20px #0000000c;
+  padding:50px 20px;
+  color:#667085;
 }
 
-.error-box{
-  grid-column:1/-1;
-  background:#fff4f4;
-  color:#a02b2b;
-  padding:20px;
-  border-radius:14px;
-  text-align:center;
+/* AGENCY */
+.about{
+  background:white;
 }
-
-.info-section{background:#fff}
 
 .about-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:22px;
-}
-
-.info-box{
-  background:#f5f7fa;
-  border-radius:16px;
-  padding:24px;
-}
-
-.info-box h3{margin-top:0}
-
-.info-box p{
-  line-height:1.75;
-  color:#596779;
-}
-
-.demand-banner{
-  background:linear-gradient(120deg,#0b2239,#174f83);
-  color:#fff;
-  border-radius:20px;
-  padding:30px;
-  display:flex;
-  justify-content:space-between;
+  gap:35px;
   align-items:center;
-  gap:20px;
 }
 
-.demand-banner h2{margin:0 0 8px}
-
-.demand-banner p{
-  margin:0;
-  color:#d9e8f5;
-  line-height:1.6;
+.about h2{
+  font-size:30px;
+  margin-bottom:15px;
 }
 
-.gold-btn{
-  background:#f4b942;
-  color:#102238;
-  padding:13px 18px;
-  border-radius:10px;
-  font-weight:900;
-  white-space:nowrap;
+.about p{
+  color:#667085;
+  line-height:1.7;
+  margin-bottom:15px;
 }
 
-.contact{
-  background:#0b2239;
-  color:#fff;
+.about-box{
+  background:#f1f5f9;
+  border-radius:15px;
+  padding:30px;
 }
 
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
+.about-box div{
+  margin-bottom:15px;
 }
 
-.contact-box{
-  border:1px solid #ffffff18;
-  border-radius:16px;
-  padding:22px;
-  background:#ffffff08;
+.about-box strong{
+  display:block;
+  margin-bottom:4px;
 }
 
-.contact-box h3{
-  margin-top:0;
-  color:#f4b942;
-}
-
-.contact-box p{
-  line-height:1.8;
-  color:#dce7f0;
-}
-
-.contact-btn{
-  display:inline-block;
-  padding:11px 15px;
-  border-radius:9px;
-  background:#25d366;
-  color:#fff;
-  font-weight:800;
-  margin-top:5px;
-}
-
-footer{
-  background:#071725;
-  color:#aebdca;
-  text-align:center;
-  padding:22px;
-  font-size:13px;
-}
-
+/* MODAL */
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  z-index:100;
-  background:#0009;
-  padding:18px;
-  overflow:auto;
+  background:rgba(0,0,0,.7);
+  z-index:2000;
+  overflow-y:auto;
+  padding:30px 15px;
 }
 
-.modal.show{
+.modal.active{
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:flex-start;
 }
 
-.modal-box{
-  width:min(620px,100%);
-  background:#fff;
-  border-radius:18px;
-  padding:23px;
+.modal-content{
+  background:white;
+  width:100%;
+  max-width:700px;
+  border-radius:15px;
+  padding:25px;
   position:relative;
-  box-shadow:0 20px 70px #0005;
+  margin-top:30px;
 }
 
 .close{
   position:absolute;
-  top:10px;
-  right:12px;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#edf1f5;
-  color:#172033;
-  font-size:22px;
+  right:18px;
+  top:12px;
+  border:0;
+  background:none;
+  font-size:28px;
+  color:#555;
 }
 
-.modal-box h2{
-  margin:0 45px 8px 0;
+.modal h2{
+  margin-bottom:20px;
 }
 
-.modal-box>p{
-  color:#697586;
-  line-height:1.5;
+/* FORM */
+.form-group{
+  margin-bottom:15px;
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.form-grid .full{
-  grid-column:1/-1;
-}
-
-.form-grid label{
+.form-group label{
   display:block;
-  font-size:13px;
-  font-weight:800;
-  margin:0 0 6px;
+  font-weight:bold;
+  margin-bottom:7px;
 }
 
-.form-grid input,
-.form-grid select,
-.form-grid textarea{
+.form-group input,
+.form-group select,
+.form-group textarea{
   width:100%;
-  border:1px solid #d7dfe7;
-  border-radius:10px;
+  border:1px solid #d5dbe5;
+  border-radius:8px;
   padding:12px;
   outline:none;
 }
 
-.form-grid textarea{
-  min-height:110px;
+.form-group textarea{
+  min-height:120px;
   resize:vertical;
 }
 
-.form-grid input:focus,
-.form-grid select:focus,
-.form-grid textarea:focus{
-  border-color:#174f83;
-  box-shadow:0 0 0 3px #174f8315;
-}
-
-.form-submit{
+.submit-btn{
   width:100%;
-  margin-top:14px;
-  min-height:48px;
-}
-
-.small-note{
-  font-size:12px;
-  color:#7b8794;
-  margin-top:9px;
-}
-
-/* =========================================================
-   DEPOSER UNE ANNONCE
-   ========================================================= */
-
-.announce-banner{
-  margin-top:22px;
-  background:#fff;
-  border:1px solid #e4e9ef;
-  border-radius:20px;
-  padding:28px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  box-shadow:0 5px 22px #0000000c;
-}
-
-.announce-banner h2{
-  margin:0 0 8px;
-  color:#0b2239;
-}
-
-.announce-banner p{
-  margin:0;
-  color:#697586;
-  line-height:1.6;
-}
-
-.announce-btn{
-  background:#174f83;
-  color:#fff;
-  padding:13px 18px;
-  border-radius:10px;
-  font-weight:900;
-  white-space:nowrap;
-}
-
-.private-note{
-  background:#eef6ff;
-  border:1px solid #cfe3f7;
-  color:#174f83;
-  padding:11px 13px;
-  border-radius:10px;
-  font-size:12px;
-  line-height:1.5;
-  margin-bottom:14px;
-}
-
-.file-box{
-  border:2px dashed #cbd5df;
-  border-radius:10px;
-  padding:12px;
-  background:#f8fafc;
-}
-
-.file-box input{
-  width:100%;
-  border:0!important;
-  padding:5px!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-
-.file-box input::file-selector-button{
-  background:#174f83;
-  color:#fff;
   border:0;
-  padding:10px 13px;
-  border-radius:8px;
-  margin-right:8px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-/* =========================================================
-   PREVIEW PHOTOS
-   ========================================================= */
-
-#photoPreview{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:10px;
-}
-
-#photoPreview:empty{
-  display:none;
-}
-
-.photo-preview-item{
-  position:relative;
-  height:95px;
   border-radius:9px;
-  overflow:hidden;
-  border:1px solid #d7dfe7;
-  background:#edf1f5;
+  padding:14px;
+  background:#22c55e;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
 }
 
-.photo-preview-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+.submit-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
-.photo-preview-name{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:5px;
-  background:#0008;
-  color:#fff;
-  font-size:10px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.photo-number{
-  position:absolute;
-  top:5px;
-  left:5px;
-  background:#f4b942;
-  color:#102238;
-  padding:3px 6px;
-  border-radius:10px;
-  font-size:10px;
-  font-weight:900;
-}
-
-.success-note{
-  display:none;
-  background:#eaf8ef;
-  color:#176b37;
-  border:1px solid #bfe6cc;
+.message{
+  margin-top:15px;
   padding:12px;
-  border-radius:10px;
-  margin-top:12px;
+  border-radius:8px;
+  display:none;
+}
+
+.message.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.message.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+/* UPLOAD */
+.upload-info{
+  background:#f1f5f9;
+  padding:12px;
+  border-radius:8px;
+  margin-top:8px;
+  color:#475569;
   font-size:13px;
   line-height:1.5;
 }
 
-.gallery{
+.upload-status{
   display:none;
-  position:fixed;
-  inset:0;
-  z-index:150;
-  background:#000e;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
+  margin-top:12px;
+  padding:12px;
+  border-radius:8px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:14px;
+  font-weight:600;
 }
 
-.gallery.show{display:flex}
+.upload-status.show{
+  display:block;
+}
 
-.gallery img{
-  max-width:94vw;
-  max-height:82vh;
+/* GALLERY */
+.gallery-main{
+  width:100%;
+  height:400px;
   object-fit:contain;
+  background:#111827;
   border-radius:10px;
 }
 
-.gallery-close,
-.gallery-prev,
-.gallery-next{
-  position:absolute;
-  background:#ffffff18;
-  color:#fff;
-  border:1px solid #fff4;
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  font-size:25px;
+.gallery-controls{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
 }
 
-.gallery-close{
-  right:18px;
-  top:18px;
+.gallery-btn{
+  border:0;
+  background:#0f172a;
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
 }
 
-.gallery-prev{
-  left:18px;
-  top:50%;
-  transform:translateY(-50%);
+.gallery-counter{
+  font-weight:bold;
 }
 
-.gallery-next{
-  right:18px;
-  top:50%;
-  transform:translateY(-50%);
+/* CONTACT */
+.contact{
+  background:#0f172a;
+  color:white;
 }
 
-.gallery-count{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  color:#fff;
-  font-weight:800;
-  background:#0008;
-  padding:7px 12px;
-  border-radius:20px;
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+  text-align:center;
 }
 
-@media(max-width:850px){
+.contact-item{
+  padding:25px;
+}
 
-  header{padding:12px 4%}
+.contact-icon{
+  font-size:35px;
+  margin-bottom:10px;
+}
 
-  .brand{font-size:16px}
+.contact-item p{
+  opacity:.8;
+  margin-top:7px;
+}
 
-  nav{gap:5px}
+/* FOOTER */
+footer{
+  background:#080d19;
+  color:#aaa;
+  text-align:center;
+  padding:25px 15px;
+  font-size:14px;
+}
 
-  nav a{display:none}
-
-  nav .demand-link,
-  nav .admin-link{
-    display:block;
-    padding:9px 10px;
-    font-size:12px;
+/* RESPONSIVE */
+@media(max-width:900px){
+  .cards{
+    grid-template-columns:repeat(2,1fr);
   }
 
   .search-box{
     grid-template-columns:1fr 1fr;
   }
 
-  .search-box button{
-    grid-column:1/-1;
+  .about-grid{
+    grid-template-columns:1fr;
   }
 
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .about-grid,
   .contact-grid{
     grid-template-columns:1fr;
   }
-
 }
 
-@media(max-width:600px){
-
-  header{
-    padding:12px 4%;
-    gap:6px;
-  }
-
-  .brand{font-size:16px}
-
+@media(max-width:700px){
   nav{
-    gap:5px;
-    flex-shrink:0;
+    display:none;
+    position:absolute;
+    top:65px;
+    left:0;
+    right:0;
+    background:#0f172a;
+    flex-direction:column;
+    padding:20px;
+    gap:18px;
   }
 
-  nav .demand-link,
-  nav .admin-link{
-    padding:9px 9px;
-    font-size:11px;
-    border-radius:8px;
+  nav.active{
+    display:flex;
+  }
+
+  .menu-btn{
+    display:block;
   }
 
   .hero{
-    min-height:390px;
-    padding:60px 5%;
+    min-height:520px;
+  }
+
+  .hero h1{
+    font-size:31px;
   }
 
   .hero p{
-    font-size:16px;
+    font-size:17px;
   }
 
   .search-box{
-    margin:-30px 4% 20px;
-    padding:13px;
     grid-template-columns:1fr;
   }
 
-  .search-box button{
-    grid-column:auto;
+  .cards{
+    grid-template-columns:1fr;
   }
 
   section{
-    padding:42px 4%;
+    padding:45px 5%;
   }
 
-  .grid{
-    grid-template-columns:1fr;
+  .gallery-main{
+    height:280px;
   }
-
-  .card-photo{
-    height:235px;
-  }
-
-  .demand-banner,
-  .announce-banner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .announce-btn,
-  .gold-btn{
-    width:100%;
-    text-align:center;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid .full{
-    grid-column:auto;
-  }
-
-  #photoPreview{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .gallery-prev{
-    left:8px;
-  }
-
-  .gallery-next{
-    right:8px;
-  }
-
 }
 </style>
 </head>
@@ -840,211 +596,147 @@ footer{
 <body>
 
 <header>
+  <div class="header-inner">
 
-  <a class="brand" href="index.html">
-    Antsirabe <span>Immo</span>
-  </a>
+    <div class="logo">
+      Antsirabe <span>Immo</span>
+    </div>
 
-  <nav>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-    <a href="#biens">Biens</a>
+    <nav id="nav">
+      <a href="#biens" onclick="closeMenu()">Biens</a>
+      <a href="#agence" onclick="closeMenu()">L'agence</a>
+      <a href="#demande" onclick="openDemande();closeMenu()">Faire une demande</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
+      <a href="admin.html">Administration</a>
+    </nav>
 
-    <a href="#agence">L'agence</a>
-
-    <a
-      href="javascript:void(0)"
-      class="demand-link"
-      onclick="openDemande()"
-    >
-      Faire une demande
-    </a>
-
-    <a href="#contact">Contact</a>
-
-    <a
-      class="admin-link"
-      href="admin.html"
-    >
-      Administration
-    </a>
-
-  </nav>
-
+  </div>
 </header>
 
+
+<!-- HERO -->
 <section class="hero">
 
-  <div class="hero-inner">
+  <div class="hero-content">
 
-    <span class="badge">
-      AGENCE IMMOBILIÈRE À ANTSIRABE
-    </span>
-
-    <h1>
-      Trouvez votre prochain bien immobilier.
-    </h1>
+    <h1>AGENCE IMMOBILIÈRE À ANTSIRABE</h1>
 
     <p>
-      Maisons, appartements, terrains et locaux commerciaux à Antsirabe.
-      Consultez les annonces disponibles et contactez directement l'agence.
+      Trouvez votre prochain bien immobilier.
     </p>
+
+    <div class="search-box">
+
+      <select id="searchType">
+        <option value="">Type de bien</option>
+        <option value="Maison">Maison</option>
+        <option value="Appartement">Appartement</option>
+        <option value="Terrain">Terrain</option>
+        <option value="Commerce">Commerce</option>
+        <option value="Bureau">Bureau</option>
+        <option value="Villa">Villa</option>
+        <option value="Autre">Autre</option>
+      </select>
+
+      <select id="searchTransaction">
+        <option value="">Transaction</option>
+        <option value="Vente">Vente</option>
+        <option value="Location">Location</option>
+      </select>
+
+      <input
+        type="text"
+        id="searchLocation"
+        placeholder="Ville / quartier"
+      >
+
+      <button
+        class="search-btn"
+        onclick="searchListings()"
+      >
+        Rechercher
+      </button>
+
+    </div>
 
   </div>
 
 </section>
 
-<div class="search-box">
 
-  <select id="type">
-    <option value="">Tous les types</option>
-    <option>Maison</option>
-    <option>Appartement</option>
-    <option>Terrain</option>
-    <option>Local commercial</option>
-  </select>
-
-  <select id="op">
-    <option value="">Toutes les transactions</option>
-    <option>À vendre</option>
-    <option>À louer</option>
-  </select>
-
-  <input
-    id="q"
-    type="search"
-    placeholder="📍 Quartier ou localisation"
-  >
-
-  <button
-    class="primary"
-    type="button"
-    onclick="filter()"
-  >
-    Rechercher
-  </button>
-
-</div>
-
+<!-- BIENS -->
 <section id="biens">
 
   <div class="container">
 
-    <div class="section-head">
+    <div class="section-title">
 
-      <h2>Nos biens disponibles</h2>
-
-      <p>
-        Les annonces publiées par Antsirabe Immo.
-      </p>
-
-    </div>
-
-    <div id="cards" class="grid">
-
-      <p class="msg">
-        Chargement des biens...
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section id="demande">
-
-  <div class="container">
-
-    <div class="demand-banner">
-
-      <div>
-
-        <h2>
-          Vous cherchez un bien précis ?
-        </h2>
-
-        <p>
-          Envoyez-nous votre demande avec votre budget et la localisation souhaitée.
-        </p>
-
-      </div>
-
-      <button
-        class="gold-btn"
-        type="button"
-        onclick="openDemande()"
-      >
-        Faire une demande
-      </button>
-
-    </div>
-
-    <div class="announce-banner">
-
-      <div>
-
-        <h2>
-          🏠 Vous avez un bien à vendre ou à louer ?
-        </h2>
-
-        <p>
-          Proposez votre maison, appartement, terrain ou local commercial
-          à Antsirabe. Votre annonce sera vérifiée par notre administration
-          avant publication.
-        </p>
-
-      </div>
-
-      <button
-        class="announce-btn"
-        type="button"
-        onclick="openAnnonce()"
-      >
-        Déposer une annonce
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section id="agence" class="info-section">
-
-  <div class="container">
-
-    <div class="section-head">
-
-      <h2>L'agence</h2>
+      <h2>Nos biens immobiliers</h2>
 
       <p>
-        Un service immobilier simple et direct à Antsirabe.
+        Découvrez les biens actuellement disponibles.
       </p>
 
     </div>
 
-    <div class="about-grid">
+    <div id="loading" class="empty">
+      Chargement des biens...
+    </div>
 
-      <div class="info-box">
+    <div id="cards" class="cards"></div>
 
-        <h3>🏠 Immobilier</h3>
+    <div id="noResult" class="empty" style="display:none;">
+      Aucun bien ne correspond à votre recherche.
+    </div>
 
-        <p>
-          Nous présentons des biens à vendre ou à louer :
-          maisons, appartements, terrains et locaux commerciaux.
-        </p>
+  </div>
 
+</section>
+
+
+<!-- AGENCE -->
+<section id="agence" class="about">
+
+  <div class="container about-grid">
+
+    <div>
+
+      <h2>À propos de Antsirabe Immo</h2>
+
+      <p>
+        Antsirabe Immo vous accompagne dans vos projets
+        immobiliers à Antsirabe et dans les environs.
+      </p>
+
+      <p>
+        Vente, location, recherche de maisons, terrains,
+        appartements et locaux professionnels.
+      </p>
+
+      <p>
+        Notre objectif est de faciliter la mise en relation
+        entre propriétaires et personnes à la recherche d'un bien.
+      </p>
+
+    </div>
+
+    <div class="about-box">
+
+      <div>
+        <strong>📍 Zone</strong>
+        Antsirabe et environs
       </div>
 
-      <div class="info-box">
+      <div>
+        <strong>🏠 Services</strong>
+        Vente • Location • Recherche
+      </div>
 
-        <h3>🤝 Accompagnement</h3>
-
-        <p>
-          Vous pouvez consulter les annonces, demander un bien
-          correspondant à vos besoins et contacter l'agence directement.
-        </p>
-
+      <div>
+        <strong>📱 Contact</strong>
+        034 41 711 96
       </div>
 
     </div>
@@ -1053,53 +745,53 @@ footer{
 
 </section>
 
+
+<!-- CONTACT -->
 <section id="contact" class="contact">
 
   <div class="container">
 
-    <div class="section-head">
+    <div class="section-title">
 
-      <h2>Contact</h2>
+      <h2>Contactez-nous</h2>
 
-      <p>
-        Pour toute information concernant une annonce.
+      <p style="color:#cbd5e1;">
+        Nous sommes disponibles pour vos projets immobiliers.
       </p>
 
     </div>
 
     <div class="contact-grid">
 
-      <div class="contact-box">
+      <div class="contact-item">
 
-        <h3>📞 Téléphone</h3>
+        <div class="contact-icon">📱</div>
+
+        <strong>Téléphone</strong>
 
         <p>034 41 711 96</p>
 
-        <a
-          class="contact-btn"
-          href="tel:+261344171196"
-        >
-          Appeler
-        </a>
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">💬</div>
+
+        <strong>WhatsApp</strong>
+
+        <p>Contact direct</p>
 
       </div>
 
-      <div class="contact-box">
 
-        <h3>💬 WhatsApp</h3>
+      <div class="contact-item">
 
-        <p>
-          Écrivez-nous directement sur WhatsApp.
-        </p>
+        <div class="contact-icon">📍</div>
 
-        <a
-          class="contact-btn"
-          href="https://wa.me/261344171196"
-          target="_blank"
-          rel="noopener"
-        >
-          Ouvrir WhatsApp
-        </a>
+        <strong>Localisation</strong>
+
+        <p>Antsirabe, Madagascar</p>
 
       </div>
 
@@ -1109,158 +801,145 @@ footer{
 
 </section>
 
+
 <footer>
 
-  ©
-  <span id="year"></span>
-  Antsirabe Immo — Agence immobilière
+  © 2026 Antsirabe Immo — Agence immobilière à Antsirabe
 
 </footer>
 
 
-<!-- =========================================================
-     FORMULAIRE FAIRE UNE DEMANDE
-     ========================================================= -->
 
-<div
-  id="demandeModal"
-  class="modal"
-  onclick="if(event.target===this)closeDemande()"
->
+<!-- MODAL DEMANDE -->
+<div id="demandeModal" class="modal">
 
-  <div class="modal-box">
+  <div class="modal-content">
 
-    <button
-      class="close"
-      type="button"
-      onclick="closeDemande()"
-    >
+    <button class="close" onclick="closeModal('demandeModal')">
       ×
     </button>
 
-    <h2>📩 Votre demande immobilière</h2>
+    <h2>Faire une demande immobilière</h2>
 
-    <p>
-      Remplissez les informations ci-dessous.
-      L'agence pourra vous contacter.
-    </p>
+    <form id="demandeForm" onsubmit="sendDemande(event)">
 
-    <form onsubmit="sendDemande(event)">
+      <div class="form-group">
 
-      <div class="form-grid">
+        <label>Nom complet</label>
 
-        <div>
-
-          <label for="demandeNom">Nom</label>
-
-          <input
-            id="demandeNom"
-            required
-            placeholder="Votre nom"
-          >
-
-        </div>
-
-        <div>
-
-          <label for="demandeTelephone">
-            Téléphone
-          </label>
-
-          <input
-            id="demandeTelephone"
-            required
-            placeholder="034 XX XXX XX"
-          >
-
-        </div>
-
-        <div>
-
-          <label for="demandeType">
-            Type de bien
-          </label>
-
-          <select id="demandeType">
-
-            <option value="">Peu importe</option>
-            <option>Maison</option>
-            <option>Appartement</option>
-            <option>Terrain</option>
-            <option>Local commercial</option>
-
-          </select>
-
-        </div>
-
-        <div>
-
-          <label for="demandeTransaction">
-            Transaction
-          </label>
-
-          <select id="demandeTransaction">
-
-            <option value="">Peu importe</option>
-            <option>À vendre</option>
-            <option>À louer</option>
-
-          </select>
-
-        </div>
-
-        <div>
-
-          <label for="demandeBudget">
-            Budget
-          </label>
-
-          <input
-            id="demandeBudget"
-            placeholder="Ex : 100 000 000 Ar"
-          >
-
-        </div>
-
-        <div>
-
-          <label for="demandeLocalisation">
-            Localisation
-          </label>
-
-          <input
-            id="demandeLocalisation"
-            placeholder="Ex : Antsirabe centre"
-          >
-
-        </div>
-
-        <div class="full">
-
-          <label for="demandeDetails">
-            Détails de votre demande
-          </label>
-
-          <textarea
-            id="demandeDetails"
-            placeholder="Décrivez le bien recherché..."
-          ></textarea>
-
-        </div>
+        <input
+          type="text"
+          id="demandeNom"
+          required
+        >
 
       </div>
 
+
+      <div class="form-group">
+
+        <label>Téléphone</label>
+
+        <input
+          type="tel"
+          id="demandeTelephone"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Type de bien recherché</label>
+
+        <select id="demandeType" required>
+
+          <option value="">Choisir</option>
+
+          <option value="Maison">Maison</option>
+
+          <option value="Appartement">Appartement</option>
+
+          <option value="Terrain">Terrain</option>
+
+          <option value="Commerce">Commerce</option>
+
+          <option value="Bureau">Bureau</option>
+
+          <option value="Villa">Villa</option>
+
+          <option value="Autre">Autre</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Transaction</label>
+
+        <select id="demandeTransaction" required>
+
+          <option value="">Choisir</option>
+
+          <option value="Vente">Achat</option>
+
+          <option value="Location">Location</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Budget</label>
+
+        <input
+          type="text"
+          id="demandeBudget"
+          placeholder="Ex : 100 000 000 Ar"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Zone recherchée</label>
+
+        <input
+          type="text"
+          id="demandeZone"
+          placeholder="Ex : Antsirabe centre"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Message</label>
+
+        <textarea
+          id="demandeMessage"
+          placeholder="Décrivez votre recherche..."
+        ></textarea>
+
+      </div>
+
+
       <button
-        id="demandeSubmit"
-        class="primary form-submit"
         type="submit"
+        class="submit-btn"
+        id="demandeSubmit"
       >
         Envoyer la demande
       </button>
 
-      <div class="small-note">
-        Vos informations servent uniquement à traiter votre demande immobilière.
-      </div>
+      <div id="demandeMessageResult" class="message"></div>
 
     </form>
 
@@ -1269,224 +948,192 @@ footer{
 </div>
 
 
-<!-- =========================================================
-     FORMULAIRE DEPOSER UNE ANNONCE
-     ========================================================= -->
 
-<div
-  id="annonceModal"
-  class="modal"
-  onclick="if(event.target===this)closeAnnonce()"
->
+<!-- MODAL PROPOSER UN BIEN -->
+<div id="annonceModal" class="modal">
 
-  <div class="modal-box">
+  <div class="modal-content">
 
-    <button
-      class="close"
-      type="button"
-      onclick="closeAnnonce()"
-    >
+    <button class="close" onclick="closeModal('annonceModal')">
       ×
     </button>
 
-    <h2>
-      🏠 Déposer une annonce
-    </h2>
+    <h2>Proposer un bien</h2>
 
-    <p>
-      Présentez votre bien. Après envoi, l'annonce sera vérifiée
-      par l'administration avant d'être publiée.
+    <p style="color:#667085;margin-bottom:20px;">
+      Votre annonce sera vérifiée avant sa publication.
     </p>
 
-    <div class="private-note">
+    <form id="annonceForm" onsubmit="sendAnnonce(event)">
 
-      🔒 <strong>Confidentialité :</strong>
-      votre nom et votre numéro de téléphone sont privés.
-      Ils seront visibles uniquement par l'administration
-      et ne seront pas affichés sur le site public.
+      <div class="form-group">
 
-    </div>
+        <label>Nom du propriétaire *</label>
 
-    <form onsubmit="sendAnnonce(event)">
-
-      <div class="form-grid">
-
-        <div>
-
-          <label for="annonceProprietaire">
-            Nom du propriétaire *
-          </label>
-
-          <input
-            id="annonceProprietaire"
-            required
-            placeholder="Votre nom"
-          >
-
-        </div>
-
-        <div>
-
-          <label for="annonceTelephone">
-            Téléphone du propriétaire *
-          </label>
-
-          <input
-            id="annonceTelephone"
-            required
-            type="tel"
-            placeholder="034 XX XXX XX"
-          >
-
-        </div>
-
-        <div>
-
-          <label for="annonceTitre">
-            Titre de l'annonce *
-          </label>
-
-          <input
-            id="annonceTitre"
-            required
-            placeholder="Ex : Belle maison à vendre"
-          >
-
-        </div>
-
-        <div>
-
-          <label for="annonceType">
-            Type de bien *
-          </label>
-
-          <select
-            id="annonceType"
-            required
-          >
-
-            <option value="">
-              Choisir
-            </option>
-
-            <option>Maison</option>
-            <option>Appartement</option>
-            <option>Terrain</option>
-            <option>Local commercial</option>
-
-          </select>
-
-        </div>
-
-        <div>
-
-          <label for="annonceTransaction">
-            Transaction *
-          </label>
-
-          <select
-            id="annonceTransaction"
-            required
-          >
-
-            <option value="">
-              Choisir
-            </option>
-
-            <option>À vendre</option>
-            <option>À louer</option>
-
-          </select>
-
-        </div>
-
-        <div>
-
-          <label for="annoncePrix">
-            Prix
-          </label>
-
-          <input
-            id="annoncePrix"
-            type="number"
-            min="0"
-            placeholder="Ex : 150000000"
-          >
-
-        </div>
-
-        <div class="full">
-
-          <label for="annonceLocalisation">
-            Localisation *
-          </label>
-
-          <input
-            id="annonceLocalisation"
-            required
-            placeholder="Ex : Antsirabe, Andranomanelatra..."
-          >
-
-        </div>
-
-        <div class="full">
-
-          <label for="annonceDescription">
-            Description
-          </label>
-
-          <textarea
-            id="annonceDescription"
-            placeholder="Décrivez le bien : nombre de chambres, terrain, état, accès, etc."
-          ></textarea>
-
-        </div>
-
-        <div class="full">
-
-          <label for="annoncePhotos">
-            Photos du bien
-          </label>
-
-          <div class="file-box">
-
-            <input
-              id="annoncePhotos"
-              type="file"
-              accept="image/jpeg,image/jpg,image/png,image/webp"
-              multiple
-              onchange="previewPhotos(this)"
-            >
-
-          </div>
-
-          <div
-            id="photoPreview"
-          ></div>
-
-          <div class="small-note">
-            Sélectionnez une ou plusieurs photos. Un aperçu apparaîtra avant l'envoi.
-          </div>
-
-        </div>
+        <input
+          type="text"
+          id="proprietaireNom"
+          required
+        >
 
       </div>
 
+
+      <div class="form-group">
+
+        <label>Téléphone *</label>
+
+        <input
+          type="tel"
+          id="proprietaireTelephone"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Titre du bien *</label>
+
+        <input
+          type="text"
+          id="annonceTitre"
+          placeholder="Ex : Belle maison à vendre"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Type de bien *</label>
+
+        <select id="annonceType" required>
+
+          <option value="">Choisir</option>
+
+          <option value="Maison">Maison</option>
+
+          <option value="Appartement">Appartement</option>
+
+          <option value="Terrain">Terrain</option>
+
+          <option value="Commerce">Commerce</option>
+
+          <option value="Bureau">Bureau</option>
+
+          <option value="Villa">Villa</option>
+
+          <option value="Autre">Autre</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Transaction *</label>
+
+        <select id="annonceTransaction" required>
+
+          <option value="">Choisir</option>
+
+          <option value="Vente">Vente</option>
+
+          <option value="Location">Location</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Prix *</label>
+
+        <input
+          type="text"
+          id="annoncePrix"
+          placeholder="Ex : 150 000 000 Ar"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Localisation *</label>
+
+        <input
+          type="text"
+          id="annonceLocation"
+          placeholder="Ex : Antsirabe Centre"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Description *</label>
+
+        <textarea
+          id="annonceDescription"
+          placeholder="Décrivez le bien..."
+          required
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Photos du bien *</label>
+
+        <input
+          type="file"
+          id="annoncePhotos"
+          accept="image/jpeg,image/png,image/webp,image/*"
+          multiple
+          required
+        >
+
+        <div class="upload-info">
+
+          📷 Vous pouvez sélectionner jusqu'à
+          <strong>10 photos</strong>.
+
+          <br>
+
+          Les photos seront automatiquement
+          <strong>compressées</strong> avant l'envoi.
+
+          <br>
+
+          Taille maximale avant compression :
+          <strong>15 MB par photo</strong>.
+
+        </div>
+
+        <div id="uploadStatus" class="upload-status"></div>
+
+      </div>
+
+
       <button
-        id="annonceSubmit"
-        class="primary form-submit"
         type="submit"
+        class="submit-btn"
+        id="annonceSubmit"
       >
         Envoyer l'annonce
       </button>
 
-      <div
-        id="annonceSuccess"
-        class="success-note"
-      >
-        ✅ Votre annonce a bien été envoyée.
-        Elle est maintenant en attente de validation par l'administration.
-      </div>
+      <div id="annonceMessageResult" class="message"></div>
 
     </form>
 
@@ -1495,55 +1142,59 @@ footer{
 </div>
 
 
-<!-- =========================================================
-     GALERIE PHOTOS
-     ========================================================= -->
 
-<div
-  id="gallery"
-  class="gallery"
-  onclick="if(event.target===this)closeGallery()"
->
+<!-- MODAL GALERIE -->
+<div id="galleryModal" class="modal">
 
-  <button
-    class="gallery-close"
-    type="button"
-    onclick="closeGallery()"
-  >
-    ×
-  </button>
+  <div class="modal-content">
 
-  <button
-    class="gallery-prev"
-    type="button"
-    onclick="previousPhoto()"
-  >
-    ‹
-  </button>
+    <button class="close" onclick="closeModal('galleryModal')">
+      ×
+    </button>
 
-  <img
-    id="galleryImg"
-    src=""
-    alt="Photo du bien"
-  >
+    <img
+      id="galleryImage"
+      class="gallery-main"
+      src=""
+      alt="Photo du bien"
+    >
 
-  <button
-    class="gallery-next"
-    type="button"
-    onclick="nextPhoto()"
-  >
-    ›
-  </button>
+    <div class="gallery-controls">
 
-  <div
-    id="galleryCount"
-    class="gallery-count"
-  ></div>
+      <button
+        class="gallery-btn"
+        onclick="previousPhoto()"
+      >
+        ← Précédente
+      </button>
+
+      <div
+        id="galleryCounter"
+        class="gallery-counter"
+      >
+        1 / 1
+      </div>
+
+      <button
+        class="gallery-btn"
+        onclick="nextPhoto()"
+      >
+        Suivante →
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
 
+
 <script>
+
+/* =========================================================
+   CONFIGURATION SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
   "https://byezzcuqrweyhdjfnaky.supabase.co";
@@ -1560,203 +1211,46 @@ const DEMANDES_API =
 const BUCKET =
   "annonces-images";
 
-let allAnnonces = [];
 
-let currentPhotos = [];
+/* =========================================================
+   VARIABLES
+========================================================= */
 
-let currentPhoto = 0;
+let allListings = [];
+
+let galleryPhotos = [];
+
+let galleryIndex = 0;
 
 
 /* =========================================================
-   UTILITAIRES
-   ========================================================= */
+   HEADERS SUPABASE
+========================================================= */
 
-function escapeHtml(text){
+function supabaseHeaders(extra = {}){
 
-  return String(text ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return {
 
-}
+    "apikey": SUPABASE_KEY,
 
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
 
-function formatPrice(price){
+    ...extra
 
-  if(
-    price === null ||
-    price === undefined ||
-    price === ""
-  ){
-    return "Prix sur demande";
-  }
-
-  const n =
-    Number(
-      String(price)
-        .replace(/\s/g,"")
-        .replace(/,/g,"")
-    );
-
-  if(Number.isNaN(n))
-    return escapeHtml(price);
-
-  return (
-    n.toLocaleString("fr-FR") +
-    " Ar"
-  );
-
-}
-
-
-function imgUrl(path){
-
-  if(!path)
-    return "";
-
-  const value =
-    String(path);
-
-  if(
-    /^https?:\/\//i.test(value)
-  ){
-    return value;
-  }
-
-  return (
-    SUPABASE_URL +
-    "/storage/v1/object/public/" +
-    BUCKET +
-    "/" +
-    value.replace(/^\/+/,"")
-  );
-
-}
-
-
-/* =========================================================
-   PHOTOS
-   ========================================================= */
-
-function getPhotos(a){
-
-  let photos = [];
-
-  if(a.image_url){
-
-    if(Array.isArray(a.image_url)){
-
-      photos = a.image_url;
-
-    }else if(
-      typeof a.image_url === "string"
-    ){
-
-      try{
-
-        const parsed =
-          JSON.parse(a.image_url);
-
-        if(Array.isArray(parsed)){
-
-          photos = parsed;
-
-        }else if(parsed){
-
-          photos = [parsed];
-
-        }
-
-      }catch(e){
-
-        if(a.image_url.trim()){
-
-          photos =
-            a.image_url
-              .split(",")
-              .map(x=>x.trim())
-              .filter(Boolean);
-
-        }
-
-      }
-
-    }
-
-  }
-
-  if(
-    !photos.length &&
-    a.images
-  ){
-
-    if(Array.isArray(a.images)){
-
-      photos = a.images;
-
-    }else if(
-      typeof a.images === "string"
-    ){
-
-      try{
-
-        const parsed =
-          JSON.parse(a.images);
-
-        if(Array.isArray(parsed)){
-
-          photos = parsed;
-
-        }else if(parsed){
-
-          photos = [parsed];
-
-        }
-
-      }catch(e){
-
-        if(a.images.trim()){
-
-          photos =
-            a.images
-              .split(",")
-              .map(x=>x.trim())
-              .filter(Boolean);
-
-        }
-
-      }
-
-    }
-
-  }
-
-  if(
-    !photos.length &&
-    a.image
-  ){
-
-    photos = [a.image];
-
-  }
-
-  return photos
-    .filter(Boolean)
-    .map(imgUrl);
+  };
 
 }
 
 
 /* =========================================================
    FETCH AVEC TIMEOUT
-   ========================================================= */
+========================================================= */
 
 async function fetchWithTimeout(
   url,
-  options={},
-  timeout=20000
+  options = {},
+  timeout = 60000
 ){
 
   const controller =
@@ -1764,7 +1258,7 @@ async function fetchWithTimeout(
 
   const timer =
     setTimeout(
-      ()=>controller.abort(),
+      () => controller.abort(),
       timeout
     );
 
@@ -1788,18 +1282,189 @@ async function fetchWithTimeout(
 
 
 /* =========================================================
-   CHARGEMENT
-   ========================================================= */
+   MENU MOBILE
+========================================================= */
+
+function toggleMenu(){
+
+  document
+    .getElementById("nav")
+    .classList.toggle("active");
+
+}
+
+
+function closeMenu(){
+
+  document
+    .getElementById("nav")
+    .classList.remove("active");
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+}
+
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("active");
+
+}
+
+
+function openDemande(){
+
+  openModal("demandeModal");
+
+}
+
+
+function openAnnonce(){
+
+  openModal("annonceModal");
+
+}
+
+
+/* =========================================================
+   FORMAT PRIX
+========================================================= */
+
+function formatPrice(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return "Prix sur demande";
+
+  }
+
+  return String(value);
+
+}
+
+
+/* =========================================================
+   PHOTOS
+========================================================= */
+
+function getPhotos(item){
+
+  let value =
+    item.image_url ||
+    item.images ||
+    item.image ||
+    [];
+
+  if(!value){
+
+    return [];
+
+  }
+
+  if(Array.isArray(value)){
+
+    return value;
+
+  }
+
+  if(typeof value === "string"){
+
+    try{
+
+      const parsed =
+        JSON.parse(value);
+
+      if(Array.isArray(parsed)){
+
+        return parsed;
+
+      }
+
+    }catch(e){}
+
+    return value
+      .split(",")
+      .map(x => x.trim())
+      .filter(Boolean);
+
+  }
+
+  return [];
+
+}
+
+
+/* =========================================================
+   URL IMAGE SUPABASE STORAGE
+========================================================= */
+
+function imgUrl(path){
+
+  if(!path){
+
+    return "";
+
+  }
+
+  if(
+    path.startsWith("http://") ||
+    path.startsWith("https://")
+  ){
+
+    return path;
+
+  }
+
+  return (
+    SUPABASE_URL +
+    "/storage/v1/object/public/" +
+    BUCKET +
+    "/" +
+    path
+  );
+
+}
+
+
+/* =========================================================
+   CHARGEMENT DES BIENS
+========================================================= */
 
 async function load(){
+
+  const loading =
+    document.getElementById("loading");
 
   const cards =
     document.getElementById("cards");
 
-  cards.innerHTML =
-    '<p class="msg">Chargement des biens...</p>';
+  const noResult =
+    document.getElementById("noResult");
 
   try{
+
+    loading.style.display = "block";
+
+    cards.innerHTML = "";
+
+    noResult.style.display = "none";
 
     const url =
       API +
@@ -1811,50 +1476,34 @@ async function load(){
       await fetchWithTimeout(
         url,
         {
-          headers:{
-            apikey:SUPABASE_KEY,
-            Authorization:
-              "Bearer " +
-              SUPABASE_KEY
-          }
-        }
+          method:"GET",
+          headers:supabaseHeaders()
+        },
+        30000
       );
 
     if(!response.ok){
 
-      const errorText =
+      const text =
         await response.text();
 
-      console.error(
-        "Supabase:",
-        errorText
-      );
-
-      throw new Error(
-        "Erreur Supabase"
-      );
+      throw new Error(text);
 
     }
 
-    const data =
+    allListings =
       await response.json();
 
-    allAnnonces =
-      Array.isArray(data)
-        ? data
-        : [];
+    loading.style.display = "none";
 
-    render(allAnnonces);
+    render(allListings);
 
   }catch(error){
 
     console.error(error);
 
-    cards.innerHTML =
-      '<div class="error-box">' +
-      '<strong>Impossible de charger les biens.</strong><br>' +
-      'Vérifiez votre connexion puis actualisez la page.' +
-      '</div>';
+    loading.innerHTML =
+      "Impossible de charger les biens pour le moment.";
 
   }
 
@@ -1863,289 +1512,375 @@ async function load(){
 
 /* =========================================================
    AFFICHAGE
-   ========================================================= */
+========================================================= */
 
-function render(data){
+function render(listings){
 
   const cards =
     document.getElementById("cards");
 
-  if(!data.length){
+  const noResult =
+    document.getElementById("noResult");
 
-    cards.innerHTML =
-      '<div class="empty">' +
-      'Aucun bien publié pour le moment.' +
-      '</div>';
+  cards.innerHTML = "";
+
+  if(!listings.length){
+
+    noResult.style.display = "block";
 
     return;
 
   }
 
-  cards.innerHTML =
-    data.map(a=>{
+  noResult.style.display = "none";
 
-      const photos =
-        getPhotos(a);
 
-      const first =
-        photos[0] || "";
+  listings.forEach(item => {
 
-      const title =
-        escapeHtml(
-          a.titre ||
-          "Bien immobilier"
-        );
+    const photos =
+      getPhotos(item);
 
-      const type =
-        escapeHtml(
-          a.type ||
-          "Bien"
-        );
+    const firstPhoto =
+      photos.length
+        ? imgUrl(photos[0])
+        : "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80";
 
-      const transaction =
-        escapeHtml(
-          a.transaction ||
+
+    const card =
+      document.createElement("div");
+
+    card.className = "card";
+
+
+    card.innerHTML = `
+
+      <div class="card-image">
+
+        <img
+          src="${firstPhoto}"
+          alt="${escapeHtml(item.titre || "Bien immobilier")}"
+          onerror="this.src='https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80'"
+        >
+
+        ${
+          photos.length > 1
+          ?
+          `<div class="photo-count">
+            📷 ${photos.length} photos
+          </div>`
+          :
           ""
-        );
+        }
 
-      const lieu =
-        escapeHtml(
-          a.localisation ||
-          a.lieu ||
-          "Antsirabe"
-        );
+      </div>
 
-      const price =
-        formatPrice(a.prix);
 
-      const id =
-        encodeURIComponent(a.id);
+      <div class="card-body">
 
-      return `
+        <div class="card-title">
+          ${escapeHtml(item.titre || "Bien immobilier")}
+        </div>
 
-        <article class="card">
+        <div class="card-location">
+          📍 ${escapeHtml(item.localisation || item.location || "Antsirabe")}
+        </div>
 
-          <div class="card-photo">
+        <div class="card-price">
+          ${escapeHtml(formatPrice(item.prix || item.price))}
+        </div>
 
-            ${
-              first
 
-              ? `
-                <img
-                  src="${first}"
-                  alt="${title}"
-                  loading="lazy"
-                  onclick="openGalleryFor('${escapeHtml(a.id)}')"
-                >
-              `
+        <div class="card-meta">
 
-              : `
-                <div class="no-photo">
-                  Aucune photo
-                </div>
-              `
-            }
+          ${
+            item.type
+            ?
+            `<span class="badge">
+              ${escapeHtml(item.type)}
+            </span>`
+            :
+            ""
+          }
 
-            <span class="tag">
-              ${transaction || type}
-            </span>
+          ${
+            item.transaction
+            ?
+            `<span class="badge">
+              ${escapeHtml(item.transaction)}
+            </span>`
+            :
+            ""
+          }
 
-            ${
-              photos.length > 1
+        </div>
 
-              ? `
-                <span class="photo-count">
-                  📷 ${photos.length}
-                </span>
-              `
 
-              : ""
-            }
+        <div class="card-actions">
 
-          </div>
+          <button
+            class="btn btn-primary"
+            onclick='openGallery(${JSON.stringify(photos)})'
+          >
+            Voir
+          </button>
 
-          <div class="card-body">
+          <a
+            class="btn btn-whatsapp"
+            target="_blank"
+            href="${whatsappLink(item)}"
+          >
+            WhatsApp
+          </a>
 
-            <h3>
-              ${title}
-            </h3>
+        </div>
 
-            <div class="meta">
+      </div>
 
-              🏠 ${type}
+    `;
 
-              <br>
 
-              📍 ${lieu}
+    cards.appendChild(card);
 
-            </div>
+  });
 
-            <div class="price">
-              ${price}
-            </div>
+}
 
-            <div class="card-actions">
 
-              <a
-                class="details"
-                href="annonce.html?id=${id}"
-              >
-                Voir les détails
-              </a>
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-              <a
-                class="whatsapp"
-                target="_blank"
-                rel="noopener"
-                href="https://wa.me/261344171196?text=${encodeURIComponent(
-                  "Bonjour, je suis intéressé(e) par : " +
-                  (a.titre || "une annonce") +
-                  " — " +
-                  window.location.origin +
-                  "/annonce.html?id=" +
-                  id
-                )}"
-              >
-                WhatsApp
-              </a>
+function escapeHtml(value){
 
-            </div>
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-          </div>
+}
 
-        </article>
 
-      `;
+/* =========================================================
+   WHATSAPP
+========================================================= */
 
-    }).join("");
+function whatsappLink(item){
+
+  const message =
+    "Bonjour Antsirabe Immo, je suis intéressé par le bien : " +
+    (item.titre || "Bien immobilier") +
+    " à " +
+    (item.localisation || item.location || "Antsirabe");
+
+  return (
+    "https://wa.me/261344171196?text=" +
+    encodeURIComponent(message)
+  );
 
 }
 
 
 /* =========================================================
    RECHERCHE
-   ========================================================= */
+========================================================= */
 
-function filter(){
+function searchListings(){
 
   const type =
     document
-      .getElementById("type")
+      .getElementById("searchType")
       .value
       .toLowerCase();
 
-  const op =
+  const transaction =
     document
-      .getElementById("op")
+      .getElementById("searchTransaction")
       .value
       .toLowerCase();
 
-  const q =
+  const location =
     document
-      .getElementById("q")
+      .getElementById("searchLocation")
       .value
       .trim()
       .toLowerCase();
 
-  const result =
-    allAnnonces.filter(a=>{
 
-      const aType =
-        String(
-          a.type || ""
-        ).toLowerCase();
+  const filtered =
+    allListings.filter(item => {
 
-      const aOp =
-        String(
-          a.transaction || ""
-        ).toLowerCase();
+      const itemType =
+        String(item.type || "")
+          .toLowerCase();
 
-      const aLieu =
+      const itemTransaction =
+        String(item.transaction || "")
+          .toLowerCase();
+
+      const itemLocation =
         String(
-          a.localisation ||
-          a.lieu ||
+          item.localisation ||
+          item.location ||
           ""
         ).toLowerCase();
 
-      const aTitle =
-        String(
-          a.titre || ""
-        ).toLowerCase();
+
+      const okType =
+        !type ||
+        itemType === type;
+
+      const okTransaction =
+        !transaction ||
+        itemTransaction === transaction;
+
+      const okLocation =
+        !location ||
+        itemLocation.includes(location);
+
 
       return (
-
-        (!type || aType === type)
-
-        &&
-
-        (!op || aOp === op)
-
-        &&
-
-        (
-          !q ||
-          aLieu.includes(q) ||
-          aTitle.includes(q)
-        )
-
+        okType &&
+        okTransaction &&
+        okLocation
       );
 
     });
 
-  render(result);
 
-  document
-    .getElementById("biens")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+  render(filtered);
 
 }
 
 
 /* =========================================================
-   FAIRE UNE DEMANDE
-   ========================================================= */
+   GALLERY
+========================================================= */
 
-function openDemande(){
+function openGallery(photos){
 
-  document
-    .getElementById("demandeModal")
-    .classList.add("show");
+  galleryPhotos =
+    photos || [];
 
-  document.body.style.overflow =
-    "hidden";
+  galleryIndex = 0;
+
+  if(!galleryPhotos.length){
+
+    return;
+
+  }
+
+  updateGallery();
+
+  openModal("galleryModal");
+
+}
+
+
+function updateGallery(){
+
+  if(!galleryPhotos.length){
+
+    return;
+
+  }
+
+  const image =
+    document.getElementById("galleryImage");
+
+  const counter =
+    document.getElementById("galleryCounter");
+
+
+  image.src =
+    imgUrl(galleryPhotos[galleryIndex]);
+
+
+  counter.textContent =
+    (galleryIndex + 1) +
+    " / " +
+    galleryPhotos.length;
 
 }
 
 
-function closeDemande(){
+function nextPhoto(){
 
-  document
-    .getElementById("demandeModal")
-    .classList.remove("show");
+  if(!galleryPhotos.length){
 
-  document.body.style.overflow =
-    "";
+    return;
+
+  }
+
+  galleryIndex++;
+
+  if(
+    galleryIndex >=
+    galleryPhotos.length
+  ){
+
+    galleryIndex = 0;
+
+  }
+
+  updateGallery();
 
 }
 
+
+function previousPhoto(){
+
+  if(!galleryPhotos.length){
+
+    return;
+
+  }
+
+  galleryIndex--;
+
+  if(galleryIndex < 0){
+
+    galleryIndex =
+      galleryPhotos.length - 1;
+
+  }
+
+  updateGallery();
+
+}
+
+
+/* =========================================================
+   DEMANDE CLIENT
+========================================================= */
 
 async function sendDemande(event){
 
   event.preventDefault();
 
+
   const button =
-    document.getElementById(
-      "demandeSubmit"
-    );
+    document.getElementById("demandeSubmit");
+
+  const result =
+    document.getElementById("demandeMessageResult");
+
 
   button.disabled = true;
 
   button.textContent =
-    "Envoi...";
+    "Envoi en cours...";
 
-  const payload = {
+
+  result.className =
+    "message";
+
+  result.style.display =
+    "none";
+
+
+  const data = {
 
     nom:
       document
@@ -2159,7 +1894,7 @@ async function sendDemande(event){
         .value
         .trim(),
 
-    type_bien:
+    type:
       document
         .getElementById("demandeType")
         .value,
@@ -2175,21 +1910,20 @@ async function sendDemande(event){
         .value
         .trim(),
 
-    localisation:
+    zone:
       document
-        .getElementById("demandeLocalisation")
+        .getElementById("demandeZone")
         .value
         .trim(),
 
-    details:
+    message:
       document
-        .getElementById("demandeDetails")
+        .getElementById("demandeMessage")
         .value
-        .trim(),
-
-    statut:"nouvelle"
+        .trim()
 
   };
+
 
   try{
 
@@ -2197,263 +1931,346 @@ async function sendDemande(event){
       await fetchWithTimeout(
         DEMANDES_API,
         {
-
           method:"POST",
 
-          headers:{
+          headers:
+            supabaseHeaders({
+              "Content-Type":
+                "application/json",
 
-            apikey:SUPABASE_KEY,
-
-            Authorization:
-              "Bearer " +
-              SUPABASE_KEY,
-
-            "Content-Type":
-              "application/json",
-
-            Prefer:
-              "return=minimal"
-
-          },
+              "Prefer":
+                "return=minimal"
+            }),
 
           body:
-            JSON.stringify(payload)
+            JSON.stringify(data)
 
-        }
+        },
+        30000
       );
+
 
     if(!response.ok){
 
       const text =
         await response.text();
 
-      console.error(text);
-
-      throw new Error(
-        text ||
-        "Erreur lors de l'envoi."
-      );
+      throw new Error(text);
 
     }
 
-    alert(
-      "Votre demande a bien été envoyée. Merci !"
-    );
 
-    event.target.reset();
+    result.className =
+      "message success";
 
-    closeDemande();
+    result.style.display =
+      "block";
+
+    result.textContent =
+      "Votre demande a été envoyée avec succès.";
+
+
+    document
+      .getElementById("demandeForm")
+      .reset();
+
 
   }catch(error){
 
     console.error(error);
 
-    alert(
-      "Impossible d'envoyer la demande.\n\n" +
-      "Erreur : " +
-      (
-        error.message ||
-        "Erreur inconnue"
-      )
-    );
+    result.className =
+      "message error";
 
-  }finally{
+    result.style.display =
+      "block";
 
-    button.disabled = false;
-
-    button.textContent =
-      "Envoyer la demande";
+    result.textContent =
+      "Erreur lors de l'envoi. Veuillez réessayer.";
 
   }
+
+
+  button.disabled = false;
+
+  button.textContent =
+    "Envoyer la demande";
 
 }
 
 
 /* =========================================================
-   DEPOSER UNE ANNONCE
-   ========================================================= */
+   COMPRESS IMAGE
+========================================================= */
 
-function openAnnonce(){
+function compressImage(file){
 
-  document
-    .getElementById("annonceModal")
-    .classList.add("show");
+  return new Promise((resolve,reject) => {
 
-  document.body.style.overflow =
-    "hidden";
+    if(!file){
 
-}
+      reject(
+        new Error("Fichier photo invalide.")
+      );
 
-
-function closeAnnonce(){
-
-  document
-    .getElementById("annonceModal")
-    .classList.remove("show");
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* =========================================================
-   PREVIEW PHOTOS
-   ========================================================= */
-
-function previewPhotos(input){
-
-  const preview =
-    document.getElementById(
-      "photoPreview"
-    );
-
-  preview.innerHTML = "";
-
-  const files =
-    Array.from(
-      input.files || []
-    );
-
-  if(!files.length){
-    return;
-  }
-
-  files.forEach(
-    function(file,index){
-
-      if(
-        !file.type.startsWith("image/")
-      ){
-        return;
-      }
-
-      const reader =
-        new FileReader();
-
-      reader.onload =
-        function(e){
-
-          const item =
-            document.createElement(
-              "div"
-            );
-
-          item.className =
-            "photo-preview-item";
-
-          item.innerHTML = `
-
-            <img
-              src="${e.target.result}"
-              alt="${escapeHtml(file.name)}"
-            >
-
-            <span class="photo-number">
-              ${index + 1}
-            </span>
-
-            <span class="photo-preview-name">
-              ${escapeHtml(file.name)}
-            </span>
-
-          `;
-
-          preview.appendChild(item);
-
-        };
-
-      reader.onerror =
-        function(){
-
-          console.error(
-            "Impossible de lire :",
-            file.name
-          );
-
-        };
-
-      reader.readAsDataURL(file);
+      return;
 
     }
+
+
+    if(!file.type.startsWith("image/")){
+
+      reject(
+        new Error(
+          file.name +
+          " n'est pas une image."
+        )
+      );
+
+      return;
+
+    }
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onerror = () => {
+
+      reject(
+        new Error(
+          "Impossible de lire " +
+          file.name
+        )
+      );
+
+    };
+
+
+    reader.onload = event => {
+
+      const image =
+        new Image();
+
+
+      image.onerror = () => {
+
+        reject(
+          new Error(
+            "Impossible de lire l'image " +
+            file.name
+          )
+        );
+
+      };
+
+
+      image.onload = () => {
+
+        const MAX_SIZE = 1600;
+
+        let width =
+          image.width;
+
+        let height =
+          image.height;
+
+
+        if(
+          width > MAX_SIZE ||
+          height > MAX_SIZE
+        ){
+
+          if(width > height){
+
+            height =
+              Math.round(
+                height *
+                MAX_SIZE /
+                width
+              );
+
+            width =
+              MAX_SIZE;
+
+          }else{
+
+            width =
+              Math.round(
+                width *
+                MAX_SIZE /
+                height
+              );
+
+            height =
+              MAX_SIZE;
+
+          }
+
+        }
+
+
+        const canvas =
+          document.createElement("canvas");
+
+        canvas.width =
+          width;
+
+        canvas.height =
+          height;
+
+
+        const ctx =
+          canvas.getContext("2d");
+
+
+        ctx.drawImage(
+          image,
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        canvas.toBlob(
+          blob => {
+
+            if(!blob){
+
+              reject(
+                new Error(
+                  "Compression impossible pour " +
+                  file.name
+                )
+              );
+
+              return;
+
+            }
+
+
+            resolve(blob);
+
+          },
+          "image/jpeg",
+          0.78
+        );
+
+      };
+
+
+      image.src =
+        event.target.result;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+/* =========================================================
+   NOM FICHIER UNIQUE
+========================================================= */
+
+function uniqueFileName(originalName){
+
+  const random =
+    Math.random()
+      .toString(36)
+      .substring(2,10);
+
+  const time =
+    Date.now();
+
+  const safe =
+    originalName
+      .replace(
+        /[^a-zA-Z0-9._-]/g,
+        "_"
+      )
+      .replace(
+        /\.[^.]+$/,
+        ""
+      )
+      .substring(0,50);
+
+
+  return (
+    time +
+    "_" +
+    random +
+    "_" +
+    safe +
+    ".jpg"
   );
 
 }
 
 
 /* =========================================================
-   VALIDATION FICHIER
-   ========================================================= */
+   UPLOAD PHOTO
+========================================================= */
 
-function validateImageFile(file){
+async function uploadAnnoncePhoto(
+  file,
+  index,
+  total
+){
 
-  if(!file)
+  if(!file){
+
     throw new Error(
       "Fichier photo invalide."
     );
 
+  }
+
+
+  const maxOriginalSize =
+    15 * 1024 * 1024;
+
+
   if(
-    !file.type ||
-    !file.type.startsWith("image/")
+    file.size >
+    maxOriginalSize
   ){
 
     throw new Error(
       file.name +
-      " n'est pas une image valide."
+      " dépasse 15 MB."
     );
 
   }
 
-  /*
-    Limite raisonnable pour téléphone.
-    10 MB maximum par photo.
-  */
 
-  const maxSize =
-    10 * 1024 * 1024;
-
-  if(file.size > maxSize){
-
-    throw new Error(
-      "La photo " +
-      file.name +
-      " est trop grande. Maximum : 10 MB."
+  const status =
+    document.getElementById(
+      "uploadStatus"
     );
 
-  }
 
-}
+  status.textContent =
+    "Compression de la photo " +
+    index +
+    " / " +
+    total +
+    " : " +
+    file.name;
 
 
-/* =========================================================
-   UPLOAD PHOTO SUPABASE
-   ========================================================= */
-
-async function uploadAnnoncePhoto(file){
-
-  validateImageFile(file);
-
-  const safeName =
-    file.name
-      .replace(
-        /[^a-zA-Z0-9._-]/g,
-        "_"
-      );
+  const compressed =
+    await compressImage(file);
 
 
   const filename =
-    Date.now() +
-    "_" +
-    Math.random()
-      .toString(36)
-      .substring(2,10) +
-    "_" +
-    safeName;
+    uniqueFileName(file.name);
 
-
-  /*
-    Endpoint officiel Storage Supabase
-  */
 
   const url =
     SUPABASE_URL +
@@ -2463,43 +2280,33 @@ async function uploadAnnoncePhoto(file){
     filename;
 
 
-  console.log(
-    "Upload photo :",
-    filename
-  );
+  status.textContent =
+    "Envoi de la photo " +
+    index +
+    " / " +
+    total +
+    "...";
 
 
   const response =
     await fetchWithTimeout(
       url,
       {
-
         method:"POST",
 
-        headers:{
+        headers:
+          supabaseHeaders({
+            "Content-Type":
+              "image/jpeg",
 
-          apikey:
-            SUPABASE_KEY,
+            "x-upsert":
+              "false"
+          }),
 
-          Authorization:
-            "Bearer " +
-            SUPABASE_KEY,
-
-          "Content-Type":
-            file.type,
-
-          "Cache-Control":
-            "3600",
-
-          "x-upsert":
-            "false"
-
-        },
-
-        body:file
-
+        body:
+          compressed
       },
-      60000
+      90000
     );
 
 
@@ -2510,52 +2317,18 @@ async function uploadAnnoncePhoto(file){
 
     console.error(
       "Erreur upload photo:",
-      response.status,
       errorText
     );
 
 
-    /*
-      Message plus clair selon l'erreur
-    */
-
-    if(
-      response.status === 400
-    ){
-
-      throw new Error(
-        "Supabase refuse cette photo (400). " +
-        "Vérifiez le bucket annonces-images."
-      );
-
-    }
-
-    if(
-      response.status === 401 ||
-      response.status === 403
-    ){
-
-      throw new Error(
-        "Supabase refuse l'accès au stockage (403/401). " +
-        "Une permission Storage est nécessaire."
-      );
-
-    }
-
     throw new Error(
-      "Erreur upload photo (" +
-      response.status +
-      ") : " +
+      "Erreur lors de l'envoi de " +
+      file.name +
+      " : " +
       errorText
     );
 
   }
-
-
-  console.log(
-    "Photo uploadée :",
-    filename
-  );
 
 
   return filename;
@@ -2565,56 +2338,69 @@ async function uploadAnnoncePhoto(file){
 
 /* =========================================================
    ENVOI ANNONCE
-   ========================================================= */
+========================================================= */
 
 async function sendAnnonce(event){
 
   event.preventDefault();
+
 
   const button =
     document.getElementById(
       "annonceSubmit"
     );
 
-  const success =
+  const result =
     document.getElementById(
-      "annonceSuccess"
+      "annonceMessageResult"
     );
+
+  const status =
+    document.getElementById(
+      "uploadStatus"
+    );
+
 
   button.disabled = true;
 
   button.textContent =
     "Préparation...";
 
-  success.style.display =
+
+  result.className =
+    "message";
+
+  result.style.display =
     "none";
+
+
+  status.classList.add("show");
+
+  status.textContent =
+    "Préparation des photos...";
 
 
   try{
 
-    /* -----------------------------------------
-       RECUPERATION DES CHAMPS
-       ----------------------------------------- */
-
-    const proprietaireNom =
+    const ownerName =
       document
         .getElementById(
-          "annonceProprietaire"
+          "proprietaireNom"
         )
         .value
         .trim();
 
 
-    const proprietaireTelephone =
+    const ownerPhone =
       document
         .getElementById(
-          "annonceTelephone"
+          "proprietaireTelephone"
         )
         .value
         .trim();
 
 
-    const titre =
+    const title =
       document
         .getElementById(
           "annonceTitre"
@@ -2639,7 +2425,7 @@ async function sendAnnonce(event){
         .value;
 
 
-    const prix =
+    const price =
       document
         .getElementById(
           "annoncePrix"
@@ -2648,10 +2434,10 @@ async function sendAnnonce(event){
         .trim();
 
 
-    const lieu =
+    const location =
       document
         .getElementById(
-          "annonceLocalisation"
+          "annonceLocation"
         )
         .value
         .trim();
@@ -2667,9 +2453,10 @@ async function sendAnnonce(event){
 
 
     const photoInput =
-      document.getElementById(
-        "annoncePhotos"
-      );
+      document
+        .getElementById(
+          "annoncePhotos"
+        );
 
 
     const files =
@@ -2678,134 +2465,71 @@ async function sendAnnonce(event){
       );
 
 
-    /* -----------------------------------------
-       VERIFICATION
-       ----------------------------------------- */
+    /* VALIDATIONS */
 
-    if(!proprietaireNom){
+    if(files.length === 0){
 
       throw new Error(
-        "Veuillez indiquer le nom du propriétaire."
+        "Veuillez sélectionner au moins une photo."
       );
 
     }
 
 
-    if(!proprietaireTelephone){
+    if(files.length > 10){
 
       throw new Error(
-        "Veuillez indiquer le téléphone du propriétaire."
+        "Vous pouvez envoyer maximum 10 photos."
       );
 
     }
 
 
-    if(!titre){
+    /* UPLOAD */
 
-      throw new Error(
-        "Veuillez indiquer le titre de l'annonce."
-      );
+    const uploaded = [];
 
-    }
-
-
-    if(!type){
-
-      throw new Error(
-        "Veuillez choisir le type de bien."
-      );
-
-    }
-
-
-    if(!transaction){
-
-      throw new Error(
-        "Veuillez choisir la transaction."
-      );
-
-    }
-
-
-    if(!lieu){
-
-      throw new Error(
-        "Veuillez indiquer la localisation."
-      );
-
-    }
-
-
-    /* -----------------------------------------
-       VERIFICATION DES PHOTOS
-       ----------------------------------------- */
 
     for(
-      const file of files
+      let i = 0;
+      i < files.length;
+      i++
     ){
 
-      validateImageFile(file);
-
-    }
-
-
-    /* -----------------------------------------
-       UPLOAD DES PHOTOS
-       ----------------------------------------- */
-
-    let uploaded = [];
+      button.textContent =
+        "Envoi photo " +
+        (i + 1) +
+        " / " +
+        files.length;
 
 
-    if(files.length){
-
-      for(
-        let i = 0;
-        i < files.length;
-        i++
-      ){
-
-        button.textContent =
-          "Envoi photo " +
-          (i + 1) +
-          " / " +
-          files.length;
-
-
-        const filename =
-          await uploadAnnoncePhoto(
-            files[i]
-          );
-
-
-        uploaded.push(
-          filename
+      const filename =
+        await uploadAnnoncePhoto(
+          files[i],
+          i + 1,
+          files.length
         );
 
-      }
+
+      uploaded.push(filename);
 
     }
 
 
-    /* -----------------------------------------
-       PAYLOAD
-       ----------------------------------------- */
+    /* INSERT DATABASE */
+
+    status.textContent =
+      "Enregistrement de l'annonce...";
+
 
     button.textContent =
       "Enregistrement...";
 
 
-    const payload = {
+    const annonceData = {
 
       titre:
-        titre,
-
-      prix:
-        prix
-          ? Number(prix)
-          : null,
-
-      lieu:
-        lieu,
+        title,
 
       type:
         type,
@@ -2813,63 +2537,49 @@ async function sendAnnonce(event){
       transaction:
         transaction,
 
+      prix:
+        price,
+
+      localisation:
+        location,
+
       description:
         description,
 
       image_url:
-        JSON.stringify(
-          uploaded
-        ),
+        JSON.stringify(uploaded),
 
       statut:
         "a_valider",
 
       proprietaire_nom:
-        proprietaireNom,
+        ownerName,
 
       proprietaire_telephone:
-        proprietaireTelephone
+        ownerPhone
 
     };
 
-
-    console.log(
-      "Payload annonce:",
-      payload
-    );
-
-
-    /* -----------------------------------------
-       ENVOI SUPABASE
-       ----------------------------------------- */
 
     const response =
       await fetchWithTimeout(
         API,
         {
-
           method:"POST",
 
-          headers:{
+          headers:
+            supabaseHeaders({
+              "Content-Type":
+                "application/json",
 
-            apikey:
-              SUPABASE_KEY,
-
-            Authorization:
-              "Bearer " +
-              SUPABASE_KEY,
-
-            "Content-Type":
-              "application/json",
-
-            Prefer:
-              "return=minimal"
-
-          },
+              "Prefer":
+                "return=minimal"
+            }),
 
           body:
-            JSON.stringify(payload)
-
+            JSON.stringify(
+              annonceData
+            )
         },
         30000
       );
@@ -2877,63 +2587,43 @@ async function sendAnnonce(event){
 
     if(!response.ok){
 
-      const text =
+      const errorText =
         await response.text();
 
-
       console.error(
-        "Erreur Supabase annonce:",
-        text
+        "Erreur insertion annonce:",
+        errorText
       );
 
 
       throw new Error(
-        text ||
-        "Impossible d'enregistrer l'annonce."
+        "Impossible d'enregistrer l'annonce : " +
+        errorText
       );
 
     }
 
 
-    /* -----------------------------------------
-       SUCCÈS
-       ----------------------------------------- */
+    /* SUCCÈS */
 
-    success.style.display =
+    status.textContent =
+      "✅ Annonce envoyée avec succès.";
+
+    result.className =
+      "message success";
+
+    result.style.display =
       "block";
 
-
-    event.target.reset();
+    result.textContent =
+      "Votre annonce a bien été envoyée. Elle sera vérifiée avant sa publication.";
 
 
     document
       .getElementById(
-        "photoPreview"
+        "annonceForm"
       )
-      .innerHTML = "";
-
-
-    button.textContent =
-      "Annonce envoyée ✓";
-
-
-    setTimeout(
-      function(){
-
-        closeAnnonce();
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "Envoyer l'annonce";
-
-        success.style.display =
-          "none";
-
-      },
-      2200
-    );
+      .reset();
 
 
   }catch(error){
@@ -2944,246 +2634,62 @@ async function sendAnnonce(event){
     );
 
 
-    alert(
-      "Impossible d'envoyer l'annonce.\n\n" +
-      "Détail :\n" +
-      (
-        error.message ||
-        "Erreur inconnue"
-      )
-    );
+    status.textContent =
+      "❌ " +
+      (error.message ||
+      "Une erreur est survenue.");
 
 
-    button.disabled =
-      false;
+    result.className =
+      "message error";
 
+    result.style.display =
+      "block";
 
-    button.textContent =
-      "Envoyer l'annonce";
-
-  }
-
-}
-
-
-/* =========================================================
-   GALERIE
-   ========================================================= */
-
-function openGalleryFor(id){
-
-  const a =
-    allAnnonces.find(
-      x =>
-        String(x.id) ===
-        String(id)
-    );
-
-  if(!a)
-    return;
-
-  currentPhotos =
-    getPhotos(a);
-
-  currentPhoto = 0;
-
-  if(!currentPhotos.length)
-    return;
-
-  updateGallery();
-
-  document
-    .getElementById("gallery")
-    .classList.add("show");
-
-  document.body.style.overflow =
-    "hidden";
-
-}
-
-
-function updateGallery(){
-
-  const img =
-    document.getElementById(
-      "galleryImg"
-    );
-
-  img.src =
-    currentPhotos[
-      currentPhoto
-    ] || "";
-
-  document
-    .getElementById(
-      "galleryCount"
-    )
-    .textContent =
-      (currentPhoto + 1) +
-      " / " +
-      currentPhotos.length;
-
-}
-
-
-function nextPhoto(){
-
-  if(
-    currentPhotos.length <= 1
-  )
-    return;
-
-  currentPhoto =
-    (
-      currentPhoto + 1
-    ) %
-    currentPhotos.length;
-
-  updateGallery();
-
-}
-
-
-function previousPhoto(){
-
-  if(
-    currentPhotos.length <= 1
-  )
-    return;
-
-  currentPhoto =
-    (
-      currentPhoto -
-      1 +
-      currentPhotos.length
-    ) %
-    currentPhotos.length;
-
-  updateGallery();
-
-}
-
-
-function closeGallery(){
-
-  document
-    .getElementById("gallery")
-    .classList.remove("show");
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* =========================================================
-   CLAVIER
-   ========================================================= */
-
-document.addEventListener(
-  "keydown",
-  function(e){
-
-    if(e.key === "Escape"){
-
-      closeDemande();
-      closeAnnonce();
-      closeGallery();
-
-    }
-
-    if(
-      document
-        .getElementById("gallery")
-        .classList
-        .contains("show")
-    ){
-
-      if(
-        e.key === "ArrowRight"
-      )
-        nextPhoto();
-
-      if(
-        e.key === "ArrowLeft"
-      )
-        previousPhoto();
-
-    }
+    result.textContent =
+      error.message ||
+      "Erreur lors de l'envoi de l'annonce.";
 
   }
-);
 
 
-/* =========================================================
-   ENTER RECHERCHE
-   ========================================================= */
+  button.disabled = false;
 
-document
-  .getElementById("q")
-  .addEventListener(
-    "keydown",
-    function(e){
-
-      if(e.key === "Enter")
-        filter();
-
-    }
-  );
-
-
-/* =========================================================
-   ANNÉE
-   ========================================================= */
-
-document
-  .getElementById("year")
-  .textContent =
-    new Date().getFullYear();
-
-
-/* =========================================================
-   SERVICE WORKER
-   ========================================================= */
-
-if(
-  "serviceWorker" in navigator
-){
-
-  window.addEventListener(
-    "load",
-    function(){
-
-      navigator.serviceWorker
-        .register(
-          "service-worker.js"
-        )
-
-        .then(
-          () =>
-            console.log(
-              "Service Worker activé"
-            )
-        )
-
-        .catch(
-          error =>
-            console.log(
-              "Service Worker non disponible:",
-              error
-            )
-        );
-
-    }
-
-  );
+  button.textContent =
+    "Envoyer l'annonce";
 
 }
 
 
 /* =========================================================
-   START
-   ========================================================= */
+   FERMETURE MODAL EN CLIQUANT DEHORS
+========================================================= */
+
+document
+  .querySelectorAll(".modal")
+  .forEach(modal => {
+
+    modal.addEventListener(
+      "click",
+      function(event){
+
+        if(event.target === modal){
+
+          modal.classList.remove(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
 
 load();
 
