@@ -34,19 +34,38 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:12px;
   box-shadow:0 4px 20px #0003;
 }
-.brand{font-weight:900;font-size:20px;letter-spacing:.2px}
-.brand span{color:#f4b942}
-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.brand{
+  font-weight:900;
+  font-size:20px;
+  letter-spacing:.2px;
+  white-space:nowrap;
+}
+
+nav{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
 nav a{
   color:#fff;
   padding:9px 12px;
   border-radius:9px;
   font-size:14px;
 }
+
 nav a:hover{background:#ffffff18}
+
+.demand-link{
+  background:#f4b942;
+  color:#102238!important;
+  font-weight:800;
+}
+
 .admin-link{
   background:#f4b942;
   color:#102238!important;
@@ -62,7 +81,13 @@ nav a:hover{background:#ffffff18}
     linear-gradient(120deg,#071a2d 0%,#0b3556 55%,#174f83 100%);
   color:#fff;
 }
-.hero-inner{max-width:1050px;margin:auto;width:100%}
+
+.hero-inner{
+  max-width:1050px;
+  margin:auto;
+  width:100%;
+}
+
 .badge{
   display:inline-block;
   background:#f4b942;
@@ -72,12 +97,14 @@ nav a:hover{background:#ffffff18}
   font-weight:800;
   font-size:13px;
 }
+
 .hero h1{
   font-size:clamp(34px,6vw,62px);
   line-height:1.03;
   margin:18px 0 14px;
   max-width:850px;
 }
+
 .hero p{
   font-size:18px;
   line-height:1.7;
@@ -99,7 +126,9 @@ nav a:hover{background:#ffffff18}
   grid-template-columns:1fr 1fr 1.4fr auto;
   gap:10px;
 }
-.search-box select,.search-box input{
+
+.search-box select,
+.search-box input{
   width:100%;
   min-height:48px;
   border:1px solid #d9e0e7;
@@ -109,10 +138,13 @@ nav a:hover{background:#ffffff18}
   color:#172033;
   outline:none;
 }
-.search-box input:focus,.search-box select:focus{
+
+.search-box input:focus,
+.search-box select:focus{
   border-color:#174f83;
   box-shadow:0 0 0 3px #174f8315;
 }
+
 .primary{
   min-height:48px;
   background:#174f83;
@@ -121,19 +153,37 @@ nav a:hover{background:#ffffff18}
   border-radius:11px;
   font-weight:800;
 }
+
 .primary:hover{background:#0e3d68}
 
 section{padding:55px 5%}
-.container{max-width:1100px;margin:auto}
-.section-head{text-align:center;margin-bottom:28px}
-.section-head h2{font-size:30px;margin:0 0 9px}
-.section-head p{margin:0;color:#697586}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.section-head{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.section-head h2{
+  font-size:30px;
+  margin:0 0 9px;
+}
+
+.section-head p{
+  margin:0;
+  color:#697586;
+}
 
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
 }
+
 .card{
   background:#fff;
   border-radius:17px;
@@ -142,22 +192,40 @@ section{padding:55px 5%}
   border:1px solid #e9edf2;
   transition:.2s;
 }
-.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0002}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px #0002;
+}
+
 .card-photo{
   height:220px;
   background:#dfe6ed;
   position:relative;
   overflow:hidden;
 }
-.card-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.no-photo{
-  width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  color:#718096;font-weight:800;
+
+.card-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
+
+.no-photo{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#718096;
+  font-weight:800;
+}
+
 .tag{
   position:absolute;
-  top:12px;left:12px;
+  top:12px;
+  left:12px;
   background:#f4b942;
   color:#102238;
   padding:6px 10px;
@@ -165,25 +233,67 @@ section{padding:55px 5%}
   font-size:12px;
   font-weight:900;
 }
+
 .photo-count{
   position:absolute;
-  right:12px;bottom:12px;
-  background:#0009;color:#fff;
-  padding:6px 9px;border-radius:18px;
-  font-size:12px;font-weight:800;
+  right:12px;
+  bottom:12px;
+  background:#0009;
+  color:#fff;
+  padding:6px 9px;
+  border-radius:18px;
+  font-size:12px;
+  font-weight:800;
 }
-.card-body{padding:17px}
-.card h3{margin:0 0 8px;font-size:19px}
-.meta{color:#667587;font-size:14px;line-height:1.7}
-.price{font-size:20px;font-weight:900;color:#174f83;margin:11px 0}
-.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.card-actions button,.card-actions a{
-  text-align:center;padding:11px 8px;border-radius:9px;font-weight:800;font-size:13px;
-}
-.details{background:#174f83;color:#fff}
-.whatsapp{background:#25d366;color:#fff}
 
-.empty,.msg{
+.card-body{padding:17px}
+
+.card h3{
+  margin:0 0 8px;
+  font-size:19px;
+}
+
+.meta{
+  color:#667587;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.price{
+  font-size:20px;
+  font-weight:900;
+  color:#174f83;
+  margin:11px 0;
+}
+
+.card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+
+.card-actions button,
+.card-actions a{
+  text-align:center;
+  padding:11px 8px;
+  border-radius:9px;
+  font-weight:800;
+  font-size:13px;
+}
+
+.details{
+  background:#174f83;
+  color:#fff;
+}
+
+.whatsapp{
+  background:#25d366;
+  color:#fff;
+}
+
+.empty,
+.msg{
   grid-column:1/-1;
   text-align:center;
   background:#fff;
@@ -192,6 +302,7 @@ section{padding:55px 5%}
   color:#667587;
   box-shadow:0 5px 20px #0000000c;
 }
+
 .error-box{
   grid-column:1/-1;
   background:#fff4f4;
@@ -202,18 +313,25 @@ section{padding:55px 5%}
 }
 
 .info-section{background:#fff}
+
 .about-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:22px;
 }
+
 .info-box{
   background:#f5f7fa;
   border-radius:16px;
   padding:24px;
 }
+
 .info-box h3{margin-top:0}
-.info-box p{line-height:1.75;color:#596779}
+
+.info-box p{
+  line-height:1.75;
+  color:#596779;
+}
 
 .demand-banner{
   background:linear-gradient(120deg,#0b2239,#174f83);
@@ -225,8 +343,15 @@ section{padding:55px 5%}
   align-items:center;
   gap:20px;
 }
+
 .demand-banner h2{margin:0 0 8px}
-.demand-banner p{margin:0;color:#d9e8f5;line-height:1.6}
+
+.demand-banner p{
+  margin:0;
+  color:#d9e8f5;
+  line-height:1.6;
+}
+
 .gold-btn{
   background:#f4b942;
   color:#102238;
@@ -240,19 +365,30 @@ section{padding:55px 5%}
   background:#0b2239;
   color:#fff;
 }
+
 .contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:22px;
 }
+
 .contact-box{
   border:1px solid #ffffff18;
   border-radius:16px;
   padding:22px;
   background:#ffffff08;
 }
-.contact-box h3{margin-top:0;color:#f4b942}
-.contact-box p{line-height:1.8;color:#dce7f0}
+
+.contact-box h3{
+  margin-top:0;
+  color:#f4b942;
+}
+
+.contact-box p{
+  line-height:1.8;
+  color:#dce7f0;
+}
+
 .contact-btn{
   display:inline-block;
   padding:11px 15px;
@@ -280,7 +416,13 @@ footer{
   padding:18px;
   overflow:auto;
 }
-.modal.show{display:flex;align-items:center;justify-content:center}
+
+.modal.show{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
 .modal-box{
   width:min(620px,100%);
   background:#fff;
@@ -289,47 +431,78 @@ footer{
   position:relative;
   box-shadow:0 20px 70px #0005;
 }
+
 .close{
   position:absolute;
-  top:10px;right:12px;
-  width:38px;height:38px;
+  top:10px;
+  right:12px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   background:#edf1f5;
   color:#172033;
   font-size:22px;
 }
-.modal-box h2{margin:0 45px 8px 0}
-.modal-box>p{color:#697586;line-height:1.5}
+
+.modal-box h2{
+  margin:0 45px 8px 0;
+}
+
+.modal-box>p{
+  color:#697586;
+  line-height:1.5;
+}
+
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-.form-grid .full{grid-column:1/-1}
+
+.form-grid .full{
+  grid-column:1/-1;
+}
+
 .form-grid label{
   display:block;
   font-size:13px;
   font-weight:800;
   margin:0 0 6px;
 }
-.form-grid input,.form-grid select,.form-grid textarea{
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
   width:100%;
   border:1px solid #d7dfe7;
   border-radius:10px;
   padding:12px;
   outline:none;
 }
-.form-grid textarea{min-height:110px;resize:vertical}
-.form-grid input:focus,.form-grid select:focus,.form-grid textarea:focus{
+
+.form-grid textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus{
   border-color:#174f83;
   box-shadow:0 0 0 3px #174f8315;
 }
+
 .form-submit{
   width:100%;
   margin-top:14px;
   min-height:48px;
 }
-.small-note{font-size:12px;color:#7b8794;margin-top:9px}
+
+.small-note{
+  font-size:12px;
+  color:#7b8794;
+  margin-top:9px;
+}
 
 .gallery{
   display:none;
@@ -341,55 +514,180 @@ footer{
   justify-content:center;
   padding:15px;
 }
+
 .gallery.show{display:flex}
+
 .gallery img{
   max-width:94vw;
   max-height:82vh;
   object-fit:contain;
   border-radius:10px;
 }
-.gallery-close,.gallery-prev,.gallery-next{
+
+.gallery-close,
+.gallery-prev,
+.gallery-next{
   position:absolute;
   background:#ffffff18;
   color:#fff;
   border:1px solid #fff4;
-  width:46px;height:46px;
+  width:46px;
+  height:46px;
   border-radius:50%;
   font-size:25px;
 }
-.gallery-close{right:18px;top:18px}
-.gallery-prev{left:18px;top:50%;transform:translateY(-50%)}
-.gallery-next{right:18px;top:50%;transform:translateY(-50%)}
-.gallery-count{
-  position:absolute;bottom:20px;left:50%;
-  transform:translateX(-50%);
-  color:#fff;font-weight:800;
-  background:#0008;padding:7px 12px;border-radius:20px;
+
+.gallery-close{
+  right:18px;
+  top:18px;
 }
 
-@media(max-width:850px){
-  nav a{display:none}
-  nav a.admin-link{display:block}
-  .search-box{grid-template-columns:1fr 1fr}
-  .search-box button{grid-column:1/-1}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .about-grid,.contact-grid{grid-template-columns:1fr}
+.gallery-prev{
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
 }
+
+.gallery-next{
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.gallery-count{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#fff;
+  font-weight:800;
+  background:#0008;
+  padding:7px 12px;
+  border-radius:20px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:850px){
+
+  header{
+    padding:12px 4%;
+  }
+
+  .brand{
+    font-size:16px;
+  }
+
+  nav{
+    gap:5px;
+  }
+
+  /* Amin'ny téléphone dia ireto 2 ihany no hita eo ambony */
+  nav a{
+    display:none;
+  }
+
+  nav .demand-link,
+  nav .admin-link{
+    display:block;
+    padding:9px 10px;
+    font-size:12px;
+  }
+
+  .search-box{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .search-box button{
+    grid-column:1/-1;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .about-grid,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 @media(max-width:600px){
-  header{padding:12px 4%}
-  .brand{font-size:16px}
-  .hero{min-height:390px;padding:60px 5%}
-  .hero p{font-size:16px}
-  .search-box{margin:-30px 4% 20px;padding:13px;grid-template-columns:1fr}
-  .search-box button{grid-column:auto}
-  section{padding:42px 4%}
-  .grid{grid-template-columns:1fr}
-  .card-photo{height:235px}
-  .demand-banner{flex-direction:column;align-items:flex-start}
-  .form-grid{grid-template-columns:1fr}
-  .form-grid .full{grid-column:auto}
-  .gallery-prev{left:8px}
-  .gallery-next{right:8px}
+
+  header{
+    padding:12px 4%;
+    gap:6px;
+  }
+
+  .brand{
+    font-size:16px;
+  }
+
+  nav{
+    gap:5px;
+    flex-shrink:0;
+  }
+
+  nav .demand-link,
+  nav .admin-link{
+    padding:9px 9px;
+    font-size:11px;
+    border-radius:8px;
+  }
+
+  .hero{
+    min-height:390px;
+    padding:60px 5%;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .search-box{
+    margin:-30px 4% 20px;
+    padding:13px;
+    grid-template-columns:1fr;
+  }
+
+  .search-box button{
+    grid-column:auto;
+  }
+
+  section{
+    padding:42px 4%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card-photo{
+    height:235px;
+  }
+
+  .demand-banner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid .full{
+    grid-column:auto;
+  }
+
+  .gallery-prev{
+    left:8px;
+  }
+
+  .gallery-next{
+    right:8px;
+  }
 }
 </style>
 </head>
@@ -397,286 +695,686 @@ footer{
 <body>
 
 <header>
-  <a class="brand" href="index.html">Antsirabe <span>Immo</span></a>
+
+  <a class="brand" href="index.html">
+    Antsirabe <span>Immo</span>
+  </a>
+
   <nav>
-    <a href="#biens">Biens</a>
-    <a href="#agence">L'agence</a>
-    <a href="#demande">Demande</a>
-    <a href="#contact">Contact</a>
-    <a class="admin-link" href="admin.html">Administration</a>
+
+    <a href="#biens">
+      Biens
+    </a>
+
+    <a href="#agence">
+      L'agence
+    </a>
+
+    <!-- FAIRE UNE DEMANDE -->
+    <a
+      href="javascript:void(0)"
+      class="demand-link"
+      onclick="openDemande()"
+    >
+      Faire une demande
+    </a>
+
+    <a href="#contact">
+      Contact
+    </a>
+
+    <!-- ADMINISTRATION -->
+    <a
+      class="admin-link"
+      href="admin.html"
+    >
+      Administration
+    </a>
+
   </nav>
+
 </header>
 
 <section class="hero">
+
   <div class="hero-inner">
-    <span class="badge">AGENCE IMMOBILIÈRE À ANTSIRABE</span>
-    <h1>Trouvez votre prochain bien immobilier.</h1>
-    <p>Maisons, appartements, terrains et locaux commerciaux à Antsirabe. Consultez les annonces disponibles et contactez directement l'agence.</p>
+
+    <span class="badge">
+      AGENCE IMMOBILIÈRE À ANTSIRABE
+    </span>
+
+    <h1>
+      Trouvez votre prochain bien immobilier.
+    </h1>
+
+    <p>
+      Maisons, appartements, terrains et locaux commerciaux à Antsirabe.
+      Consultez les annonces disponibles et contactez directement l'agence.
+    </p>
+
   </div>
+
 </section>
 
 <div class="search-box">
+
   <select id="type">
-    <option value="">Tous les types</option>
-    <option>Maison</option>
-    <option>Appartement</option>
-    <option>Terrain</option>
-    <option>Local commercial</option>
+
+    <option value="">
+      Tous les types
+    </option>
+
+    <option>
+      Maison
+    </option>
+
+    <option>
+      Appartement
+    </option>
+
+    <option>
+      Terrain
+    </option>
+
+    <option>
+      Local commercial
+    </option>
+
   </select>
 
   <select id="op">
-    <option value="">Toutes les transactions</option>
-    <option>À vendre</option>
-    <option>À louer</option>
+
+    <option value="">
+      Toutes les transactions
+    </option>
+
+    <option>
+      À vendre
+    </option>
+
+    <option>
+      À louer
+    </option>
+
   </select>
 
-  <input id="q" type="search" placeholder="📍 Quartier ou localisation">
+  <input
+    id="q"
+    type="search"
+    placeholder="📍 Quartier ou localisation"
+  >
 
-  <button class="primary" type="button" onclick="filter()">Rechercher</button>
+  <button
+    class="primary"
+    type="button"
+    onclick="filter()"
+  >
+    Rechercher
+  </button>
+
 </div>
 
 <section id="biens">
+
   <div class="container">
+
     <div class="section-head">
-      <h2>Nos biens disponibles</h2>
-      <p>Les annonces publiées par Antsirabe Immo.</p>
+
+      <h2>
+        Nos biens disponibles
+      </h2>
+
+      <p>
+        Les annonces publiées par Antsirabe Immo.
+      </p>
+
     </div>
 
-    <div id="cards" class="grid">
-      <p class="msg">Chargement des biens...</p>
+    <div
+      id="cards"
+      class="grid"
+    >
+
+      <p class="msg">
+        Chargement des biens...
+      </p>
+
     </div>
+
   </div>
+
 </section>
 
 <section id="demande">
+
   <div class="container">
+
     <div class="demand-banner">
+
       <div>
-        <h2>Vous cherchez un bien précis ?</h2>
-        <p>Envoyez-nous votre demande avec votre budget et la localisation souhaitée.</p>
+
+        <h2>
+          Vous cherchez un bien précis ?
+        </h2>
+
+        <p>
+          Envoyez-nous votre demande avec votre budget et la localisation souhaitée.
+        </p>
+
       </div>
-      <button class="gold-btn" type="button" onclick="openDemande()">Faire une demande</button>
+
+      <button
+        class="gold-btn"
+        type="button"
+        onclick="openDemande()"
+      >
+        Faire une demande
+      </button>
+
     </div>
+
   </div>
+
 </section>
 
-<section id="agence" class="info-section">
+<section
+  id="agence"
+  class="info-section"
+>
+
   <div class="container">
+
     <div class="section-head">
-      <h2>L'agence</h2>
-      <p>Un service immobilier simple et direct à Antsirabe.</p>
+
+      <h2>
+        L'agence
+      </h2>
+
+      <p>
+        Un service immobilier simple et direct à Antsirabe.
+      </p>
+
     </div>
 
     <div class="about-grid">
+
       <div class="info-box">
-        <h3>🏠 Immobilier</h3>
-        <p>Nous présentons des biens à vendre ou à louer : maisons, appartements, terrains et locaux commerciaux.</p>
+
+        <h3>
+          🏠 Immobilier
+        </h3>
+
+        <p>
+          Nous présentons des biens à vendre ou à louer :
+          maisons, appartements, terrains et locaux commerciaux.
+        </p>
+
       </div>
 
       <div class="info-box">
-        <h3>🤝 Accompagnement</h3>
-        <p>Vous pouvez consulter les annonces, demander un bien correspondant à vos besoins et contacter l'agence directement.</p>
+
+        <h3>
+          🤝 Accompagnement
+        </h3>
+
+        <p>
+          Vous pouvez consulter les annonces, demander un bien
+          correspondant à vos besoins et contacter l'agence directement.
+        </p>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<section id="contact" class="contact">
+<section
+  id="contact"
+  class="contact"
+>
+
   <div class="container">
+
     <div class="section-head">
-      <h2>Contact</h2>
-      <p>Pour toute information concernant une annonce.</p>
+
+      <h2>
+        Contact
+      </h2>
+
+      <p>
+        Pour toute information concernant une annonce.
+      </p>
+
     </div>
 
     <div class="contact-grid">
+
       <div class="contact-box">
-        <h3>📞 Téléphone</h3>
-        <p>034 41 711 96</p>
-        <a class="contact-btn" href="tel:+261344171196">Appeler</a>
+
+        <h3>
+          📞 Téléphone
+        </h3>
+
+        <p>
+          034 41 711 96
+        </p>
+
+        <a
+          class="contact-btn"
+          href="tel:+261344171196"
+        >
+          Appeler
+        </a>
+
       </div>
 
       <div class="contact-box">
-        <h3>💬 WhatsApp</h3>
-        <p>Écrivez-nous directement sur WhatsApp.</p>
-        <a class="contact-btn" href="https://wa.me/261344171196" target="_blank" rel="noopener">Ouvrir WhatsApp</a>
+
+        <h3>
+          💬 WhatsApp
+        </h3>
+
+        <p>
+          Écrivez-nous directement sur WhatsApp.
+        </p>
+
+        <a
+          class="contact-btn"
+          href="https://wa.me/261344171196"
+          target="_blank"
+          rel="noopener"
+        >
+          Ouvrir WhatsApp
+        </a>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
 <footer>
-  © <span id="year"></span> Antsirabe Immo — Agence immobilière
+
+  ©
+  <span id="year"></span>
+  Antsirabe Immo — Agence immobilière
+
 </footer>
 
-<!-- DEMANDE CLIENT -->
-<div id="demandeModal" class="modal" onclick="if(event.target===this)closeDemande()">
-  <div class="modal-box">
-    <button class="close" type="button" onclick="closeDemande()">×</button>
+<!-- =========================================================
+     FORMULAIRE FAIRE UNE DEMANDE
+     ========================================================= -->
 
-    <h2>📩 Votre demande immobilière</h2>
-    <p>Remplissez les informations ci-dessous. L'agence pourra vous contacter.</p>
+<div
+  id="demandeModal"
+  class="modal"
+  onclick="if(event.target===this)closeDemande()"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      type="button"
+      onclick="closeDemande()"
+    >
+      ×
+    </button>
+
+    <h2>
+      📩 Votre demande immobilière
+    </h2>
+
+    <p>
+      Remplissez les informations ci-dessous.
+      L'agence pourra vous contacter.
+    </p>
 
     <form onsubmit="sendDemande(event)">
+
       <div class="form-grid">
 
         <div>
-          <label for="demandeNom">Nom</label>
-          <input id="demandeNom" required placeholder="Votre nom">
+
+          <label for="demandeNom">
+            Nom
+          </label>
+
+          <input
+            id="demandeNom"
+            required
+            placeholder="Votre nom"
+          >
+
         </div>
 
         <div>
-          <label for="demandeTelephone">Téléphone</label>
-          <input id="demandeTelephone" required placeholder="034 XX XXX XX">
+
+          <label for="demandeTelephone">
+            Téléphone
+          </label>
+
+          <input
+            id="demandeTelephone"
+            required
+            placeholder="034 XX XXX XX"
+          >
+
         </div>
 
         <div>
-          <label for="demandeType">Type de bien</label>
+
+          <label for="demandeType">
+            Type de bien
+          </label>
+
           <select id="demandeType">
-            <option value="">Peu importe</option>
-            <option>Maison</option>
-            <option>Appartement</option>
-            <option>Terrain</option>
-            <option>Local commercial</option>
+
+            <option value="">
+              Peu importe
+            </option>
+
+            <option>
+              Maison
+            </option>
+
+            <option>
+              Appartement
+            </option>
+
+            <option>
+              Terrain
+            </option>
+
+            <option>
+              Local commercial
+            </option>
+
           </select>
+
         </div>
 
         <div>
-          <label for="demandeTransaction">Transaction</label>
+
+          <label for="demandeTransaction">
+            Transaction
+          </label>
+
           <select id="demandeTransaction">
-            <option value="">Peu importe</option>
-            <option>À vendre</option>
-            <option>À louer</option>
+
+            <option value="">
+              Peu importe
+            </option>
+
+            <option>
+              À vendre
+            </option>
+
+            <option>
+              À louer
+            </option>
+
           </select>
+
         </div>
 
         <div>
-          <label for="demandeBudget">Budget</label>
-          <input id="demandeBudget" placeholder="Ex : 100 000 000 Ar">
+
+          <label for="demandeBudget">
+            Budget
+          </label>
+
+          <input
+            id="demandeBudget"
+            placeholder="Ex : 100 000 000 Ar"
+          >
+
         </div>
 
         <div>
-          <label for="demandeLocalisation">Localisation</label>
-          <input id="demandeLocalisation" placeholder="Ex : Antsirabe centre">
+
+          <label for="demandeLocalisation">
+            Localisation
+          </label>
+
+          <input
+            id="demandeLocalisation"
+            placeholder="Ex : Antsirabe centre"
+          >
+
         </div>
 
         <div class="full">
-          <label for="demandeDetails">Détails de votre demande</label>
-          <textarea id="demandeDetails" placeholder="Décrivez le bien recherché..."></textarea>
+
+          <label for="demandeDetails">
+            Détails de votre demande
+          </label>
+
+          <textarea
+            id="demandeDetails"
+            placeholder="Décrivez le bien recherché..."
+          ></textarea>
+
         </div>
 
       </div>
 
-      <button id="demandeSubmit" class="primary form-submit" type="submit">
+      <button
+        id="demandeSubmit"
+        class="primary form-submit"
+        type="submit"
+      >
         Envoyer la demande
       </button>
 
       <div class="small-note">
         Vos informations servent uniquement à traiter votre demande immobilière.
       </div>
+
     </form>
+
   </div>
+
 </div>
 
-<!-- GALLERY -->
-<div id="gallery" class="gallery" onclick="if(event.target===this)closeGallery()">
-  <button class="gallery-close" type="button" onclick="closeGallery()">×</button>
-  <button class="gallery-prev" type="button" onclick="previousPhoto()">‹</button>
+<!-- =========================================================
+     GALERIE PHOTOS
+     ========================================================= -->
 
-  <img id="galleryImg" src="" alt="Photo du bien">
+<div
+  id="gallery"
+  class="gallery"
+  onclick="if(event.target===this)closeGallery()"
+>
 
-  <button class="gallery-next" type="button" onclick="nextPhoto()">›</button>
+  <button
+    class="gallery-close"
+    type="button"
+    onclick="closeGallery()"
+  >
+    ×
+  </button>
 
-  <div id="galleryCount" class="gallery-count"></div>
+  <button
+    class="gallery-prev"
+    type="button"
+    onclick="previousPhoto()"
+  >
+    ‹
+  </button>
+
+  <img
+    id="galleryImg"
+    src=""
+    alt="Photo du bien"
+  >
+
+  <button
+    class="gallery-next"
+    type="button"
+    onclick="nextPhoto()"
+  >
+    ›
+  </button>
+
+  <div
+    id="galleryCount"
+    class="gallery-count"
+  ></div>
+
 </div>
 
 <script>
-const SUPABASE_URL = "https://byezzcuqrweyhdjfnaky.supabase.co";
-const SUPABASE_KEY = "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
-const API = SUPABASE_URL + "/rest/v1/annonces";
-const DEMANDES_API = SUPABASE_URL + "/rest/v1/demandes_clients";
-const BUCKET = "annonces-images";
+
+const SUPABASE_URL =
+  "https://byezzcuqrweyhdjfnaky.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+
+const API =
+  SUPABASE_URL + "/rest/v1/annonces";
+
+const DEMANDES_API =
+  SUPABASE_URL + "/rest/v1/demandes_clients";
+
+const BUCKET =
+  "annonces-images";
 
 let allAnnonces = [];
+
 let currentPhotos = [];
+
 let currentPhoto = 0;
 
+
+/* =========================================================
+   UTILITAIRES
+   ========================================================= */
+
 function escapeHtml(text){
+
   return String(text ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
+
 
 function formatPrice(price){
-  if(price === null || price === undefined || price === "") {
+
+  if(
+    price === null ||
+    price === undefined ||
+    price === ""
+  ){
+
     return "Prix sur demande";
+
   }
 
-  const n = Number(String(price).replace(/\s/g,"").replace(/,/g,""));
+  const n =
+    Number(
+      String(price)
+        .replace(/\s/g,"")
+        .replace(/,/g,"")
+    );
 
-  if(Number.isNaN(n)) return escapeHtml(price);
+  if(Number.isNaN(n))
+    return escapeHtml(price);
 
-  return n.toLocaleString("fr-FR") + " Ar";
+  return (
+    n.toLocaleString("fr-FR") +
+    " Ar"
+  );
+
 }
 
+
 function imgUrl(path){
-  if(!path) return "";
 
-  const value = String(path);
+  if(!path)
+    return "";
 
-  if(/^https?:\/\//i.test(value)) return value;
+  const value =
+    String(path);
 
-  return SUPABASE_URL +
+  if(
+    /^https?:\/\//i.test(value)
+  ){
+
+    return value;
+
+  }
+
+  return (
+    SUPABASE_URL +
     "/storage/v1/object/public/" +
     BUCKET +
     "/" +
-    value.replace(/^\/+/,"");
+    value.replace(/^\/+/,"")
+  );
+
 }
 
+
 /* =========================================================
-   GESTION DES PHOTOS
-   Compatible avec image_url, images et image
+   PHOTOS
    ========================================================= */
 
 function getPhotos(a){
 
   let photos = [];
 
-  /* Nouveau format utilisé par admin.html :
-     image_url = JSON.stringify(uploaded)
-  */
+
+  /* Nouveau format : image_url */
+
   if(a.image_url){
 
     if(Array.isArray(a.image_url)){
 
-      photos = a.image_url;
+      photos =
+        a.image_url;
 
-    }else if(typeof a.image_url === "string"){
+    }else if(
+      typeof a.image_url === "string"
+    ){
 
       try{
 
-        const parsed = JSON.parse(a.image_url);
+        const parsed =
+          JSON.parse(a.image_url);
 
         if(Array.isArray(parsed)){
 
-          photos = parsed;
+          photos =
+            parsed;
 
         }else if(parsed){
 
-          photos = [parsed];
+          photos =
+            [parsed];
 
         }
 
       }catch(e){
 
-        if(a.image_url.trim()){
+        if(
+          a.image_url.trim()
+        ){
 
-          photos = a.image_url
-            .split(",")
-            .map(x => x.trim())
-            .filter(Boolean);
+          photos =
+            a.image_url
+              .split(",")
+              .map(x=>x.trim())
+              .filter(Boolean);
 
         }
 
@@ -686,37 +1384,51 @@ function getPhotos(a){
 
   }
 
+
   /* Ancien format : images */
-  if(!photos.length && a.images){
+
+  if(
+    !photos.length &&
+    a.images
+  ){
 
     if(Array.isArray(a.images)){
 
-      photos = a.images;
+      photos =
+        a.images;
 
-    }else if(typeof a.images === "string"){
+    }else if(
+      typeof a.images === "string"
+    ){
 
       try{
 
-        const parsed = JSON.parse(a.images);
+        const parsed =
+          JSON.parse(a.images);
 
         if(Array.isArray(parsed)){
 
-          photos = parsed;
+          photos =
+            parsed;
 
         }else if(parsed){
 
-          photos = [parsed];
+          photos =
+            [parsed];
 
         }
 
       }catch(e){
 
-        if(a.images.trim()){
+        if(
+          a.images.trim()
+        ){
 
-          photos = a.images
-            .split(",")
-            .map(x => x.trim())
-            .filter(Boolean);
+          photos =
+            a.images
+              .split(",")
+              .map(x=>x.trim())
+              .filter(Boolean);
 
         }
 
@@ -726,27 +1438,45 @@ function getPhotos(a){
 
   }
 
-  /* Ancienne photo unique */
-  if(!photos.length && a.image){
 
-    photos = [a.image];
+  /* Ancienne photo unique */
+
+  if(
+    !photos.length &&
+    a.image
+  ){
+
+    photos =
+      [a.image];
 
   }
 
-  /* Conversion des noms de fichiers en URLs Supabase Storage */
+
   return photos
     .filter(Boolean)
     .map(imgUrl);
+
 }
 
-async function fetchWithTimeout(url, options={}, timeout=12000){
 
-  const controller = new AbortController();
+/* =========================================================
+   FETCH
+   ========================================================= */
 
-  const timer = setTimeout(
-    () => controller.abort(),
-    timeout
-  );
+async function fetchWithTimeout(
+  url,
+  options={},
+  timeout=12000
+){
+
+  const controller =
+    new AbortController();
+
+  const timer =
+    setTimeout(
+      ()=>controller.abort(),
+      timeout
+    );
 
   try{
 
@@ -754,7 +1484,8 @@ async function fetchWithTimeout(url, options={}, timeout=12000){
       url,
       {
         ...options,
-        signal:controller.signal
+        signal:
+          controller.signal
       }
     );
 
@@ -766,12 +1497,19 @@ async function fetchWithTimeout(url, options={}, timeout=12000){
 
 }
 
+
+/* =========================================================
+   CHARGEMENT DES ANNONCES
+   ========================================================= */
+
 async function load(){
 
-  const cards = document.getElementById("cards");
+  const cards =
+    document.getElementById("cards");
 
   cards.innerHTML =
     '<p class="msg">Chargement des biens...</p>';
+
 
   try{
 
@@ -781,34 +1519,52 @@ async function load(){
       "&select=*" +
       "&order=created_at.desc";
 
-    const response = await fetchWithTimeout(
-      url,
-      {
-        headers:{
-          apikey:SUPABASE_KEY,
-          Authorization:"Bearer " + SUPABASE_KEY
+
+    const response =
+      await fetchWithTimeout(
+        url,
+        {
+          headers:{
+            apikey:
+              SUPABASE_KEY,
+
+            Authorization:
+              "Bearer " +
+              SUPABASE_KEY
+          }
         }
-      }
-    );
+      );
+
 
     if(!response.ok){
 
-      const errorText = await response.text();
+      const errorText =
+        await response.text();
 
-      console.error("Supabase:",errorText);
+      console.error(
+        "Supabase:",
+        errorText
+      );
 
-      throw new Error("Erreur Supabase");
+      throw new Error(
+        "Erreur Supabase"
+      );
 
     }
 
-    const data = await response.json();
+
+    const data =
+      await response.json();
+
 
     allAnnonces =
       Array.isArray(data)
         ? data
         : [];
 
+
     render(allAnnonces);
+
 
   }catch(error){
 
@@ -824,19 +1580,28 @@ async function load(){
 
 }
 
+
+/* =========================================================
+   AFFICHAGE DES ANNONCES
+   ========================================================= */
+
 function render(data){
 
   const cards =
     document.getElementById("cards");
 
+
   if(!data.length){
 
     cards.innerHTML =
-      '<div class="empty">Aucun bien publié pour le moment.</div>';
+      '<div class="empty">' +
+      'Aucun bien publié pour le moment.' +
+      '</div>';
 
     return;
 
   }
+
 
   cards.innerHTML =
     data.map(a=>{
@@ -849,17 +1614,20 @@ function render(data){
 
       const title =
         escapeHtml(
-          a.titre || "Bien immobilier"
+          a.titre ||
+          "Bien immobilier"
         );
 
       const type =
         escapeHtml(
-          a.type || "Bien"
+          a.type ||
+          "Bien"
         );
 
       const transaction =
         escapeHtml(
-          a.transaction || ""
+          a.transaction ||
+          ""
         );
 
       const lieu =
@@ -875,7 +1643,9 @@ function render(data){
       const id =
         encodeURIComponent(a.id);
 
+
       return `
+
         <article class="card">
 
           <div class="card-photo">
@@ -883,46 +1653,65 @@ function render(data){
             ${
               first
 
-              ? `<img
+              ? `
+                <img
                   src="${first}"
                   alt="${title}"
                   loading="lazy"
                   onclick="openGalleryFor('${escapeHtml(a.id)}')"
-                >`
+                >
+              `
 
-              : `<div class="no-photo">
+              : `
+                <div class="no-photo">
                   Aucune photo
-                </div>`
+                </div>
+              `
             }
+
 
             <span class="tag">
               ${transaction || type}
             </span>
 
+
             ${
               photos.length > 1
 
-              ? `<span class="photo-count">
+              ? `
+                <span class="photo-count">
                   📷 ${photos.length}
-                </span>`
+                </span>
+              `
 
               : ""
             }
 
           </div>
 
+
           <div class="card-body">
 
-            <h3>${title}</h3>
+            <h3>
+              ${title}
+            </h3>
+
 
             <div class="meta">
-              🏠 ${type}<br>
+
+              🏠 ${type}
+
+              <br>
+
               📍 ${lieu}
+
             </div>
+
 
             <div class="price">
               ${price}
             </div>
+
 
             <div class="card-actions">
 
@@ -932,6 +1721,7 @@ function render(data){
               >
                 Voir les détails
               </a>
+
 
               <a
                 class="whatsapp"
@@ -954,11 +1744,17 @@ function render(data){
           </div>
 
         </article>
+
       `;
 
     }).join("");
 
 }
+
+
+/* =========================================================
+   RECHERCHE
+   ========================================================= */
 
 function filter(){
 
@@ -968,11 +1764,13 @@ function filter(){
       .value
       .toLowerCase();
 
+
   const op =
     document
       .getElementById("op")
       .value
       .toLowerCase();
+
 
   const q =
     document
@@ -981,16 +1779,21 @@ function filter(){
       .trim()
       .toLowerCase();
 
+
   const result =
     allAnnonces.filter(a=>{
 
       const aType =
-        String(a.type || "")
-          .toLowerCase();
+        String(
+          a.type || ""
+        ).toLowerCase();
+
 
       const aOp =
-        String(a.transaction || "")
-          .toLowerCase();
+        String(
+          a.transaction || ""
+        ).toLowerCase();
+
 
       const aLieu =
         String(
@@ -999,23 +1802,38 @@ function filter(){
           ""
         ).toLowerCase();
 
+
       const aTitle =
-        String(a.titre || "")
-          .toLowerCase();
+        String(
+          a.titre || ""
+        ).toLowerCase();
+
 
       return (
-        (!type || aType === type) &&
-        (!op || aOp === op) &&
+
+        (!type ||
+          aType === type)
+
+        &&
+
+        (!op ||
+          aOp === op)
+
+        &&
+
         (
           !q ||
           aLieu.includes(q) ||
           aTitle.includes(q)
         )
+
       );
 
     });
 
+
   render(result);
+
 
   document
     .getElementById("biens")
@@ -1025,16 +1843,23 @@ function filter(){
 
 }
 
+
+/* =========================================================
+   FAIRE UNE DEMANDE
+   ========================================================= */
+
 function openDemande(){
 
   document
     .getElementById("demandeModal")
     .classList.add("show");
 
+
   document.body.style.overflow =
     "hidden";
 
 }
+
 
 function closeDemande(){
 
@@ -1042,22 +1867,29 @@ function closeDemande(){
     .getElementById("demandeModal")
     .classList.remove("show");
 
+
   document.body.style.overflow =
     "";
 
 }
 
+
 async function sendDemande(event){
 
   event.preventDefault();
 
+
   const button =
-    document.getElementById("demandeSubmit");
+    document.getElementById(
+      "demandeSubmit"
+    );
+
 
   button.disabled = true;
 
   button.textContent =
     "Envoi...";
+
 
   const payload = {
 
@@ -1067,44 +1899,60 @@ async function sendDemande(event){
         .value
         .trim(),
 
+
     telephone:
       document
         .getElementById("demandeTelephone")
         .value
         .trim(),
 
+
     type_bien:
       document
         .getElementById("demandeType")
         .value,
 
+
     transaction:
       document
-        .getElementById("demandeTransaction")
+        .getElementById(
+          "demandeTransaction"
+        )
         .value,
+
 
     budget:
       document
-        .getElementById("demandeBudget")
+        .getElementById(
+          "demandeBudget"
+        )
         .value
         .trim(),
+
 
     localisation:
       document
-        .getElementById("demandeLocalisation")
+        .getElementById(
+          "demandeLocalisation"
+        )
         .value
         .trim(),
 
+
     details:
       document
-        .getElementById("demandeDetails")
+        .getElementById(
+          "demandeDetails"
+        )
         .value
         .trim(),
+
 
     statut:
       "nouvelle"
 
   };
+
 
   try{
 
@@ -1112,23 +1960,34 @@ async function sendDemande(event){
       await fetchWithTimeout(
         DEMANDES_API,
         {
+
           method:"POST",
 
           headers:{
-            apikey:SUPABASE_KEY,
+
+            apikey:
+              SUPABASE_KEY,
+
             Authorization:
-              "Bearer " + SUPABASE_KEY,
+              "Bearer " +
+              SUPABASE_KEY,
+
             "Content-Type":
               "application/json",
+
             Prefer:
               "return=minimal"
+
           },
 
           body:
-            JSON.stringify(payload)
+            JSON.stringify(
+              payload
+            )
 
         }
       );
+
 
     if(!response.ok){
 
@@ -1137,17 +1996,22 @@ async function sendDemande(event){
 
       console.error(text);
 
-      throw new Error("Erreur");
+      throw new Error(
+        "Erreur"
+      );
 
     }
+
 
     alert(
       "Votre demande a bien été envoyée. Merci !"
     );
 
+
     event.target.reset();
 
     closeDemande();
+
 
   }catch(error){
 
@@ -1157,6 +2021,7 @@ async function sendDemande(event){
       "Impossible d'envoyer la demande. " +
       "Vérifiez votre connexion puis réessayez."
     );
+
 
   }finally{
 
@@ -1169,43 +2034,68 @@ async function sendDemande(event){
 
 }
 
+
+/* =========================================================
+   GALERIE
+   ========================================================= */
+
 function openGalleryFor(id){
 
   const a =
     allAnnonces.find(
-      x => String(x.id) === String(id)
+      x =>
+        String(x.id) ===
+        String(id)
     );
 
-  if(!a) return;
+
+  if(!a)
+    return;
+
 
   currentPhotos =
     getPhotos(a);
 
+
   currentPhoto = 0;
 
-  if(!currentPhotos.length) return;
+
+  if(!currentPhotos.length)
+    return;
+
 
   updateGallery();
+
 
   document
     .getElementById("gallery")
     .classList.add("show");
+
 
   document.body.style.overflow =
     "hidden";
 
 }
 
+
 function updateGallery(){
 
   const img =
-    document.getElementById("galleryImg");
+    document.getElementById(
+      "galleryImg"
+    );
+
 
   img.src =
-    currentPhotos[currentPhoto] || "";
+    currentPhotos[
+      currentPhoto
+    ] || "";
+
 
   document
-    .getElementById("galleryCount")
+    .getElementById(
+      "galleryCount"
+    )
     .textContent =
       (currentPhoto + 1) +
       " / " +
@@ -1213,23 +2103,34 @@ function updateGallery(){
 
 }
 
+
 function nextPhoto(){
 
-  if(currentPhotos.length <= 1)
+  if(
+    currentPhotos.length <= 1
+  )
     return;
 
+
   currentPhoto =
-    (currentPhoto + 1) %
+    (
+      currentPhoto + 1
+    ) %
     currentPhotos.length;
+
 
   updateGallery();
 
 }
 
+
 function previousPhoto(){
 
-  if(currentPhotos.length <= 1)
+  if(
+    currentPhotos.length <= 1
+  )
     return;
+
 
   currentPhoto =
     (
@@ -1239,9 +2140,11 @@ function previousPhoto(){
     ) %
     currentPhotos.length;
 
+
   updateGallery();
 
 }
+
 
 function closeGallery(){
 
@@ -1249,10 +2152,16 @@ function closeGallery(){
     .getElementById("gallery")
     .classList.remove("show");
 
+
   document.body.style.overflow =
     "";
 
 }
+
+
+/* =========================================================
+   CLAVIER
+   ========================================================= */
 
 document.addEventListener(
   "keydown",
@@ -1261,9 +2170,11 @@ document.addEventListener(
     if(e.key === "Escape"){
 
       closeDemande();
+
       closeGallery();
 
     }
+
 
     if(
       document
@@ -1272,16 +2183,26 @@ document.addEventListener(
         .contains("show")
     ){
 
-      if(e.key === "ArrowRight")
+      if(
+        e.key === "ArrowRight"
+      )
         nextPhoto();
 
-      if(e.key === "ArrowLeft")
+
+      if(
+        e.key === "ArrowLeft"
+      )
         previousPhoto();
 
     }
 
   }
 );
+
+
+/* =========================================================
+   RECHERCHE AVEC ENTER
+   ========================================================= */
 
 document
   .getElementById("q")
@@ -1295,19 +2216,33 @@ document
     }
   );
 
+
+/* =========================================================
+   ANNÉE
+   ========================================================= */
+
 document
   .getElementById("year")
   .textContent =
     new Date().getFullYear();
 
-if("serviceWorker" in navigator){
+
+/* =========================================================
+   SERVICE WORKER
+   ========================================================= */
+
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
     function(){
 
       navigator.serviceWorker
-        .register("service-worker.js")
+        .register(
+          "service-worker.js"
+        )
 
         .then(
           () =>
@@ -1329,7 +2264,13 @@ if("serviceWorker" in navigator){
 
 }
 
+
+/* =========================================================
+   START
+   ========================================================= */
+
 load();
+
 </script>
 
 </body>
