@@ -450,6 +450,7 @@ footer{
 @media(max-width:850px){
   nav a{display:none}
   nav a.demand-link,
+  nav a.deposit-link,
   nav a.admin-link{display:block}
   .search-box{
     grid-template-columns:1fr 1fr;
@@ -516,23 +517,50 @@ footer{
   <nav>
     <a href="#biens">Biens</a>
     <a href="#agence">L'agence</a>
-    <a href="javascript:void(0)" class="demand-link" onclick="openDemande()">Faire une demande</a>
-    <a href="javascript:void(0)" class="deposit-link" onclick="openDepot()">Déposer une annonce</a>
+
+    <a
+      href="javascript:void(0)"
+      class="demand-link"
+      onclick="openDemande()"
+    >
+      Faire une demande
+    </a>
+
+    <a
+      href="javascript:void(0)"
+      class="deposit-link"
+      onclick="openDepot()"
+    >
+      Déposer une annonce
+    </a>
+
     <a href="#contact">Contact</a>
-    <a class="admin-link" href="admin.html">Administration</a>
+
+    <a
+      class="admin-link"
+      href="admin.html"
+    >
+      Administration
+    </a>
   </nav>
 </header>
 
 <section class="hero">
   <div class="hero-inner">
-    <span class="badge">AGENCE IMMOBILIÈRE À ANTSIRABE</span>
 
-    <h1>Trouvez votre prochain bien immobilier.</h1>
+    <span class="badge">
+      AGENCE IMMOBILIÈRE À ANTSIRABE
+    </span>
+
+    <h1>
+      Trouvez votre prochain bien immobilier.
+    </h1>
 
     <p>
       Maisons, appartements, terrains et locaux commerciaux à Antsirabe.
       Consultez les annonces disponibles et contactez directement l'agence.
     </p>
+
   </div>
 </section>
 
@@ -569,6 +597,7 @@ footer{
 </div>
 
 <section id="biens">
+
   <div class="container">
 
     <div class="section-head">
@@ -577,26 +606,35 @@ footer{
     </div>
 
     <div id="cards" class="grid">
-      <p class="msg">Chargement des biens...</p>
+      <p class="msg">
+        Chargement des biens...
+      </p>
     </div>
 
   </div>
+
 </section>
 
 <section id="demande">
+
   <div class="container">
 
     <div class="demand-banner">
 
       <div>
-        <h2>Vous cherchez un bien précis ?</h2>
+        <h2>
+          Vous cherchez un bien précis ?
+        </h2>
 
         <p>
           Envoyez-nous votre demande avec votre budget et la localisation souhaitée.
         </p>
       </div>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <!-- ICI : FAIRE UNE DEMANDE IRERY -->
+      <div
+        style="display:flex;gap:10px;flex-wrap:wrap"
+      >
 
         <button
           class="gold-btn"
@@ -606,48 +644,54 @@ footer{
           Faire une demande
         </button>
 
-        <button
-          class="gold-btn"
-          type="button"
-          onclick="openDepot()"
-        >
-          Déposer une annonce
-        </button>
-
       </div>
 
     </div>
 
   </div>
+
 </section>
 
-<section id="agence" class="info-section">
+<section
+  id="agence"
+  class="info-section"
+>
 
   <div class="container">
 
     <div class="section-head">
       <h2>L'agence</h2>
-      <p>Un service immobilier simple et direct à Antsirabe.</p>
+      <p>
+        Un service immobilier simple et direct à Antsirabe.
+      </p>
     </div>
 
     <div class="about-grid">
 
       <div class="info-box">
-        <h3>🏠 Immobilier</h3>
+
+        <h3>
+          🏠 Immobilier
+        </h3>
 
         <p>
           Nous présentons des biens à vendre ou à louer :
           maisons, appartements, terrains et locaux commerciaux.
         </p>
+
       </div>
 
       <div class="info-box">
-        <h3>🤝 Accompagnement</h3>
+
+        <h3>
+          🤝 Accompagnement
+        </h3>
 
         <p>
           Vous pouvez consulter les annonces, demander un bien
           correspondant à vos besoins et contacter l'agence directement.
         </p>
+
       </div>
 
     </div>
@@ -656,20 +700,36 @@ footer{
 
 </section>
 
-<section id="contact" class="contact">
+<section
+  id="contact"
+  class="contact"
+>
 
   <div class="container">
 
     <div class="section-head">
-      <h2>Contact</h2>
-      <p>Pour toute information concernant une annonce.</p>
+
+      <h2>
+        Contact
+      </h2>
+
+      <p>
+        Pour toute information concernant une annonce.
+      </p>
+
     </div>
 
     <div class="contact-grid">
 
       <div class="contact-box">
-        <h3>📞 Téléphone</h3>
-        <p>034 41 711 96</p>
+
+        <h3>
+          📞 Téléphone
+        </h3>
+
+        <p>
+          034 41 711 96
+        </p>
 
         <a
           class="contact-btn"
@@ -677,10 +737,14 @@ footer{
         >
           Appeler
         </a>
+
       </div>
 
       <div class="contact-box">
-        <h3>💬 WhatsApp</h3>
+
+        <h3>
+          💬 WhatsApp
+        </h3>
 
         <p>
           Écrivez-nous directement sur WhatsApp.
@@ -694,6 +758,7 @@ footer{
         >
           Ouvrir WhatsApp
         </a>
+
       </div>
 
     </div>
@@ -703,11 +768,17 @@ footer{
 </section>
 
 <footer>
-  © <span id="year"></span> Antsirabe Immo — Agence immobilière
+
+  ©
+  <span id="year"></span>
+  Antsirabe Immo — Agence immobilière
+
 </footer>
 
 
-<!-- DEPOT D'ANNONCE -->
+<!-- ========================= -->
+<!-- MODAL DEPOT ANNONCE -->
+<!-- ========================= -->
 
 <div
   id="depotModal"
@@ -725,7 +796,9 @@ footer{
       ×
     </button>
 
-    <h2>🏠 Déposer une annonce</h2>
+    <h2>
+      🏠 Déposer une annonce
+    </h2>
 
     <p>
       Proposez votre bien à Antsirabe.
@@ -733,16 +806,21 @@ footer{
     </p>
 
     <div class="private-note">
+
       🔒 Votre nom et votre numéro de téléphone restent privés.
       Ils sont visibles uniquement par l'administration et ne seront pas
       affichés sur le site public.
+
     </div>
 
-    <form onsubmit="sendDepot(event)">
+    <form
+      onsubmit="sendDepot(event)"
+    >
 
       <div class="form-grid">
 
         <div>
+
           <label for="ownerName">
             Nom du propriétaire
           </label>
@@ -752,9 +830,11 @@ footer{
             required
             placeholder="Votre nom"
           >
+
         </div>
 
         <div>
+
           <label for="ownerPhone">
             Téléphone du propriétaire
           </label>
@@ -765,35 +845,63 @@ footer{
             type="tel"
             placeholder="034 xx xxx xx"
           >
+
         </div>
 
         <div>
+
           <label for="depotType">
             Type de bien
           </label>
 
-          <select id="depotType" required>
-            <option value="">Choisir</option>
-            <option>Maison</option>
-            <option>Appartement</option>
-            <option>Terrain</option>
-            <option>Local commercial</option>
+          <select
+            id="depotType"
+            required
+          >
+            <option value="">
+              Choisir
+            </option>
+            <option>
+              Maison
+            </option>
+            <option>
+              Appartement
+            </option>
+            <option>
+              Terrain
+            </option>
+            <option>
+              Local commercial
+            </option>
           </select>
+
         </div>
 
         <div>
+
           <label for="depotTransaction">
             Transaction
           </label>
 
-          <select id="depotTransaction" required>
-            <option value="">Choisir</option>
-            <option>À vendre</option>
-            <option>À louer</option>
+          <select
+            id="depotTransaction"
+            required
+          >
+            <option value="">
+              Choisir
+            </option>
+            <option>
+              À vendre
+            </option>
+            <option>
+              À louer
+            </option>
           </select>
+
         </div>
 
         <div>
+
           <label for="depotTitre">
             Titre de l'annonce
           </label>
@@ -803,9 +911,11 @@ footer{
             required
             placeholder="Ex : Maison 3 chambres à Antsirabe"
           >
+
         </div>
 
         <div>
+
           <label for="depotPrix">
             Prix
           </label>
@@ -815,9 +925,11 @@ footer{
             required
             placeholder="Ex : 180000000"
           >
+
         </div>
 
         <div class="full">
+
           <label for="depotLieu">
             Localisation
           </label>
@@ -827,6 +939,7 @@ footer{
             required
             placeholder="Ex : Antsirabe, Antsenakely"
           >
+
         </div>
 
         <div class="full">
@@ -880,7 +993,9 @@ footer{
 </div>
 
 
-<!-- DEMANDE CLIENT -->
+<!-- ========================= -->
+<!-- MODAL DEMANDE -->
+<!-- ========================= -->
 
 <div
   id="demandeModal"
@@ -898,18 +1013,23 @@ footer{
       ×
     </button>
 
-    <h2>📩 Votre demande immobilière</h2>
+    <h2>
+      📩 Votre demande immobilière
+    </h2>
 
     <p>
       Remplissez les informations ci-dessous.
       L'agence pourra vous contacter.
     </p>
 
-    <form onsubmit="sendDemande(event)">
+    <form
+      onsubmit="sendDemande(event)"
+    >
 
       <div class="form-grid">
 
         <div>
+
           <label for="demandeNom">
             Nom
           </label>
@@ -919,9 +1039,11 @@ footer{
             required
             placeholder="Votre nom"
           >
+
         </div>
 
         <div>
+
           <label for="demandeTelephone">
             Téléphone
           </label>
@@ -932,35 +1054,67 @@ footer{
             type="tel"
             placeholder="034 xx xxx xx"
           >
+
         </div>
 
         <div>
+
           <label for="demandeType">
             Type de bien
           </label>
 
           <select id="demandeType">
-            <option value="">Choisir</option>
-            <option>Maison</option>
-            <option>Appartement</option>
-            <option>Terrain</option>
-            <option>Local commercial</option>
+
+            <option value="">
+              Choisir
+            </option>
+
+            <option>
+              Maison
+            </option>
+
+            <option>
+              Appartement
+            </option>
+
+            <option>
+              Terrain
+            </option>
+
+            <option>
+              Local commercial
+            </option>
+
           </select>
+
         </div>
 
         <div>
+
           <label for="demandeTransaction">
             Transaction
           </label>
 
           <select id="demandeTransaction">
-            <option value="">Choisir</option>
-            <option>À vendre</option>
-            <option>À louer</option>
+
+            <option value="">
+              Choisir
+            </option>
+
+            <option>
+              À vendre
+            </option>
+
+            <option>
+              À louer
+            </option>
+
           </select>
+
         </div>
 
         <div>
+
           <label for="demandeBudget">
             Budget
           </label>
@@ -969,9 +1123,11 @@ footer{
             id="demandeBudget"
             placeholder="Ex : 100 000 000 Ar"
           >
+
         </div>
 
         <div>
+
           <label for="demandeLocalisation">
             Localisation
           </label>
@@ -980,6 +1136,7 @@ footer{
             id="demandeLocalisation"
             placeholder="Ex : Antsenakely"
           >
+
         </div>
 
         <div class="full">
@@ -1016,7 +1173,9 @@ footer{
 </div>
 
 
-<!-- GALLERY -->
+<!-- ========================= -->
+<!-- GALERIE -->
+<!-- ========================= -->
 
 <div
   id="gallery"
@@ -1128,9 +1287,12 @@ function imgUrl(path){
 
   if(!path) return "";
 
-  const value = String(path);
+  const value =
+    String(path);
 
-  if(/^https?:\/\//i.test(value)){
+  if(
+    /^https?:\/\//i.test(value)
+  ){
     return value;
   }
 
@@ -1153,9 +1315,12 @@ function getPhotos(a){
 
     if(Array.isArray(a.image_url)){
 
-      photos = a.image_url;
+      photos =
+        a.image_url;
 
-    }else if(typeof a.image_url === "string"){
+    }else if(
+      typeof a.image_url === "string"
+    ){
 
       try{
 
@@ -1187,13 +1352,19 @@ function getPhotos(a){
   }
 
 
-  if(!photos.length && a.images){
+  if(
+    !photos.length &&
+    a.images
+  ){
 
     if(Array.isArray(a.images)){
 
-      photos = a.images;
+      photos =
+        a.images;
 
-    }else if(typeof a.images === "string"){
+    }else if(
+      typeof a.images === "string"
+    ){
 
       try{
 
@@ -1225,8 +1396,14 @@ function getPhotos(a){
   }
 
 
-  if(!photos.length && a.image){
-    photos = [a.image];
+  if(
+    !photos.length &&
+    a.image
+  ){
+
+    photos =
+      [a.image];
+
   }
 
 
@@ -1258,7 +1435,8 @@ async function fetchWithTimeout(
       url,
       {
         ...options,
-        signal:controller.signal
+        signal:
+          controller.signal
       }
     );
 
@@ -1274,7 +1452,9 @@ async function fetchWithTimeout(
 async function load(){
 
   const cards =
-    document.getElementById("cards");
+    document.getElementById(
+      "cards"
+    );
 
   cards.innerHTML =
     '<p class="msg">Chargement des biens...</p>';
@@ -1292,9 +1472,12 @@ async function load(){
         url,
         {
           headers:{
-            apikey:SUPABASE_KEY,
+            apikey:
+              SUPABASE_KEY,
+
             Authorization:
-              "Bearer " + SUPABASE_KEY
+              "Bearer " +
+              SUPABASE_KEY
           }
         }
       );
@@ -1343,7 +1526,9 @@ async function load(){
 function render(data){
 
   const cards =
-    document.getElementById("cards");
+    document.getElementById(
+      "cards"
+    );
 
   if(!data.length){
 
@@ -1399,6 +1584,7 @@ function render(data){
 
 
       return `
+
         <article class="card">
 
           <div class="card-photo">
@@ -1433,7 +1619,9 @@ function render(data){
 
           <div class="card-body">
 
-            <h3>${title}</h3>
+            <h3>
+              ${title}
+            </h3>
 
             <div class="meta">
               🏠 ${type}<br>
@@ -1475,6 +1663,7 @@ function render(data){
           </div>
 
         </article>
+
       `;
 
     }).join("");
@@ -1508,12 +1697,14 @@ function filter(){
     allAnnonces.filter(a=>{
 
       const aType =
-        String(a.type || "")
-          .toLowerCase();
+        String(
+          a.type || ""
+        ).toLowerCase();
 
       const aOp =
-        String(a.transaction || "")
-          .toLowerCase();
+        String(
+          a.transaction || ""
+        ).toLowerCase();
 
       const aLieu =
         String(
@@ -1523,8 +1714,9 @@ function filter(){
         ).toLowerCase();
 
       const aTitle =
-        String(a.titre || "")
-          .toLowerCase();
+        String(
+          a.titre || ""
+        ).toLowerCase();
 
 
       return (
@@ -1563,14 +1755,17 @@ async function sendDepot(event){
   const files =
     [
       ...document
-        .getElementById("depotPhotos")
+        .getElementById(
+          "depotPhotos"
+        )
         .files
     ];
 
 
-  /* 4 PHOTOS MAXIMUM */
-
-  if(files.length > MAX_PHOTOS){
+  if(
+    files.length >
+    MAX_PHOTOS
+  ){
 
     alert(
       "Maximum 4 photos."
@@ -1603,7 +1798,9 @@ async function sendDepot(event){
     const uploaded = [];
 
 
-    for(const file of files){
+    for(
+      const file of files
+    ){
 
       const filename =
         Date.now() +
@@ -1631,7 +1828,9 @@ async function sendDepot(event){
             method:"POST",
 
             headers:{
-              apikey:SUPABASE_KEY,
+
+              apikey:
+                SUPABASE_KEY,
 
               Authorization:
                 "Bearer " +
@@ -1640,9 +1839,12 @@ async function sendDepot(event){
               "Content-Type":
                 file.type ||
                 "application/octet-stream"
+
             },
 
-            body:file
+            body:
+              file
+
           }
 
         );
@@ -1662,7 +1864,9 @@ async function sendDepot(event){
       }
 
 
-      uploaded.push(filename);
+      uploaded.push(
+        filename
+      );
 
     }
 
@@ -1673,11 +1877,16 @@ async function sendDepot(event){
 
     const priceRaw =
       document
-        .getElementById("depotPrix")
+        .getElementById(
+          "depotPrix"
+        )
         .value
         .trim()
         .replace(/\s/g,"")
-        .replace(/[^0-9.]/g,"");
+        .replace(
+          /[^0-9.]/g,
+          ""
+        );
 
 
     const price =
@@ -1690,7 +1899,9 @@ async function sendDepot(event){
 
       titre:
         document
-          .getElementById("depotTitre")
+          .getElementById(
+            "depotTitre"
+          )
           .value
           .trim(),
 
@@ -1699,38 +1910,52 @@ async function sendDepot(event){
 
       lieu:
         document
-          .getElementById("depotLieu")
+          .getElementById(
+            "depotLieu"
+          )
           .value
           .trim(),
 
       type:
         document
-          .getElementById("depotType")
+          .getElementById(
+            "depotType"
+          )
           .value,
 
       transaction:
         document
-          .getElementById("depotTransaction")
+          .getElementById(
+            "depotTransaction"
+          )
           .value,
 
       description:
         document
-          .getElementById("depotDescription")
+          .getElementById(
+            "depotDescription"
+          )
           .value
           .trim(),
 
       image_url:
-        JSON.stringify(uploaded),
+        JSON.stringify(
+          uploaded
+        ),
 
       proprietaire_nom:
         document
-          .getElementById("ownerName")
+          .getElementById(
+            "ownerName"
+          )
           .value
           .trim(),
 
       proprietaire_telephone:
         document
-          .getElementById("ownerPhone")
+          .getElementById(
+            "ownerPhone"
+          )
           .value
           .trim(),
 
@@ -1766,7 +1991,9 @@ async function sendDepot(event){
           },
 
           body:
-            JSON.stringify(payload)
+            JSON.stringify(
+              payload
+            )
 
         }
 
@@ -1823,8 +2050,12 @@ async function sendDepot(event){
 function openDepot(){
 
   document
-    .getElementById("depotModal")
-    .classList.add("show");
+    .getElementById(
+      "depotModal"
+    )
+    .classList.add(
+      "show"
+    );
 
   document.body.style.overflow =
     "hidden";
@@ -1835,8 +2066,12 @@ function openDepot(){
 function closeDepot(){
 
   document
-    .getElementById("depotModal")
-    .classList.remove("show");
+    .getElementById(
+      "depotModal"
+    )
+    .classList.remove(
+      "show"
+    );
 
   document.body.style.overflow =
     "";
@@ -1847,8 +2082,12 @@ function closeDepot(){
 function openDemande(){
 
   document
-    .getElementById("demandeModal")
-    .classList.add("show");
+    .getElementById(
+      "demandeModal"
+    )
+    .classList.add(
+      "show"
+    );
 
   document.body.style.overflow =
     "hidden";
@@ -1859,8 +2098,12 @@ function openDemande(){
 function closeDemande(){
 
   document
-    .getElementById("demandeModal")
-    .classList.remove("show");
+    .getElementById(
+      "demandeModal"
+    )
+    .classList.remove(
+      "show"
+    );
 
   document.body.style.overflow =
     "";
@@ -1868,7 +2111,9 @@ function closeDemande(){
 }
 
 
-async function sendDemande(event){
+async function sendDemande(
+  event
+){
 
   event.preventDefault();
 
@@ -1889,41 +2134,55 @@ async function sendDemande(event){
 
     nom:
       document
-        .getElementById("demandeNom")
+        .getElementById(
+          "demandeNom"
+        )
         .value
         .trim(),
 
     telephone:
       document
-        .getElementById("demandeTelephone")
+        .getElementById(
+          "demandeTelephone"
+        )
         .value
         .trim(),
 
     type_bien:
       document
-        .getElementById("demandeType")
+        .getElementById(
+          "demandeType"
+        )
         .value,
 
     transaction:
       document
-        .getElementById("demandeTransaction")
+        .getElementById(
+          "demandeTransaction"
+        )
         .value,
 
     budget:
       document
-        .getElementById("demandeBudget")
+        .getElementById(
+          "demandeBudget"
+        )
         .value
         .trim(),
 
     localisation:
       document
-        .getElementById("demandeLocalisation")
+        .getElementById(
+          "demandeLocalisation"
+        )
         .value
         .trim(),
 
     details:
       document
-        .getElementById("demandeDetails")
+        .getElementById(
+          "demandeDetails"
+        )
         .value
         .trim(),
 
@@ -1961,7 +2220,9 @@ async function sendDemande(event){
           },
 
           body:
-            JSON.stringify(payload)
+            JSON.stringify(
+              payload
+            )
 
         }
 
@@ -2014,7 +2275,9 @@ async function sendDemande(event){
 }
 
 
-function openGalleryFor(id){
+function openGalleryFor(
+  id
+){
 
   const a =
     allAnnonces.find(
@@ -2030,10 +2293,13 @@ function openGalleryFor(id){
   currentPhotos =
     getPhotos(a);
 
-  currentPhoto = 0;
+  currentPhoto =
+    0;
 
 
-  if(!currentPhotos.length){
+  if(
+    !currentPhotos.length
+  ){
     return;
   }
 
@@ -2042,8 +2308,12 @@ function openGalleryFor(id){
 
 
   document
-    .getElementById("gallery")
-    .classList.add("show");
+    .getElementById(
+      "gallery"
+    )
+    .classList.add(
+      "show"
+    );
 
 
   document.body.style.overflow =
@@ -2061,14 +2331,19 @@ function updateGallery(){
 
 
   img.src =
-    currentPhotos[currentPhoto] ||
-    "";
+    currentPhotos[
+      currentPhoto
+    ] || "";
 
 
   document
-    .getElementById("galleryCount")
+    .getElementById(
+      "galleryCount"
+    )
     .textContent =
-      (currentPhoto + 1) +
+      (
+        currentPhoto + 1
+      ) +
       " / " +
       currentPhotos.length;
 
@@ -2077,13 +2352,17 @@ function updateGallery(){
 
 function nextPhoto(){
 
-  if(currentPhotos.length <= 1){
+  if(
+    currentPhotos.length <= 1
+  ){
     return;
   }
 
 
   currentPhoto =
-    (currentPhoto + 1) %
+    (
+      currentPhoto + 1
+    ) %
     currentPhotos.length;
 
 
@@ -2094,7 +2373,9 @@ function nextPhoto(){
 
 function previousPhoto(){
 
-  if(currentPhotos.length <= 1){
+  if(
+    currentPhotos.length <= 1
+  ){
     return;
   }
 
@@ -2116,8 +2397,12 @@ function previousPhoto(){
 function closeGallery(){
 
   document
-    .getElementById("gallery")
-    .classList.remove("show");
+    .getElementById(
+      "gallery"
+    )
+    .classList.remove(
+      "show"
+    );
 
 
   document.body.style.overflow =
@@ -2130,7 +2415,9 @@ document.addEventListener(
   "keydown",
   function(e){
 
-    if(e.key === "Escape"){
+    if(
+      e.key === "Escape"
+    ){
 
       closeDemande();
       closeGallery();
@@ -2140,16 +2427,22 @@ document.addEventListener(
 
     if(
       document
-        .getElementById("gallery")
+        .getElementById(
+          "gallery"
+        )
         .classList
         .contains("show")
     ){
 
-      if(e.key === "ArrowRight"){
+      if(
+        e.key === "ArrowRight"
+      ){
         nextPhoto();
       }
 
-      if(e.key === "ArrowLeft"){
+      if(
+        e.key === "ArrowLeft"
+      ){
         previousPhoto();
       }
 
@@ -2165,7 +2458,9 @@ document
     "keydown",
     function(e){
 
-      if(e.key === "Enter"){
+      if(
+        e.key === "Enter"
+      ){
         filter();
       }
 
@@ -2180,11 +2475,9 @@ document
 
 
 /*
-  IMPORTANT :
-  Tsy ampiasaina intsony eto ny
-  Service Worker registration.
-  Izany no manakana cache taloha
-  tsy hampiverina écran blanc.
+  Service Worker tsy ampiasaina intsony.
+  Tsy misy registration eto mba tsy hampiverina
+  cache taloha sy écran blanc.
 */
 
 load();
