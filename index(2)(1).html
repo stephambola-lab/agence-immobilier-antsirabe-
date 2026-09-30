@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antsirabe Immo — Agence Immobilière</title>
+<meta name="description" content="Agence immobilière à Antsirabe et Madagascar. Maisons, terrains, appartements et locaux à vendre ou à louer.">
+<style>
+:root{--navy:#071a2d;--navy2:#0b2945;--gold:#d8ad4a;--gold2:#f0ce78;--white:#fff;--muted:#aebdca;--bg:#f4f7fa;--card:#fff;--border:#dce4ea}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#122334}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:20px 16px 28px;position:sticky;top:0;z-index:20;box-shadow:0 3px 15px #0003}
+.top{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:24px;font-weight:800}.logo span{color:var(--gold2)}
+.contact{font-weight:700;color:#fff;text-decoration:none}
+.hero{max-width:1100px;margin:22px auto 0;padding:0 16px}
+.hero h1{margin:8px 0;font-size:32px}.hero p{color:var(--muted);margin:0}
+.container{max-width:1100px;margin:auto;padding:20px 16px}
+.filters{background:#fff;border-radius:16px;padding:15px;box-shadow:0 5px 22px #102a4312;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:-5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;font-size:15px;background:#fff}
+button{border:0;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer}
+.btn{background:var(--gold);color:#152638}.btn:hover{background:var(--gold2)}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:26px 0 14px}
+.section-title h2{margin:0;color:var(--navy)}
+.status{color:#637587;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 6px 24px #102a4312;border:1px solid #e6edf2}
+.card-img{height:205px;background:#dfe7ed;position:relative;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;left:10px;top:10px;background:var(--navy);color:#fff;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.card-body{padding:15px}.card h3{margin:0 0 7px;color:var(--navy);font-size:19px}.price{font-size:20px;font-weight:800;color:#a07817;margin:8px 0}.loc{color:#637587;font-size:14px}.desc{font-size:14px;line-height:1.5;color:#405363;max-height:65px;overflow:hidden}.card-actions{display:flex;gap:8px;margin-top:12px}.card-actions button{flex:1}.outline{background:#eef3f7;color:var(--navy)}
+.empty{background:#fff;border:1px dashed #bbc9d4;border-radius:14px;padding:30px;text-align:center;color:#64788a;grid-column:1/-1}
+.form-box{background:#fff;border-radius:18px;padding:20px;box-shadow:0 5px 22px #102a4312;margin-top:30px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.full{grid-column:1/-1}
+footer{margin-top:40px;background:var(--navy);color:#dbe6ef;padding:28px 16px;text-align:center}
+.modal{display:none;position:fixed;inset:0;background:#0009;z-index:50;padding:20px;overflow:auto}
+.modal-box{background:#fff;max-width:900px;margin:20px auto;border-radius:18px;padding:18px;position:relative}
+.close{position:absolute;right:14px;top:10px;background:#eee;font-size:20px}
+.gallery-main{width:100%;height:420px;object-fit:contain;background:#071a2d;border-radius:12px}
+.thumbs{display:flex;gap:8px;overflow:auto;margin-top:10px}.thumb{width:75px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}.thumb.active{border-color:var(--gold)}
+.share-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.filters,.form-grid{grid-template-columns:1fr}.hero h1{font-size:25px}.gallery-main{height:260px}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="logo">Antsirabe <span>Immo</span></div>
+    <a class="contact" href="tel:+261344171196">034 41 711 96</a>
+  </div>
+  <div class="hero">
+    <h1>Votre projet immobilier à Antsirabe</h1>
+    <p>Maisons, terrains, appartements et locaux à vendre ou à louer.</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="filters">
+    <input id="search" placeholder="Rechercher..." oninput="render()">
+    <select id="typeFilter" onchange="render()">
+      <option value="">Tous les biens</option>
+      <option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option><option>Villa</option><option>Autre</option>
+    </select>
+    <select id="transactionFilter" onchange="render()">
+      <option value="">Vente ou location</option><option>Vente</option><option>Location</option>
+    </select>
+    <button class="btn" onclick="resetFilters()">Réinitialiser</button>
+  </div>
+
+  <div class="section-title">
+    <h2>Biens disponibles</h2>
+    <div id="status" class="status">Chargement des biens...</div>
+  </div>
+  <div id="annonces" class="grid"></div>
+
+  <section class="form-box">
+    <div class="section-title" style="margin-top:0"><h2>Vous cherchez un bien ?</h2></div>
+    <p style="color:#637587">Envoyez-nous vos critères et nous vous contacterons.</p>
+    <form id="demandeForm" class="form-grid">
+      <input id="nom" required placeholder="Nom">
+      <input id="telephone" required placeholder="Téléphone">
+      <select id="typeBien"><option value="">Type de bien</option><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option><option>Villa</option><option>Autre</option></select>
+      <select id="transaction"><option value="">Vente / Location</option><option>Vente</option><option>Location</option></select>
+      <input id="budget" placeholder="Budget">
+      <input id="localisation" placeholder="Localisation souhaitée">
+      <textarea id="details" class="full" rows="4" placeholder="Détails ou critères particuliers"></textarea>
+      <button class="btn full" type="submit">Envoyer ma demande</button>
+    </form>
+    <div id="formMsg" style="margin-top:10px;font-weight:700"></div>
+  </section>
+</main>
+
+<footer>
+  <strong>Antsirabe Immo</strong><br>
+  Téléphone : 034 41 711 96 · WhatsApp : +261 34 41 711 96
+</footer>
+
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL="https://byezzcuqrweyhdjfnaky.supabase.co";
+const SUPABASE_KEY="sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+let annonces=[];
+
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function formatPrice(v){
+  if(v===null||v===undefined||v==="") return "Prix sur demande";
+  if(typeof v==="number") return new Intl.NumberFormat("fr-FR").format(v)+" Ar";
+  return esc(v);
+}
+function getImages(a){
+  let arr=[];
+  if(Array.isArray(a.images)) arr=a.images;
+  if(!arr.length && typeof a.images==="string"){try{arr=JSON.parse(a.images)}catch(e){}}
+  if(!arr.length && a.image) arr=[a.image];
+  return arr.filter(Boolean);
+}
+async function loadAnnonces(){
+  const box=document.getElementById("annonces");
+  try{
+    const url=SUPABASE_URL+"/rest/v1/annonces?statut=eq.publiee&select=*&order=created_at.desc";
+    const r=await fetch(url,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    annonces=await r.json();
+    render();
+  }catch(e){
+    document.getElementById("status").textContent="Erreur de chargement";
+    box.innerHTML='<div class="empty">Impossible de charger les biens pour le moment.</div>';
+    console.error(e);
+  }
+}
+function render(){
+  const q=(document.getElementById("search").value||"").toLowerCase();
+  const type=document.getElementById("typeFilter").value;
+  const tr=document.getElementById("transactionFilter").value;
+  const list=annonces.filter(a=>{
+    const text=[a.titre,a.description,a.localisation,a.lieu,a.type,a.transaction].join(" ").toLowerCase();
+    return (!q||text.includes(q))&&(!type||a.type===type)&&(!tr||a.transaction===tr);
+  });
+  document.getElementById("status").textContent=list.length+" bien(s)";
+  const box=document.getElementById("annonces");
+  if(!list.length){box.innerHTML='<div class="empty">Aucun bien ne correspond à votre recherche.</div>';return;}
+  box.innerHTML=list.map(a=>{
+    const imgs=getImages(a), img=imgs[0]||"";
+    return `<article class="card">
+      <div class="card-img">${img?`<img src="${esc(img)}" alt="${esc(a.titre)}" loading="lazy">`:""}
+      <span class="badge">${esc(a.transaction||"Disponible")}</span></div>
+      <div class="card-body">
+        <h3>${esc(a.titre||a.type||"Bien immobilier")}</h3>
+        <div class="loc">📍 ${esc(a.localisation||a.lieu||"Antsirabe")}</div>
+        <div class="price">${formatPrice(a.prix)}</div>
+        <div class="desc">${esc(a.description||"Aucune description disponible.")}</div>
+        <div class="card-actions"><button class="btn" onclick="openAnnonce('${a.id}')">Voir détails</button><button class="outline" onclick="shareAnnonce('${a.id}')">Partager</button></div>
+      </div>
+    </article>`;
+  }).join("");
+}
+function resetFilters(){document.getElementById("search").value="";document.getElementById("typeFilter").value="";document.getElementById("transactionFilter").value="";render();}
+function openAnnonce(id){
+  const a=annonces.find(x=>String(x.id)===String(id)); if(!a)return;
+  const imgs=getImages(a);
+  document.getElementById("modalContent").innerHTML=`
+    ${imgs.length?`<img id="mainImg" class="gallery-main" src="${esc(imgs[0])}" alt="">`:``}
+    ${imgs.length>1?`<div class="thumbs">${imgs.map((im,i)=>`<img class="thumb ${i===0?"active":""}" src="${esc(im)}" onclick="changeImg(this,'${esc(im)}')">`).join("")}</div>`:""}
+    <h2>${esc(a.titre||"Bien immobilier")}</h2>
+    <div class="loc">📍 ${esc(a.localisation||a.lieu||"Antsirabe")}</div>
+    <div class="price">${formatPrice(a.prix)}</div>
+    <p>${esc(a.description||"")}</p>
+    <div class="share-row"><button class="btn" onclick="shareAnnonce('${a.id}')">Partager</button><a class="btn" style="text-decoration:none" href="https://wa.me/261344171196?text=${encodeURIComponent("Bonjour, je suis intéressé par : "+(a.titre||"un bien immobilier"))}" target="_blank">WhatsApp</a></div>`;
+  document.getElementById("modal").style.display="block";
+  fetch(SUPABASE_URL+"/rest/v1/rpc/increment_annonce_vues",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({p_id:a.id})}).catch(()=>{});
+}
+function changeImg(el,url){const m=document.getElementById("mainImg");if(m)m.src=url;document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));el.classList.add("active");}
+function closeModal(){document.getElementById("modal").style.display="none";}
+async function shareAnnonce(id){
+  const a=annonces.find(x=>String(x.id)===String(id));if(!a)return;
+  const url=location.origin+location.pathname+"?annonce="+encodeURIComponent(id);
+  const text=(a.titre||"Bien immobilier")+" - "+(a.localisation||"Antsirabe");
+  if(navigator.share){try{await navigator.share({title:"Antsirabe Immo",text,url});return}catch(e){}}
+  try{await navigator.clipboard.writeText(url);alert("Lien copié.");}catch(e){prompt("Copiez ce lien :",url);}
+}
+document.getElementById("demandeForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const msg=document.getElementById("formMsg");msg.textContent="Envoi...";
+  const payload={nom:nom.value.trim(),telephone:telephone.value.trim(),type_bien:typeBien.value,transaction:transaction.value,budget:budget.value.trim(),localisation:localisation.value.trim(),details:details.value.trim()};
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/demandes_clients",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(payload)});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    msg.textContent="Demande envoyée avec succès.";
+    msg.style.color="green";e.target.reset();
+  }catch(err){msg.textContent="Erreur lors de l'envoi. Réessayez.";msg.style.color="crimson";console.error(err);}
+});
+loadAnnonces();
+</script>
+</body>
+</html>
