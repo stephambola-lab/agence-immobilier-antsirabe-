@@ -302,7 +302,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 gap:10px;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
 .demandes-header h2{
@@ -316,6 +316,28 @@ padding:7px 12px;
 border-radius:20px;
 font-size:13px;
 font-weight:800;
+}
+
+.demandes-toggle{
+background:#0b2239;
+color:white;
+padding:13px 16px;
+border-radius:10px;
+font-weight:800;
+margin-top:0;
+}
+
+.demandes-toggle:hover{
+background:#174f83;
+}
+
+.demandes-content{
+display:none;
+margin-top:18px;
+}
+
+.demandes-content.show{
+display:block;
 }
 
 .demandes-grid{
@@ -488,6 +510,10 @@ grid-template-columns:1fr;
 .demandes-header{
 align-items:flex-start;
 flex-direction:column;
+}
+
+.demandes-toggle{
+width:100%;
 }
 
 }
@@ -750,9 +776,26 @@ class="demandes-count">
 
 </div>
 
+
+<button
+id="demandesToggle"
+class="demandes-toggle"
+type="button">
+
+📩 Voir les demandes
+
+</button>
+
+
+<div
+id="demandesContent"
+class="demandes-content">
+
 <div
 id="demandesList"
 class="demandes-grid">
+</div>
+
 </div>
 
 </div>
@@ -829,6 +872,39 @@ document.getElementById("demandesList");
 
 const demandesCount =
 document.getElementById("demandesCount");
+
+const demandesToggle =
+document.getElementById("demandesToggle");
+
+const demandesContent =
+document.getElementById("demandesContent");
+
+
+/* =========================
+   OUVRIR / FERMER DEMANDES
+========================= */
+
+demandesToggle.addEventListener(
+"click",
+function(){
+
+const opened =
+demandesContent.classList.toggle("show");
+
+
+if(opened){
+
+demandesToggle.textContent =
+"📩 Masquer les demandes";
+
+}else{
+
+demandesToggle.textContent =
+"📩 Voir les demandes";
+
+}
+
+});
 
 
 /* =========================
