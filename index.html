@@ -446,6 +446,7 @@ footer{
 }
 
 /* DEPOSER UNE ANNONCE */
+
 .announce-banner{
   margin-top:22px;
   background:#fff;
@@ -565,75 +566,127 @@ footer{
 }
 
 @media(max-width:850px){
+
   header{padding:12px 4%}
+
   .brand{font-size:16px}
-  nav{gap:5px}
-  nav a{display:none}
+
+  nav{
+    gap:5px;
+  }
+
+  nav a{
+    display:none;
+  }
+
   nav .demand-link,
   nav .admin-link{
     display:block;
     padding:9px 10px;
     font-size:12px;
   }
+
   .search-box{
     grid-template-columns:1fr 1fr;
   }
+
   .search-box button{
     grid-column:1/-1;
   }
+
   .grid{
     grid-template-columns:repeat(2,1fr);
   }
+
   .about-grid,
   .contact-grid{
     grid-template-columns:1fr;
   }
+
 }
 
 @media(max-width:600px){
+
   header{
     padding:12px 4%;
     gap:6px;
   }
-  .brand{font-size:16px}
+
+  .brand{
+    font-size:16px;
+  }
+
   nav{
     gap:5px;
     flex-shrink:0;
   }
+
   nav .demand-link,
   nav .admin-link{
     padding:9px 9px;
     font-size:11px;
     border-radius:8px;
   }
+
   .hero{
     min-height:390px;
     padding:60px 5%;
   }
-  .hero p{font-size:16px}
+
+  .hero p{
+    font-size:16px;
+  }
+
   .search-box{
     margin:-30px 4% 20px;
     padding:13px;
     grid-template-columns:1fr;
   }
-  .search-box button{grid-column:auto}
-  section{padding:42px 4%}
-  .grid{grid-template-columns:1fr}
-  .card-photo{height:235px}
+
+  .search-box button{
+    grid-column:auto;
+  }
+
+  section{
+    padding:42px 4%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card-photo{
+    height:235px;
+  }
+
   .demand-banner,
   .announce-banner{
     flex-direction:column;
     align-items:flex-start;
   }
+
   .announce-btn,
   .gold-btn{
     width:100%;
     text-align:center;
   }
-  .form-grid{grid-template-columns:1fr}
-  .form-grid .full{grid-column:auto}
-  .gallery-prev{left:8px}
-  .gallery-next{right:8px}
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid .full{
+    grid-column:auto;
+  }
+
+  .gallery-prev{
+    left:8px;
+  }
+
+  .gallery-next{
+    right:8px;
+  }
+
 }
 </style>
 </head>
@@ -780,8 +833,6 @@ footer{
       </button>
 
     </div>
-
-    <!-- DEPOSER UNE ANNONCE -->
 
     <div class="announce-banner">
 
@@ -1103,10 +1154,12 @@ footer{
     </p>
 
     <div class="private-note">
+
       🔒 <strong>Confidentialité :</strong>
       votre nom et votre numéro de téléphone sont privés.
       Ils seront visibles uniquement par l'administration
       et ne seront pas affichés sur le site public.
+
     </div>
 
     <form onsubmit="sendAnnonce(event)">
@@ -1931,6 +1984,7 @@ function openDemande(){
 
 }
 
+
 function closeDemande(){
 
   document
@@ -2046,7 +2100,8 @@ async function sendDemande(event){
       console.error(text);
 
       throw new Error(
-        "Erreur"
+        text ||
+        "Erreur lors de l'envoi."
       );
 
     }
@@ -2064,8 +2119,12 @@ async function sendDemande(event){
     console.error(error);
 
     alert(
-      "Impossible d'envoyer la demande. " +
-      "Vérifiez votre connexion puis réessayez."
+      "Impossible d'envoyer la demande.\n\n" +
+      "Erreur : " +
+      (
+        error.message ||
+        "Erreur inconnue"
+      )
     );
 
   }finally{
@@ -2108,11 +2167,25 @@ function closeAnnonce(){
 }
 
 
-/* Upload photo publique */
+/* =========================================================
+   UPLOAD PHOTO
+   ========================================================= */
 
-async function uploadAnnoncePhoto(
-  file
-){
+async function uploadAnnoncePhoto(file){
+
+  if(!file)
+    throw new Error(
+      "Fichier photo invalide."
+    );
+
+
+  const safeName =
+    file.name
+      .replace(
+        /[^a-zA-Z0-9._-]/g,
+        "_"
+      );
+
 
   const filename =
     Date.now() +
@@ -2121,10 +2194,8 @@ async function uploadAnnoncePhoto(
       .toString(36)
       .substring(2,8) +
     "_" +
-    file.name.replace(
-      /[^a-zA-Z0-9._-]/g,
-      "_"
-    );
+    safeName;
+
 
   const url =
     SUPABASE_URL +
@@ -2132,6 +2203,7 @@ async function uploadAnnoncePhoto(
     BUCKET +
     "/" +
     filename;
+
 
   const response =
     await fetchWithTimeout(
@@ -2151,15 +2223,19 @@ async function uploadAnnoncePhoto(
 
           "Content-Type":
             file.type ||
-            "application/octet-stream"
+            "application/octet-stream",
+
+          "x-upsert":
+            "false"
 
         },
 
         body:file
 
       },
-      30000
+      60000
     );
+
 
   if(!response.ok){
 
@@ -2167,45 +2243,58 @@ async function uploadAnnoncePhoto(
       await response.text();
 
     console.error(
-      "Upload:",
+      "Erreur upload photo:",
       errorText
     );
 
     throw new Error(
-      "Impossible d'envoyer une photo."
+      "Erreur lors de l'envoi d'une photo : " +
+      errorText
     );
 
   }
+
 
   return filename;
 
 }
 
 
+/* =========================================================
+   ENVOI ANNONCE
+   ========================================================= */
+
 async function sendAnnonce(event){
 
   event.preventDefault();
+
 
   const button =
     document.getElementById(
       "annonceSubmit"
     );
 
+
   const success =
     document.getElementById(
       "annonceSuccess"
     );
 
+
   button.disabled = true;
 
   button.textContent =
-    "Envoi en cours...";
+    "Préparation...";
 
   success.style.display =
     "none";
 
 
   try{
+
+    /* -----------------------------------------
+       RECUPERATION DES CHAMPS
+       ----------------------------------------- */
 
     const proprietaireNom =
       document
@@ -2215,6 +2304,7 @@ async function sendAnnonce(event){
         .value
         .trim();
 
+
     const proprietaireTelephone =
       document
         .getElementById(
@@ -2222,6 +2312,7 @@ async function sendAnnonce(event){
         )
         .value
         .trim();
+
 
     const titre =
       document
@@ -2231,6 +2322,7 @@ async function sendAnnonce(event){
         .value
         .trim();
 
+
     const type =
       document
         .getElementById(
@@ -2238,12 +2330,14 @@ async function sendAnnonce(event){
         )
         .value;
 
+
     const transaction =
       document
         .getElementById(
           "annonceTransaction"
         )
         .value;
+
 
     const prix =
       document
@@ -2253,13 +2347,22 @@ async function sendAnnonce(event){
         .value
         .trim();
 
-    const localisation =
+
+    /*
+      IMPORTANT :
+      On utilise uniquement "lieu"
+      pour correspondre à la structure
+      actuelle de la table annonces.
+    */
+
+    const lieu =
       document
         .getElementById(
           "annonceLocalisation"
         )
         .value
         .trim();
+
 
     const description =
       document
@@ -2268,6 +2371,7 @@ async function sendAnnonce(event){
         )
         .value
         .trim();
+
 
     const files =
       Array.from(
@@ -2279,29 +2383,108 @@ async function sendAnnonce(event){
       );
 
 
-    /* Upload des photos */
+    /* -----------------------------------------
+       VERIFICATION
+       ----------------------------------------- */
+
+    if(!proprietaireNom){
+
+      throw new Error(
+        "Veuillez indiquer le nom du propriétaire."
+      );
+
+    }
+
+
+    if(!proprietaireTelephone){
+
+      throw new Error(
+        "Veuillez indiquer le téléphone du propriétaire."
+      );
+
+    }
+
+
+    if(!titre){
+
+      throw new Error(
+        "Veuillez indiquer le titre de l'annonce."
+      );
+
+    }
+
+
+    if(!type){
+
+      throw new Error(
+        "Veuillez choisir le type de bien."
+      );
+
+    }
+
+
+    if(!transaction){
+
+      throw new Error(
+        "Veuillez choisir la transaction."
+      );
+
+    }
+
+
+    if(!lieu){
+
+      throw new Error(
+        "Veuillez indiquer la localisation."
+      );
+
+    }
+
+
+    /* -----------------------------------------
+       UPLOAD DES PHOTOS
+       ----------------------------------------- */
 
     let uploaded = [];
+
 
     if(files.length){
 
       button.textContent =
         "Envoi des photos...";
 
+
       for(
-        const file of files
+        let i = 0;
+        i < files.length;
+        i++
       ){
 
-        uploaded.push(
+        button.textContent =
+          "Photo " +
+          (i + 1) +
+          " / " +
+          files.length;
+
+
+        const filename =
           await uploadAnnoncePhoto(
-            file
-          )
+            files[i]
+          );
+
+
+        uploaded.push(
+          filename
         );
 
       }
 
     }
 
+
+    /* -----------------------------------------
+       PAYLOAD
+       ----------------------------------------- */
 
     button.textContent =
       "Enregistrement...";
@@ -2318,10 +2501,7 @@ async function sendAnnonce(event){
           : null,
 
       lieu:
-        localisation,
-
-      localisation:
-        localisation,
+        lieu,
 
       type:
         type,
@@ -2348,6 +2528,16 @@ async function sendAnnonce(event){
 
     };
 
+
+    console.log(
+      "Payload annonce:",
+      payload
+    );
+
+
+    /* -----------------------------------------
+       ENVOI SUPABASE
+       ----------------------------------------- */
 
     const response =
       await fetchWithTimeout(
@@ -2378,7 +2568,8 @@ async function sendAnnonce(event){
               payload
             )
 
-        }
+        },
+        30000
       );
 
 
@@ -2387,22 +2578,31 @@ async function sendAnnonce(event){
       const text =
         await response.text();
 
+
       console.error(
-        "Annonce:",
+        "Erreur Supabase annonce:",
         text
       );
 
+
       throw new Error(
+        text ||
         "Impossible d'enregistrer l'annonce."
       );
 
     }
 
 
+    /* -----------------------------------------
+       SUCCÈS
+       ----------------------------------------- */
+
     success.style.display =
       "block";
 
+
     event.target.reset();
+
 
     button.textContent =
       "Annonce envoyée ✓";
@@ -2413,11 +2613,14 @@ async function sendAnnonce(event){
 
         closeAnnonce();
 
+
         button.disabled =
           false;
 
+
         button.textContent =
           "Envoyer l'annonce";
+
 
         success.style.display =
           "none";
@@ -2429,15 +2632,25 @@ async function sendAnnonce(event){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Erreur annonce:",
+      error
+    );
+
 
     alert(
-      "Impossible d'envoyer l'annonce. " +
-      "Vérifiez votre connexion puis réessayez."
+      "Impossible d'envoyer l'annonce.\n\n" +
+      "Détail :\n" +
+      (
+        error.message ||
+        "Erreur inconnue"
+      )
     );
+
 
     button.disabled =
       false;
+
 
     button.textContent =
       "Envoyer l'annonce";
@@ -2658,6 +2871,7 @@ if(
         );
 
     }
+
   );
 
 }
