@@ -254,6 +254,11 @@ background:#dff3e6;
 color:#287542;
 }
 
+.status-pending{
+background:#fff2cc;
+color:#946200;
+}
+
 .actions{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -291,7 +296,36 @@ border:1px solid #ddd;
 }
 
 
-/* DEMANDES */
+/* =========================================================
+   PROPRIETAIRE
+========================================================= */
+
+.owner-box{
+margin-top:13px;
+padding:12px;
+border-radius:10px;
+background:#fff8e6;
+border:1px solid #f4b942;
+font-size:13px;
+line-height:1.7;
+}
+
+.owner-title{
+font-weight:900;
+color:#946200;
+margin-bottom:4px;
+}
+
+.owner-private{
+font-size:11px;
+color:#8a6d1d;
+margin-top:5px;
+}
+
+
+/* =========================================================
+   DEMANDES
+========================================================= */
 
 .demandes-section{
 margin-top:30px;
@@ -454,6 +488,10 @@ box-shadow:0 4px 18px #00000012;
 }
 
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media(max-width:750px){
 
 header{
@@ -545,7 +583,9 @@ class="back">
 </header>
 
 
-<!-- LOGIN -->
+<!-- =========================================================
+     LOGIN
+========================================================= -->
 
 <div
 id="loginBox"
@@ -583,7 +623,9 @@ Se connecter
 </div>
 
 
-<!-- ADMIN -->
+<!-- =========================================================
+     ADMIN
+========================================================= -->
 
 <div
 id="adminBox"
@@ -591,7 +633,9 @@ class="admin"
 style="display:none">
 
 
-<!-- AJOUT ANNONCE -->
+<!-- =========================================================
+     AJOUT ANNONCE ADMIN
+========================================================= -->
 
 <div class="panel">
 
@@ -733,7 +777,9 @@ Enregistrer l'annonce
 <div class="separator"></div>
 
 
-<!-- ANNONCES -->
+<!-- =========================================================
+     ANNONCES
+========================================================= -->
 
 <div>
 
@@ -756,7 +802,9 @@ class="grid">
 <div class="separator"></div>
 
 
-<!-- DEMANDES CLIENTS -->
+<!-- =========================================================
+     DEMANDES CLIENTS
+========================================================= -->
 
 <div class="demandes-section">
 
@@ -806,9 +854,9 @@ class="demandes-grid">
 
 <script>
 
-/* =========================
+/* =========================================================
    SUPABASE
-========================= */
+========================================================= */
 
 const SUPABASE_URL =
 "https://byezzcuqrweyhdjfnaky.supabase.co";
@@ -824,9 +872,9 @@ SUPABASE_URL +
 "/rest/v1/demandes_clients";
 
 
-/* =========================
+/* =========================================================
    ELEMENTS
-========================= */
+========================================================= */
 
 const loginBox =
 document.getElementById("loginBox");
@@ -880,9 +928,9 @@ const demandesContent =
 document.getElementById("demandesContent");
 
 
-/* =========================
+/* =========================================================
    OUVRIR / FERMER DEMANDES
-========================= */
+========================================================= */
 
 demandesToggle.addEventListener(
 "click",
@@ -907,9 +955,9 @@ demandesToggle.textContent =
 });
 
 
-/* =========================
+/* =========================================================
    APERCU PHOTOS
-========================= */
+========================================================= */
 
 photosInput.addEventListener(
 "change",
@@ -952,9 +1000,9 @@ preview.appendChild(img);
 });
 
 
-/* =========================
+/* =========================================================
    LOGIN
-========================= */
+========================================================= */
 
 loginBtn.addEventListener(
 "click",
@@ -1098,9 +1146,9 @@ loginBtn.textContent =
 }
 
 
-/* =========================
+/* =========================================================
    TOKEN
-========================= */
+========================================================= */
 
 function token(){
 
@@ -1111,9 +1159,9 @@ return localStorage.getItem(
 }
 
 
-/* =========================
+/* =========================================================
    HEADERS
-========================= */
+========================================================= */
 
 function headers(){
 
@@ -1132,9 +1180,9 @@ return {
 }
 
 
-/* =========================
+/* =========================================================
    CHARGER ANNONCES
-========================= */
+========================================================= */
 
 async function load(){
 
@@ -1194,9 +1242,9 @@ status.textContent =
 }
 
 
-/* =========================
+/* =========================================================
    UPLOAD PHOTO
-========================= */
+========================================================= */
 
 async function upload(file){
 
@@ -1257,9 +1305,9 @@ return filename;
 }
 
 
-/* =========================
-   AJOUT ANNONCE
-========================= */
+/* =========================================================
+   AJOUT ANNONCE ADMIN
+========================================================= */
 
 addBtn.addEventListener(
 "click",
@@ -1472,9 +1520,9 @@ addBtn.textContent =
 }
 
 
-/* =========================
+/* =========================================================
    STATUT ANNONCE
-========================= */
+========================================================= */
 
 async function updateStatus(
 id,
@@ -1535,9 +1583,9 @@ alert(
 }
 
 
-/* =========================
+/* =========================================================
    SUPPRIMER ANNONCE
-========================= */
+========================================================= */
 
 async function removeAnnonce(id){
 
@@ -1595,9 +1643,9 @@ alert(
 }
 
 
-/* =========================
+/* =========================================================
    AFFICHAGE ANNONCES
-========================= */
+========================================================= */
 
 function render(data){
 
@@ -1621,6 +1669,8 @@ let image = "";
 let photoList = [];
 
 
+/* PHOTOS */
+
 if(a.image_url){
 
 try{
@@ -1632,28 +1682,88 @@ if(Array.isArray(parsed)){
 
 photoList = parsed;
 
+}else if(parsed){
+
+photoList = [parsed];
+
 }
 
 }catch(e){
 
-photoList = [a.image_url];
+photoList =
+String(a.image_url)
+.split(",")
+.map(x=>x.trim())
+.filter(Boolean);
 
 }
+
+}
+
+
+/* ANCIEN FORMAT */
+
+if(
+!photoList.length &&
+a.images
+){
+
+try{
+
+const parsed =
+JSON.parse(a.images);
+
+if(Array.isArray(parsed)){
+
+photoList = parsed;
+
+}
+
+}catch(e){
+
+photoList =
+String(a.images)
+.split(",")
+.map(x=>x.trim())
+.filter(Boolean);
+
+}
+
+}
+
+
+/* PHOTO */
+
+if(
+!photoList.length &&
+a.image
+){
+
+photoList = [a.image];
 
 }
 
 
 if(photoList.length){
 
+const firstPhoto =
+photoList[0];
+
 image =
+String(firstPhoto).startsWith("http")
+?
+firstPhoto
+:
 SUPABASE_URL +
 "/storage/v1/object/public/" +
 BUCKET +
 "/" +
-photoList[0];
+String(firstPhoto).replace(/^\/+/,"");
 
 }
 
+
+/* PRIX */
 
 const prix =
 a.prix
@@ -1664,6 +1774,8 @@ new Intl.NumberFormat("fr-FR")
 :
 "Prix sur demande";
 
+
+/* STATUT */
 
 let statusClass =
 "status-badge";
@@ -1676,6 +1788,15 @@ statusClass +=
 
 }
 
+if(a.statut === "a_valider"){
+
+statusClass +=
+" status-pending";
+
+}
+
+
+/* ACTION */
 
 const action =
 a.statut === "publiee"
@@ -1696,8 +1817,63 @@ Publier
 </button>`;
 
 
+/* VUES */
+
 const vues =
 Number(a.vues || 0);
+
+
+/* PROPRIETAIRE */
+
+const hasOwner =
+a.proprietaire_nom ||
+a.proprietaire_telephone;
+
+
+const ownerBox =
+hasOwner
+
+?
+
+`
+
+<div class="owner-box">
+
+<div class="owner-title">
+🔒 Informations privées du propriétaire
+</div>
+
+<div>
+👤 <strong>Nom :</strong>
+${esc(a.proprietaire_nom || "Non renseigné")}
+</div>
+
+<div>
+📞 <strong>Téléphone :</strong>
+${esc(a.proprietaire_telephone || "Non renseigné")}
+</div>
+
+<div class="owner-private">
+Ces informations sont visibles uniquement dans l'administration.
+</div>
+
+</div>
+
+`
+
+:
+
+`<div class="owner-box">
+
+<div class="owner-title">
+🏢 Annonce ajoutée par l'administration
+</div>
+
+<div class="owner-private">
+Aucun propriétaire privé renseigné.
+</div>
+
+</div>`;
 
 
 return `
@@ -1709,7 +1885,9 @@ return `
 ${
 image
 ?
-`<img src="${escAttr(image)}" alt="">`
+`<img
+src="${escAttr(image)}"
+alt="">`
 :
 "PHOTO DU BIEN"
 }
@@ -1720,7 +1898,7 @@ image
 <div class="body">
 
 <h3>
-${esc(a.titre)}
+${esc(a.titre || "Bien immobilier")}
 </h3>
 
 
@@ -1730,7 +1908,11 @@ ${esc(a.type || "Bien immobilier")}
 
 <br>
 
-📍 ${esc(a.lieu || "")}
+🔄 ${esc(a.transaction || "")}
+
+<br>
+
+📍 ${esc(a.localisation || a.lieu || "")}
 
 </div>
 
@@ -1763,9 +1945,12 @@ ${vues > 1
 <span class="${statusClass}">
 
 Statut :
-${esc(a.statut)}
+${esc(a.statut || "inconnu")}
 
 </span>
+
+
+${ownerBox}
 
 
 <div class="actions">
@@ -1793,9 +1978,9 @@ Supprimer
 }
 
 
-/* =========================
+/* =========================================================
    DEMANDES CLIENTS
-========================= */
+========================================================= */
 
 async function loadDemandes(){
 
@@ -1852,9 +2037,9 @@ demandesList.innerHTML =
 }
 
 
-/* =========================
+/* =========================================================
    AFFICHAGE DEMANDES
-========================= */
+========================================================= */
 
 function renderDemandes(data){
 
@@ -2109,9 +2294,9 @@ onclick="removeDemande('${d.id}')">
 }
 
 
-/* =========================
+/* =========================================================
    MODIFIER STATUT DEMANDE
-========================= */
+========================================================= */
 
 async function updateDemandeStatus(
 id,
@@ -2172,9 +2357,9 @@ alert(
 }
 
 
-/* =========================
+/* =========================================================
    SUPPRIMER DEMANDE
-========================= */
+========================================================= */
 
 async function removeDemande(id){
 
@@ -2232,9 +2417,9 @@ alert(
 }
 
 
-/* =========================
+/* =========================================================
    SECURITE HTML
-========================= */
+========================================================= */
 
 function esc(value){
 
@@ -2282,9 +2467,9 @@ return String(value ?? "")
 }
 
 
-/* =========================
+/* =========================================================
    SESSION EXISTANTE
-========================= */
+========================================================= */
 
 const savedToken =
 localStorage.getItem(
@@ -2307,9 +2492,9 @@ loadDemandes();
 }
 
 
-/* =========================
+/* =========================================================
    DECONNEXION
-========================= */
+========================================================= */
 
 logoutBtn.addEventListener(
 "click",
