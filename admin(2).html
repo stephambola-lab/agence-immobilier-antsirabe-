@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration — Antsirabe Immo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;color:#172033}
+header{background:#0b2239;color:#fff;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+header b{font-size:18px}header span{color:#f4b942}
+.panel{background:#fff;max-width:1100px;margin:20px auto;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0001}
+.login{max-width:450px;margin:45px auto}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}
+label{display:block;font-weight:800;font-size:13px;margin-bottom:6px}
+input,select,textarea,button{width:100%;padding:12px;border:1px solid #d8dee6;border-radius:9px;font:inherit}textarea{min-height:110px;resize:vertical}
+button{background:#f4b942;border:0;font-weight:800;cursor:pointer}button:disabled{opacity:.6;cursor:not-allowed}
+.secondary{background:#0b2239;color:#fff}.danger{background:#d9534f;color:#fff}.success{background:#198754;color:#fff}.light{background:#e9eef3;color:#172033}
+.top-actions{display:flex;gap:8px}.top-actions button{width:auto;padding:9px 12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border:1px solid #e2e7ed;border-radius:13px;overflow:hidden;box-shadow:0 2px 10px #0000000d}.photo{height:180px;background:#dbeafe;display:flex;align-items:center;justify-content:center;color:#617080;font-weight:700}.photo img{width:100%;height:100%;object-fit:cover}.body{padding:14px}.body h3{margin:0 0 8px}.meta{font-size:13px;line-height:1.6}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}.status{display:inline-block;padding:5px 8px;border-radius:20px;background:#eef2f7;font-size:12px;font-weight:800;margin-bottom:8px}.pending{background:#fff0c7;color:#795b00}.published{background:#d9f7e5;color:#116b3b}.private{background:#fff7df;border:1px solid #f4b942;padding:10px;border-radius:9px;margin-top:10px;font-size:13px;line-height:1.5}.private b{color:#604800}.empty{padding:20px;background:#f7f9fb;border-radius:10px;text-align:center}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}.section-title h2{margin:0}.count{font-size:13px;font-weight:800;background:#e9eef3;padding:7px 10px;border-radius:20px}.demandes-toggle{background:#0b2239;color:white;padding:13px 16px;border-radius:10px;font-weight:800;margin-top:0}.demandes-toggle:hover{background:#174f83}.demandes-content{display:none;margin-top:18px}.demandes-content.show{display:block}.demande-card{border:1px solid #e2e7ed;background:#fafbfd;border-radius:12px;padding:15px;margin-bottom:12px}.demande-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.demande-actions a,.demande-actions button{width:auto;padding:9px 11px;text-decoration:none}.small{font-size:12px;color:#657180}
+@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){header{padding:13px 4%}.form,.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{margin:14px 4%;padding:16px}.top-actions button{padding:8px}.actions{grid-template-columns:1fr}.section-title{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <b>🔐 Antsirabe <span>Immo</span> — Administration</b>
+  <div class="top-actions" id="topActions" style="display:none">
+    <button class="light" type="button" onclick="loadAll()">↻ Actualiser</button>
+    <button class="danger" type="button" onclick="logout()">Déconnexion</button>
+  </div>
+</header>
+
+<div id="login" class="panel login">
+  <h2>Connexion administrateur</h2>
+  <p class="small">Utilisez l'adresse e-mail et le mot de passe du compte administrateur Supabase.</p>
+  <label for="email">E-mail</label>
+  <input id="email" type="email" placeholder="admin@email.com" autocomplete="username">
+  <label for="password" style="margin-top:10px">Mot de passe</label>
+  <input id="password" type="password" placeholder="Mot de passe" autocomplete="current-password">
+  <button style="margin-top:12px" onclick="login()">Se connecter</button>
+  <p id="loginError" style="color:#c0392b"></p>
+</div>
+
+<main id="app" style="display:none">
+  <div class="panel">
+    <div class="section-title"><h2>➕ Ajouter une annonce</h2><span class="count">Publication directe par l'administration</span></div>
+    <div class="form">
+      <div><label for="titre">Titre</label><input id="titre" placeholder="Belle maison familiale"></div>
+      <div><label for="prix">Prix</label><input id="prix" placeholder="180000000"></div>
+      <div><label for="type">Type</label><select id="type"><option>Maison</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select></div>
+      <div><label for="transaction">Transaction</label><select id="transaction"><option>À vendre</option><option>À louer</option></select></div>
+      <div class="full"><label for="lieu">Localisation</label><input id="lieu" placeholder="Antsirabe, quartier..."></div>
+      <div class="full"><label for="description">Description</label><textarea id="description"></textarea></div>
+      <div class="full"><label for="photos">Photos</label><input id="photos" type="file" accept="image/*" multiple></div>
+    </div>
+    <button style="margin-top:14px" onclick="addAnnonce()">Publier l'annonce</button>
+  </div>
+
+  <div class="panel">
+    <div class="section-title"><h2>🏠 Annonces</h2><div id="annoncesCount" class="count">0</div></div>
+    <div id="annoncesList" class="grid"><div class="empty">Chargement...</div></div>
+  </div>
+
+  <div class="panel demandes-section">
+    <div class="section-title">
+      <h2>📩 Demandes clients</h2>
+      <div id="demandesCount" class="count">0 demande</div>
+    </div>
+    <button id="demandesToggle" class="demandes-toggle" type="button">📩 Voir les demandes</button>
+    <div id="demandesContent" class="demandes-content">
+      <div id="demandesList"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const SUPABASE_URL="https://byezzcuqrweyhdjfnaky.supabase.co";
+const SUPABASE_KEY="sb_publishable_F7SXxP6kxgh-7or2MEIJ2g_qQInvd-D";
+const API=SUPABASE_URL+"/rest/v1/annonces";
+const DEMANDES_API=SUPABASE_URL+"/rest/v1/demandes_clients";
+const AUTH_API=SUPABASE_URL+"/auth/v1/token?grant_type=password";
+const BUCKET="annonces-images";
+
+let demandesToggle=document.getElementById("demandesToggle");
+let demandesContent=document.getElementById("demandesContent");
+
+demandesToggle.addEventListener("click",function(){
+  const opened=demandesContent.classList.toggle("show");
+  demandesToggle.textContent=opened?"📩 Masquer les demandes":"📩 Voir les demandes";
+});
+
+function token(){return localStorage.getItem("admin_access_token")||""}
+function authHeaders(extra={}){return {apikey:SUPABASE_KEY,Authorization:"Bearer "+token(),...extra}}
+function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
+function imgUrl(path){if(!path)return"";let v=String(path);if(/^https?:\/\//i.test(v))return v;return SUPABASE_URL+"/storage/v1/object/public/"+BUCKET+"/"+v.replace(/^\/+/,"")}
+function photos(a){
+  let p=[];
+  if(a.image_url){
+    if(Array.isArray(a.image_url))p=a.image_url;
+    else if(typeof a.image_url==="string"){
+      try{let x=JSON.parse(a.image_url);p=Array.isArray(x)?x:[x].filter(Boolean)}catch(e){p=a.image_url.split(",").map(x=>x.trim()).filter(Boolean)}
+    }
+  }
+  if(!p.length&&a.images){
+    if(Array.isArray(a.images))p=a.images;
+    else if(typeof a.images==="string"){try{let x=JSON.parse(a.images);p=Array.isArray(x)?x:[]}catch(e){p=a.images.split(",").map(x=>x.trim()).filter(Boolean)}}
+  }
+  if(!p.length&&a.image)p=[a.image];
+  return p.filter(Boolean).map(imgUrl)
+}
+function formatPrice(v){if(v===null||v===undefined||v==="")return"Prix sur demande";let n=Number(String(v).replace(/\s/g,"").replace(/,/g,""));return Number.isNaN(n)?esc(v):n.toLocaleString("fr-FR")+" Ar"}
+function formatDate(v){if(!v)return"";return new Date(v).toLocaleString("fr-FR")}
+
+async function login(){
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+  const err=document.getElementById("loginError");
+  err.textContent="";
+  if(!email||!password){err.textContent="E-mail et mot de passe obligatoires.";return}
+  try{
+    const r=await fetch(AUTH_API,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
+    const data=await r.json();
+    if(!r.ok)throw new Error(data.error_description||data.msg||"Connexion refusée");
+    localStorage.setItem("admin_access_token",data.access_token||"");
+    localStorage.setItem("admin_refresh_token",data.refresh_token||"");
+    showApp();
+    await loadAll();
+  }catch(e){err.textContent=e.message||"Connexion impossible."}
+}
+function showApp(){document.getElementById("login").style.display="none";document.getElementById("app").style.display="block";document.getElementById("topActions").style.display="flex"}
+function logout(){localStorage.removeItem("admin_access_token");localStorage.removeItem("admin_refresh_token");location.reload()}
+
+async function loadAll(){await Promise.all([loadAnnonces(),loadDemandes()])}
+
+async function loadAnnonces(){
+  const box=document.getElementById("annoncesList");
+  box.innerHTML='<div class="empty">Chargement...</div>';
+  try{
+    const r=await fetch(API+"?select=*&order=published_at.desc.nullslast,created_at.desc",{headers:authHeaders()});
+    if(!r.ok)throw new Error(await r.text());
+    const data=await r.json();
+    document.getElementById("annoncesCount").textContent=data.length+" annonce"+(data.length>1?"s":"");
+    if(!data.length){box.innerHTML='<div class="empty">Aucune annonce.</div>';return}
+    box.innerHTML=data.map(renderAnnonce).join("");
+  }catch(e){console.error(e);box.innerHTML='<div class="empty">Impossible de charger les annonces. Vérifiez la connexion et les droits admin.</div>'}
+}
+
+function renderAnnonce(a){
+  const p=photos(a), first=p[0]||"";
+  const pending=a.statut==="a_valider";
+  const published=a.statut==="publiee";
+  const statusClass=pending?"pending":published?"published":"status";
+  const statusLabel=pending?"À valider":published?"Publiée":(a.statut||"Non publiée");
+  return `<article class="card">
+    <div class="photo">${first?`<img src="${esc(first)}" alt="Photo">`:"PHOTO"}</div>
+    <div class="body">
+      <span class="status ${statusClass}">${esc(statusLabel)}</span>
+      <h3>${esc(a.titre||"Bien immobilier")}</h3>
+      <div class="meta">🏠 ${esc(a.type||"Bien")} · ${esc(a.transaction||"")}<br>📍 ${esc(a.localisation||a.lieu||"")}<br>💰 ${formatPrice(a.prix)}<br>📷 ${p.length} photo(s) · 👁️ ${Number(a.vues||0)} vue(s)</div>
+      ${pending&&a.proprietaire_nom||pending&&a.proprietaire_telephone?`<div class="private"><b>🔒 Informations privées du propriétaire</b><br>Nom : ${esc(a.proprietaire_nom||"—")}<br>Téléphone : ${esc(a.proprietaire_telephone||"—")}</div>`:""}
+      ${a.description?`<p class="small">${esc(a.description)}</p>`:""}
+      <div class="actions">
+        ${pending?`<button class="success" onclick="setStatus('${a.id}','publiee')">✓ Publier</button><button class="danger" onclick="setStatus('${a.id}','refusee')">✕ Refuser</button>`:published?`<button class="secondary" onclick="setStatus('${a.id}','a_valider')">Dépublier</button><button class="danger" onclick="removeAnnonce('${a.id}')">Supprimer</button>`:`<button class="success" onclick="setStatus('${a.id}','publiee')">Publier</button><button class="danger" onclick="removeAnnonce('${a.id}')">Supprimer</button>`}
+      </div>
+      ${pending?`<div class="small" style="margin-top:9px">Reçue le ${formatDate(a.created_at)}</div>`:""}
+    </div>
+  </article>`
+}
+
+async function setStatus(id,status){
+  if(status==="refusee"&&!confirm("Refuser cette annonce ?"))return;
+  try{
+    const r=await fetch(API+"?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:authHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(status==="publiee"?{statut:status,published_at:new Date().toISOString()}:{statut:status})});
+    if(!r.ok)throw new Error(await r.text());
+    await loadAnnonces();
+  }catch(e){alert("Modification impossible. Vérifiez les droits admin.")}
+}
+async function removeAnnonce(id){if(!confirm("Supprimer définitivement cette annonce ?"))return;try{const r=await fetch(API+"?id=eq."+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()});if(!r.ok)throw new Error(await r.text());await loadAnnonces()}catch(e){alert("Suppression impossible.")}}
+
+async function upload(file){
+  const filename=Date.now()+"_"+Math.random().toString(36).substring(2,8)+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+  const r=await fetch(SUPABASE_URL+"/storage/v1/object/"+BUCKET+"/"+filename,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+token(),"Content-Type":file.type||"application/octet-stream"},body:file});
+  if(!r.ok)throw new Error(await r.text());
+  return filename;
+}
+async function addAnnonce(){
+  const titre=document.getElementById("titre").value.trim();
+  const lieu=document.getElementById("lieu").value.trim();
+  const files=[...document.getElementById("photos").files];
+  if(!titre||!lieu){alert("Titre et localisation obligatoires.");return}
+  try{
+    const uploaded=[];
+    for(const f of files)uploaded.push(await upload(f));
+    const raw=document.getElementById("prix").value.trim().replace(/\s/g,"").replace(/[^0-9.]/g,"");
+    const payload={titre,prix:raw?Number(raw):null,lieu,type:document.getElementById("type").value,transaction:document.getElementById("transaction").value,description:document.getElementById("description").value.trim(),image_url:JSON.stringify(uploaded),statut:"publiee",published_at:new Date().toISOString()};
+    const r=await fetch(API,{method:"POST",headers:authHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(payload)});
+    if(!r.ok)throw new Error(await r.text());
+    document.getElementById("titre").value=document.getElementById("prix").value=document.getElementById("lieu").value=document.getElementById("description").value="";
+    document.getElementById("photos").value="";
+    alert("Annonce publiée.");
+    await loadAnnonces();
+  }catch(e){console.error(e);alert("Impossible d'ajouter l'annonce. Vérifiez les droits et les photos.")}
+}
+
+async function loadDemandes(){
+  const list=document.getElementById("demandesList");
+  try{
+    const r=await fetch(DEMANDES_API+"?select=*&order=created_at.desc",{headers:authHeaders()});
+    if(!r.ok)throw new Error(await r.text());
+    const data=await r.json();
+    document.getElementById("demandesCount").textContent=data.length+" demande"+(data.length>1?"s":"");
+    if(!data.length){list.innerHTML='<div class="empty">Aucune demande client.</div>';return}
+    list.innerHTML=data.map(renderDemande).join("");
+  }catch(e){console.error(e);list.innerHTML='<div class="empty">Impossible de charger les demandes.</div>'}
+}
+function renderDemande(d){
+  const treated=d.statut==="traitee";
+  return `<div class="demande-card">
+    <b>👤 ${esc(d.nom||"Sans nom")}</b> <span class="status ${treated?"published":"pending"}">${treated?"Traitée":"Nouvelle"}</span>
+    <div class="meta" style="margin-top:7px">📅 ${formatDate(d.created_at)}<br>📞 ${esc(d.telephone||"—")}<br>🏠 ${esc(d.type_bien||"—")} · ${esc(d.transaction||"—")}<br>💰 ${esc(d.budget||"—")}<br>📍 ${esc(d.localisation||"—")}</div>
+    ${d.details?`<p>${esc(d.details)}</p>`:""}
+    <div class="demande-actions">
+      <a class="success" href="https://wa.me/${String(d.telephone||"").replace(/\D/g,"")}" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="secondary" href="tel:${esc(d.telephone||"")}">Appeler</a>
+      <button class="light" onclick="setDemandeStatus('${d.id}','${treated?"nouvelle":"traitee"}')">${treated?"Rouvrir":"Marquer traitée"}</button>
+      <button class="danger" onclick="deleteDemande('${d.id}')">Supprimer</button>
+    </div>
+  </div>`
+}
+async function setDemandeStatus(id,status){try{const r=await fetch(DEMANDES_API+"?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:authHeaders({"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify({statut:status})});if(!r.ok)throw new Error(await r.text());await loadDemandes()}catch(e){alert("Modification impossible.")}}
+async function deleteDemande(id){if(!confirm("Supprimer cette demande ?"))return;try{const r=await fetch(DEMANDES_API+"?id=eq."+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()});if(!r.ok)throw new Error(await r.text());await loadDemandes()}catch(e){alert("Suppression impossible.")}}
+
+if(token()){
+  showApp();
+  loadAll();
+}
+</script>
+</body>
+</html>
