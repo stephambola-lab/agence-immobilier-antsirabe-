@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stephambola-lab.github.io/agence-immobilier-antsirabe-/sitemap.xml
